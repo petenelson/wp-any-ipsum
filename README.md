@@ -4,6 +4,7 @@ A repository for the baconipsum.com code
 
 gga-BaconIpsumGenerator.php - Contains the BaconIpsumGenerator class for generating meaty filler text.  For example:
 
+	require_once 'gga-BaconIpsumGenerator.php';
 	$bacon_ipsum_generator = new BaconIpsumGenerator();
 	$meaty_filler = $bacon_ipsum_generator->Make_Some_Meaty_Filler('meat-and-filler', 3, true);
 
