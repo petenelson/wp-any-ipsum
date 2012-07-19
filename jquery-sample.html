@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title>Bacon Ipsum jQuery Plugin Sample</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://baconipsum.com/api/jquery-BaconIpsum.js"></script>
+
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-129633-6']);
+	  _gaq.push(['_trackPageview']);
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+
+</head>
+<body>
+
+<img src="https://baconipsum.com/wp-content/uploads/2011/06/bacon-ipsum-banner1.jpg" alt="Bacon Ipsum" />
+<br/>
+
+<h1>jQuery Plugin Samples</h1>
+
+<h2>Default options</h2>
+<h4>$('#default').BaconIpsum();  Three paragrahps of meat and filler starting with Bacon ipsum dolor sit amet</h4>
+<div id="default"></div>
+
+<br/>
+
+<h2>Custom options</h2>
+<h4>$('#custom').BaconIpsum({ type:'all-meat', paras:5, start_with_lorem:false }); Five paragrahps of just meat</h4>
+<div id="custom"></div>
+
+
+<script type="text/javascript">
+
+	$(document).ready(function()
+	{
+		$('#default').BaconIpsum();
+		$('#custom').BaconIpsum({ type:'all-meat', paras:5, start_with_lorem:false });
+	});
+
+</script>
+
+</body>
+</html>
