@@ -3,7 +3,7 @@
 Plugin Name: Bacon Ipsum - Generator Form
 Description: Generates the input form for generating meaty bacon ipsum
 Plugin URI: https://github.com/petenelson/bacon-ipsum
-Version: 2.0
+Version: 2.1
 Author: Pete Nelson (@GunGeekATX)
 Author URI: http://petenelson.com
 */
@@ -29,7 +29,7 @@ function gga_bacon_ipsum_form($atts)
 				</tr>
 				<tr>
 					<td></td>
-					<td><input id="start-with-lorem" type="checkbox" name="start-with-lorem" value="1" /> <label for="start-with-lorem">Start with \'Bacon ipsum dolor sit amet...\'</label></td>
+					<td><input id="start-with-lorem" type="checkbox" name="start-with-lorem" value="1" checked="checked" /> <label for="start-with-lorem">Start with \'Bacon ipsum dolor sit amet...\'</label></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -47,26 +47,29 @@ function gga_bacon_ipsum_form($atts)
 		require_once 'gga-BaconIpsumGenerator.php';
 
 		$generator = new BaconIpsumGenerator();
-		$paragraphs = 5;
+		$number_of_paragraphs = 5;
 		if (isset($_REQUEST["paras"]))
-			$paragraphs = intval($_REQUEST["paras"]);
+			$number_of_paragraphs = intval($_REQUEST["paras"]);
 
 		$output = '';
 					
-		if ($paragraphs < 1)
-			$paragraphs = 1;
+		if ($number_of_paragraphs < 1)
+			$number_of_paragraphs = 1;
 
-		if ($paragraphs > 100)
-			$paragraphs = 100;
+		if ($number_of_paragraphs > 100)
+			$number_of_paragraphs = 100;
 
-		$words = $generator->Make_Some_Meaty_Filler(
+		$paragraphs = $generator->Make_Some_Meaty_Filler(
 			$_REQUEST["type"], 
-			$paragraphs,
+			$number_of_paragraphs,
 			isset($_REQUEST["start-with-lorem"]) && $_REQUEST["start-with-lorem"] == "1");
 
 
-		$output = '<div>' . $words . '</div>';
-
+		$output = '<div>';
+		foreach($paragraphs as $paragraph)
+			$output .= '<p>' . $paragraph . '</p>';
+		 
+		$output .= '</div>';
 	}
 
 

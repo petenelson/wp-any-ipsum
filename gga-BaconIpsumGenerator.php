@@ -2,8 +2,15 @@
 /*
 Class: Bacon Ipsum Generator
 Author: Pete Nelson (@GunGeekATX)
+Version: 2.1
 
 Revision History
+
+= v2.1 July 21, 2012 =
+* Changed the Make_Some_Meaty_Filler() function to return an array of paragraphs, added default parameters
+* Added support for individual sentences
+* Added more randomness to commas in a sentence.  Instead of always adding a 
+  comma to a sentence with seven or more words, it will add one about 2/3rds of the time.
 
 = v2.0 July 14, 2012 =
 * First public release
@@ -160,7 +167,9 @@ class BaconIpsumGenerator {
 		// A sentence should be bewteen 4 and 15 words.
 		$sentence = '';
 		$length = rand(4, 15);
-		$includeComma = $length >= 7;
+		
+		// Add a little more randomness to commas, about 2/3rds of the time
+		$includeComma = $length >= 7 && rand(0,2) > 0;
 
 		$words = $this->GetWords($type);
 			
@@ -210,23 +219,37 @@ class BaconIpsumGenerator {
 
 	}
 
-	public function Make_Some_Meaty_Filler($type, $paragraphs, $start_with_lorem) {
+	public function Make_Some_Meaty_Filler(
+		$type = 'meat-and-filler', 
+		$number_of_paragraphs = 5, 
+		$start_with_lorem = true, 
+		$number_of_sentences = 0) {
 
-		for ($i = 0; $i < $paragraphs; $i++)
-		{
+		$paragraphs = array();
+		if ($number_of_sentences > 0)
+			$number_of_paragraphs = 1;
 
-			$words = $this->Make_a_Paragraph($type);
+		$words = '';
+
+		for ($i = 0; $i < $number_of_paragraphs; $i++) {
+
+			if ($number_of_sentences > 0) {
+				for ($s = 0; $s < $number_of_sentences; $s++)
+					$words .= $this->Make_a_Sentence($type);
+			}
+			else
+				$words = $this->Make_a_Paragraph($type);
 
 			if ($i == 0 && $start_with_lorem && count($words) > 0) { 	
 				$words[0] = strtolower($words[0]);
 				$words = 'Bacon ipsum dolor sit amet ' . $words;
 			}
 					
-			$output .= '<p>' . $words . '</p>';
+			$paragraphs[]  = rtrim($words);
 
 		}
 
-		return $output;
+		return $paragraphs;
 
 	}
 

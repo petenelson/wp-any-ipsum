@@ -3,7 +3,7 @@
 Plugin Name: Bacon Ipsum - API
 Description: Handles incoming API requests
 Plugin URI: https://github.com/petenelson/bacon-ipsum
-Version: 2.0
+Version: 2.1
 Author: Pete Nelson (@GunGeekATX)
 Author URI: http://petenelson.com
 */
@@ -15,39 +15,35 @@ function gga_bacon_ipsum_api() {
 		
 		require_once 'gga-BaconIpsumGenerator.php';
 		
-		$paras = Array();
-		
 		$generator = new BaconIpsumGenerator();
-		$paragraphs = 5;
+		$number_of_sentences = 0;
+		$number_of_paragraphs = 5;
+
 		if (isset($_REQUEST["paras"]))
-			$paragraphs = intval($_REQUEST["paras"]);
+			$number_of_paragraphs = intval($_REQUEST["paras"]);
+
+		if (isset($_REQUEST["sentences"]))
+			$number_of_sentences = intval($_REQUEST["sentences"]);
 
 		$output = '';
 					
-		if ($paragraphs < 1)
-			$paragraphs = 1;
+		if ($number_of_paragraphs < 1)
+			$number_of_paragraphs = 1;
 
-		if ($paragraphs > 100)
-			$paragraphs = 100;
+		if ($number_of_paragraphs > 100)
+			$number_of_paragraphs = 100;
 
+		if ($number_of_sentences > 100)
+			$number_of_sentences = 100;
 
 		$start_with_lorem = isset($_REQUEST["start-with-lorem"]) && $_REQUEST["start-with-lorem"] == "1";
-		$meat_and_filler = isset($_REQUEST["type"]) && $_REQUEST["type"] == "meat-and-filler";
 
-		for ($i = 0; $i < $paragraphs; $i++) {
-		
-			$words = $generator->Make_a_Paragraph($_REQUEST["type"]);
+		$paras = $generator->Make_Some_Meaty_Filler(
+			filter_var($_REQUEST["type"], FILTER_SANITIZE_STRING), 
+			$number_of_paragraphs, 
+			$start_with_lorem, 
+			$number_of_sentences);
 
-			if ($i == 0 && $start_with_lorem && count($words) > 0) { 	
-				$words[0] = strtolower($words[0]);
-				$words = 'Bacon ipsum dolor sit amet ' . $words;
-			}
-					
-			array_push($paras, $words);
-			
-		}
-
-		
 		if (isset($_REQUEST["callback"])) {
 			header("Content-Type: application/javascript");
 			echo $_GET['callback'] . '(' . json_encode($paras) . ')';

@@ -2,7 +2,7 @@
 <head>
 	<title>Bacon Ipsum jQuery Plugin Sample</title>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="https://baconipsum.com/api/jquery-BaconIpsum.js"></script>
+	<script type="text/javascript" src="https://baconipsum.com/api/jquery-BaconIpsum.js?ver=2012-07-21-01"></script>
 
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];
@@ -22,6 +22,7 @@
 <br/>
 
 <h1>jQuery Plugin Samples</h1>
+<div style="font-size: 0.8em;">View source, you know you want to :) </div>
 
 <h2>Default options</h2>
 <h4>$('#default').BaconIpsum();  Three paragrahps of meat and filler starting with Bacon ipsum dolor sit amet</h4>
@@ -33,6 +34,13 @@
 <h4>$('#custom').BaconIpsum({ type:'all-meat', paras:5, start_with_lorem:false }); Five paragrahps of just meat</h4>
 <div id="custom"></div>
 
+<br/>
+
+<h2>One sentence</h2>
+<h4>$('#one-sentence').BaconIpsum({ type:'meat-and-filler', start_with_lorem:true, sentences:1 });</h4>
+<div id="one-sentence"></div>
+
+<br/>
 
 <script type="text/javascript">
 
@@ -40,6 +48,7 @@
 	{
 		$('#default').BaconIpsum();
 		$('#custom').BaconIpsum({ type:'all-meat', paras:5, start_with_lorem:false });
+		$('#one-sentence').BaconIpsum({ type:'meat-and-filler', start_with_lorem:true, sentences:1 });
 	});
 
 </script>
