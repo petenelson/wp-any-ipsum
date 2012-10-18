@@ -17,6 +17,9 @@ gga-bacon-ipsum-api.php - WordPress plugin for our JSON API.
 
 Revision History
 
+= v2.1.1 October 18, 2012 =
+* Added 'doner' to the generator's list of meat (http://en.wikipedia.org/wiki/Doner_kebab)
+
 = v2.1 July 21, 2012 =
 * Changed the Make_Some_Meaty_Filler() function to return an array of paragraphs instead of straight HTML, added default parameters
 * Added support for individual sentences

@@ -2,9 +2,12 @@
 /*
 Class: Bacon Ipsum Generator
 Author: Pete Nelson (@GunGeekATX)
-Version: 2.1
+Version: 2.1.1
 
 Revision History
+
+= v2.1.1 October 18, 2012 =
+* Added doner (http://en.wikipedia.org/wiki/Doner_kebab)
 
 = v2.1 July 21, 2012 =
 * Changed the Make_Some_Meaty_Filler() function to return an array of paragraphs, added default parameters
@@ -80,7 +83,8 @@ class BaconIpsumGenerator {
 			'prosciutto',
 			'filet mignon',
 			'leberkas',
-			'turducken'
+			'turducken',
+			'doner'
 		);
 
 		$filler = array(
