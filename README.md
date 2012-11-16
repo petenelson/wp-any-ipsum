@@ -13,9 +13,13 @@ gga-bacon-ipsum-form.php - WordPress plugin for generating the form you see on o
 
 gga-bacon-ipsum-api.php - WordPress plugin for our JSON API.
 
+jquery-sample.html - Sample HTML/jQuery code for the jQuery plugin
 
 
 Revision History
+
+= v2.1.2 November 16, 2012 =
+* Added 'no_tags' option to jQuery plugin (thanks to Joel Lord joel@engrenage.com)
 
 = v2.1.1 October 18, 2012 =
 * Added 'doner' to the generator's list of meat (http://en.wikipedia.org/wiki/Doner_kebab)
