@@ -18,6 +18,10 @@ jquery-sample.html - Sample HTML/jQuery code for the jQuery plugin
 
 Revision History
 
+= v2.1.3 February 26, 2013 =
+* Added CORS support to the API (thanks to Jim Smart jim@jimsmart.org)
+* Updated jQuery sample to 1.9.1, removed our Google Analytics tracking
+
 = v2.1.2 November 16, 2012 =
 * Added 'no_tags' option to jQuery plugin (thanks to Joel Lord joel@engrenage.com)
 

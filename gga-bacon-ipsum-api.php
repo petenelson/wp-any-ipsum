@@ -44,6 +44,8 @@ function gga_bacon_ipsum_api() {
 			$start_with_lorem, 
 			$number_of_sentences);
 
+		header('Access-Control-Allow-Origin: *');
+
 		if (isset($_REQUEST["callback"])) {
 			header("Content-Type: application/javascript");
 			echo $_GET['callback'] . '(' . json_encode($paras) . ')';
