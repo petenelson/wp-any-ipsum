@@ -2,7 +2,7 @@
 /*
 Class: Bacon Ipsum Generator
 Author: Pete Nelson (@GunGeekATX)
-Version: 2.1.1
+Version: 2.1.3
 
 Revision History
 
