@@ -69,3 +69,4 @@ class GGA_Bacon_Ipsum_API {
 }
 
 
+new GGA_Bacon_Ipsum_API();
