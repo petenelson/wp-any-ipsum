@@ -13,10 +13,16 @@ gga-bacon-ipsum-form.php - WordPress plugin for generating the form you see on o
 
 gga-bacon-ipsum-api.php - WordPress plugin for our JSON API.
 
+gga-bacon-ipsum-oembed-provider.php - WordPress oEmbed provider
+
 jquery-sample.html - Sample HTML/jQuery code for the jQuery plugin
 
 
 Revision History
+
+= v2.1.4 December 10, 2013 =
+* Added oEmbed provider
+* ABSPATH check
 
 = v2.1.3 February 26, 2013 =
 * Added CORS support to the API (thanks to Jim Smart jim@jimsmart.org)

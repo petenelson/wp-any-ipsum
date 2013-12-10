@@ -3,14 +3,17 @@
 Plugin Name: Bacon Ipsum - Generator Form
 Description: Generates the input form for generating meaty bacon ipsum
 Plugin URI: https://github.com/petenelson/bacon-ipsum
-Version: 2.1.3
+Version: 2.1.4
 Author: Pete Nelson (@GunGeekATX)
 Author URI: http://petenelson.com
 */
 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+
 add_shortcode('gga-bacon-ipsum-form', 'gga_bacon_ipsum_form');
-function gga_bacon_ipsum_form($atts)
-{
+
+function gga_bacon_ipsum_form($atts) {
 	$output = '';
 
 	$form = '
@@ -41,8 +44,7 @@ function gga_bacon_ipsum_form($atts)
 	';
 
 
-	if (isset($_REQUEST["type"]))
-	{
+	if (isset($_REQUEST["type"])) {
 
 		require_once 'gga-BaconIpsumGenerator.php';
 
