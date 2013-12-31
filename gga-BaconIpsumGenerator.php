@@ -85,7 +85,8 @@ class BaconIpsumGenerator {
 			'leberkas',
 			'turducken',
 			'doner',
-			'kevin'
+			'kevin',
+			'landjaeger'
 		);
 
 		$filler = array(
