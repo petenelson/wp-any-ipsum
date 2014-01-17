@@ -1,4 +1,4 @@
-A repository for the baconipsum.com code 
+A repository for the baconipsum.com code
 
 = What's in here? =
 
@@ -20,6 +20,10 @@ jquery-sample.html - Sample HTML/jQuery code for the jQuery plugin
 
 Revision History
 
+= v2.1.5 January 17, 2013 =
+* Added [landjaeger](http://en.wikipedia.org/wiki/Landj%C3%A4ger) (thanks to T. Williams in Washington)
+* Added [porchetta](http://en.wikipedia.org/wiki/Porchetta) (thanks to J. Shaw in Ontario)
+
 = v2.1.4 December 10, 2013 =
 * Added oEmbed provider
 * ABSPATH check
@@ -32,16 +36,16 @@ Revision History
 * Added 'no_tags' option to jQuery plugin (thanks to Joel Lord joel@engrenage.com)
 
 = v2.1.1 October 18, 2012 =
-* Added 'doner' to the generator's list of meat (http://en.wikipedia.org/wiki/Doner_kebab)
+* Added [doner](http://en.wikipedia.org/wiki/Doner_kebab) to the generator's list of meat
 
 = v2.1 July 21, 2012 =
 * Changed the Make_Some_Meaty_Filler() function to return an array of paragraphs instead of straight HTML, added default parameters
 * Added support for individual sentences
 * Added sentence support to the API code, minor code refactoring
-* Added more randomness to commas in a sentence.  Instead of always adding a 
+* Added more randomness to commas in a sentence.  Instead of always adding a
   comma to a sentence with seven or more words, it will add one about 2/3rds of the time.
 * Updated jQuery plugin and sample code to support sentences
 
-= July 14, 2012 = 
+= July 14, 2012 =
 * First public release (generator, form plugin and API plugin)
 
