@@ -13,12 +13,21 @@ class-AnyIpsumGenerator.php - Contains the WPAnyIpsumGenerator class for generat
 
 class-WPAnyIpsumForm.php - Shortcode for generating the form to allow visitors to generate your custom ipsum
 
-class-WPAnyIpsumAPI.php - Optional JSON API endpoint
-
 class-WPAnyIpsumSettings.php - Admin settings for managing your custom filler text
+
+class-WPAnyIpsumAPI.php - Optional JSON API endpoint
 
 
 Revision History
 
 = v0.0.1 September 6, 2014 =
 * Initial fork of Bacon Ipsum
+
+
+
+TODO
+
+Make admin settings plugin
+Implement core class with filters
+Implement form
+Implement API endpoint

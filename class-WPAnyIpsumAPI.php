@@ -1,12 +1,4 @@
 <?php
-/*
-Plugin Name: Bacon Ipsum - API
-Description: Handles incoming API requests
-Plugin URI: https://github.com/petenelson/bacon-ipsum
-Version: 2.1.4
-Author: Pete Nelson (@GunGeekATX)
-Author URI: http://petenelson.com
-*/
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 

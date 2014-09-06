@@ -1,12 +1,4 @@
 <?php
-/*
-Plugin Name: Bacon Ipsum - Generator Form
-Description: Generates the input form for generating meaty bacon ipsum
-Plugin URI: https://github.com/petenelson/bacon-ipsum
-Version: 2.1.4
-Author: Pete Nelson (@GunGeekATX)
-Author URI: http://petenelson.com
-*/
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
