@@ -1,51 +1,24 @@
-A repository for the baconipsum.com code
+WordPress plugin to roll your own custom lorem ipsum generator - forked from Bacon Ipsum
 
 = What's in here? =
 
-gga-BaconIpsumGenerator.php - Contains the BaconIpsumGenerator class for generating meaty filler text.  For example:
+index.php - WordPress plugin wrapper
 
-	require_once 'gga-BaconIpsumGenerator.php';
-	$bacon_ipsum_generator = new BaconIpsumGenerator();
-	$meaty_filler = $bacon_ipsum_generator->Make_Some_Meaty_Filler('meat-and-filler', 3, true);
+class-AnyIpsumGenerator.php - Contains the WPAnyIpsumGenerator class for generating custom filler text.  For example:
+
+	require_once 'class-AnyIpsumGenerator.php';
+	$any_ipsum_generator = new AnyIpsumGenerator();
+	$custom_filler = $any_ipsum_generator->Make_Some_Custom_Filler('custom-and-filler', 3, true);
 
 
-gga-bacon-ipsum-form.php - WordPress plugin for generating the form you see on our home page as well as processing the form and outputting bacon ipsum filler.
+class-WPAnyIpsumForm.php - Shortcode for generating the form to allow visitors to generate your custom ipsum
 
-gga-bacon-ipsum-api.php - WordPress plugin for our JSON API.
+class-WPAnyIpsumAPI.php - Optional JSON API endpoint
 
-gga-bacon-ipsum-oembed-provider.php - WordPress oEmbed provider
-
-jquery-sample.html - Sample HTML/jQuery code for the jQuery plugin
+class-WPAnyIpsumSettings.php - Admin settings for managing your custom filler text
 
 
 Revision History
 
-= v2.1.5 January 17, 2013 =
-* Added [landjaeger](http://en.wikipedia.org/wiki/Landj%C3%A4ger) (thanks to T. Williams in Washington)
-* Added [porchetta](http://en.wikipedia.org/wiki/Porchetta) (thanks to J. Shaw in Ontario)
-
-= v2.1.4 December 10, 2013 =
-* Added oEmbed provider
-* ABSPATH check
-
-= v2.1.3 February 26, 2013 =
-* Added CORS support to the API (thanks to Jim Smart jim@jimsmart.org)
-* Updated jQuery sample to 1.9.1, removed our Google Analytics tracking
-
-= v2.1.2 November 16, 2012 =
-* Added 'no_tags' option to jQuery plugin (thanks to Joel Lord joel@engrenage.com)
-
-= v2.1.1 October 18, 2012 =
-* Added [doner](http://en.wikipedia.org/wiki/Doner_kebab) to the generator's list of meat
-
-= v2.1 July 21, 2012 =
-* Changed the Make_Some_Meaty_Filler() function to return an array of paragraphs instead of straight HTML, added default parameters
-* Added support for individual sentences
-* Added sentence support to the API code, minor code refactoring
-* Added more randomness to commas in a sentence.  Instead of always adding a
-  comma to a sentence with seven or more words, it will add one about 2/3rds of the time.
-* Updated jQuery plugin and sample code to support sentences
-
-= July 14, 2012 =
-* First public release (generator, form plugin and API plugin)
-
+= v0.0.1 September 6, 2014 =
+* Initial fork of Bacon Ipsum

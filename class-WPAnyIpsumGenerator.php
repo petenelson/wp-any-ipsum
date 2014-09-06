@@ -2,30 +2,21 @@
 /*
 Class: Bacon Ipsum Generator
 Author: Pete Nelson (@GunGeekATX)
-Version: 2.1.5
+Version: 0.0.1
 
 Revision History
 
-= v2.1.1 October 18, 2012 =
-* Added doner (http://en.wikipedia.org/wiki/Doner_kebab)
-
-= v2.1 July 21, 2012 =
-* Changed the Make_Some_Meaty_Filler() function to return an array of paragraphs, added default parameters
-* Added support for individual sentences
-* Added more randomness to commas in a sentence.  Instead of always adding a
-  comma to a sentence with seven or more words, it will add one about 2/3rds of the time.
-
-= v2.0 July 14, 2012 =
-* First public release
+= v0.0.1 September 6, 2014 =
+* Initial fork of Bacon Ipsum
 
 */
 
-class BaconIpsumGenerator {
+class WPAnyIpsumGenerator {
 
 	function GetWords($type) {
 
 
-		$meat = array(
+		$custom_words = array(
 			'beef',
 			'chicken',
 			'pork',
@@ -157,10 +148,10 @@ class BaconIpsumGenerator {
 				'laborum');
 
 
-		if ($type == 'meat-and-filler')
-			$words = array_merge($meat, $filler);
+		if ($type == 'custom-and-filler')
+			$words = array_merge($custom_words, $filler);
 		else
-			$words = $meat;
+			$words = $custom_words;
 
 
 		shuffle($words);
@@ -226,8 +217,9 @@ class BaconIpsumGenerator {
 
 	}
 
-	public function Make_Some_Meaty_Filler(
-		$type = 'meat-and-filler',
+
+	public function Make_Some_Custom_Filler(
+		$type = 'custom-and-filler',
 		$number_of_paragraphs = 5,
 		$start_with_lorem = true,
 		$number_of_sentences = 0) {

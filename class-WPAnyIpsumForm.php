@@ -17,7 +17,7 @@ function gga_bacon_ipsum_form($atts) {
 	$output = '';
 
 	$form = '
-		<p>Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!</p>
+		<p>Does your lorem ipsum text long for something a little meatier? Give our generator a try... it''s tasty!</p>
 
 		<form id="make-it-meaty" action="' . site_url('/') . '" method="get">
 			<table>
