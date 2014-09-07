@@ -6,11 +6,13 @@ if (!class_exists('WPAnyIpsumSettings')) {
 
 	class WPAnyIpsumSettings {
 
+		var $text_domain = 'anyipsum';
 		var $settings_page = 'anyipsum-settings';
 		var $settings_key_general = 'anyipsum-settings-general';
 		var $settings_key_filler = 'anyipsum-settings-custom-filler';
 		var $settings_key_api = 'anyipsum-settings-api';
 		var $plugin_settings_tabs = array();
+
 
 		public function plugins_loaded() {
 			// admin menus
@@ -44,7 +46,7 @@ if (!class_exists('WPAnyIpsumSettings')) {
 				array('key' => $key, 'name' => 'name', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: Bacon, Hipster, Cupcake, etc'));
 
 			add_settings_field( 'start-with', 'Start With Text', array( $this, 'settings_input' ), $key, $section,
-				array('key' => $key, 'name' => 'start-with', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: Bacon ipsum dolor sit amet'));
+				array('key' => $key, 'name' => 'start-with', 'size' => 50, 'maxlength' => 50, 'after' => 'Example: Bacon ipsum dolor sit amet'));
 
 		}
 
@@ -81,8 +83,10 @@ if (!class_exists('WPAnyIpsumSettings')) {
 			add_settings_field( 'api-enabled', 'Enabled', array( $this, 'settings_yes_no' ), $key, $section,
 				array('key' => $key, 'name' => 'api-enabled'));
 
-			add_settings_field( 'api-endpoint', 'Endpoint', array( $this, 'settings_input' ), $key, $section,
-				array('key' => $key, 'name' => 'api-endpoint', 'size' => 20, 'maxlength' => 50));
+			$permalink_warning = empty(get_option( 'permalink_structure' )) ? ' (please anable any non-default Permalink structure)' : '';
+
+			add_settings_field( 'api-endpoint', 'Endpoint Page Name', array( $this, 'settings_input' ), $key, $section,
+				array('key' => $key, 'name' => 'api-endpoint', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: api, ipsum-api, etc' . $permalink_warning));
 
 		}
 
@@ -222,9 +226,25 @@ if (!class_exists('WPAnyIpsumSettings')) {
 
 
 		function section_header($args) {
-			//echo $args['title'];
-		}
 
+
+
+			switch ($args['id']) {
+				case 'api':
+					$output = 'Allows for a JSON API to your custom ipsum.';
+					$endpoint = $this->setting_get( '', $this->settings_key_api, 'api-endpoint' );
+					if (!empty($endpoint)) {
+						$output .= '<br/>' . _('Example', $this->text_domain) . ': ';
+						$url = home_url( $endpoint ) . '?type=all-custom&amp;paras=3&amp;start-with-lorem=1';
+						$output .= '<a target="_blank" href="' . $url . '">' . $url . '</a>';
+					}
+					break;
+			}
+
+			if (!empty($output))
+				echo '<p class="settings-section-header">' . $output . '</p>';
+
+		}
 
 
 	}

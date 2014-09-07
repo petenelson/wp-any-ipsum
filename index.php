@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 
 // include required files
-$includes = array('Generator', 'Settings', 'Core', 'Form');
+$includes = array('Generator', 'Settings', 'Core', 'Form', 'API');
 foreach ($includes as $include)
 	require_once 'class-WPAnyIpsum' . $include . '.php';
 
@@ -30,4 +30,9 @@ if (class_exists('WPAnyIpsumSettings')) {
 if (class_exists('WPAnyIpsumForm')) {
 	$WPAnyIpsumForm = new WPAnyIpsumForm();
 	add_action( 'plugins_loaded', array($WPAnyIpsumForm, 'plugins_loaded') );
+}
+
+if (class_exists('WPAnyIpsumAPI')) {
+	$WPAnyIpsumAPI = new WPAnyIpsumAPI();
+	add_action( 'plugins_loaded', array($WPAnyIpsumAPI, 'plugins_loaded') );
 }

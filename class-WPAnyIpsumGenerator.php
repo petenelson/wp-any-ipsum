@@ -23,10 +23,10 @@ class WPAnyIpsumGenerator {
 		$this->start_with = '';
 	}
 
-	function GetWords($type) {
+	function get_words($type) {
 
 		if ($type == 'custom-and-filler')
-			$words = array_merge($this->custom_words, empty($this->filler) ? $this->default_filler() : $this->filler);
+			$words = array_merge(empty($this->custom_words) ? $this->default_filler() : $this->custom_words, (empty($this->filler) ? $this->default_filler() : $this->filler));
 		else
 			$words = empty($this->custom_words) ? $this->default_filler() : $this->custom_words;
 
@@ -45,7 +45,7 @@ class WPAnyIpsumGenerator {
 		// Add a little more randomness to commas, about 2/3rds of the time
 		$includeComma = $length >= 7 && rand(0,2) > 0;
 
-		$words = $this->GetWords($type);
+		$words = $this->get_words($type);
 
 		if (count($words) > 0)
 		{

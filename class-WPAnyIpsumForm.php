@@ -64,22 +64,7 @@ if (!class_exists('WPAnyIpsumForm')) {
 
 			if (isset($_REQUEST["type"])) {
 
-				$args = array();
-
-				$args['type'] = filter_var($_REQUEST["type"], FILTER_SANITIZE_STRING);
-
-				$number_of_paragraphs = 5;
-				if (isset($_REQUEST["paras"]))
-					$number_of_paragraphs = intval($_REQUEST["paras"]);
-
-				if ($number_of_paragraphs < 1)
-					$number_of_paragraphs = 1;
-
-				if ($number_of_paragraphs > 100)
-					$number_of_paragraphs = 100;
-
-				$args['number-of-paragraphs'] = $number_of_paragraphs;
-				$args['start-with-lorem'] = !empty($_REQUEST["start-with-lorem"]) && '1' === $_REQUEST["start-with-lorem"];
+				$args = apply_filters( 'anyipsum-parse-request-args', array() );
 
 				$paragraphs = apply_filters( 'anyipsum-generate-filler', $args );
 

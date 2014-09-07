@@ -7,8 +7,32 @@ if (!class_exists('WPAnyIpsumCore')) {
 	class WPAnyIpsumCore {
 
 		public function plugins_loaded() {
-			add_filter( 'anyipsum-generate-filler', array($this, 'generate_filler'), 1);
+			add_filter( 'anyipsum-generate-filler', array($this, 'generate_filler') );
+			add_filter( 'anyipsum-parse-request-args', array($this, 'parse_request_args') );
 		}
+
+
+		function parse_request_args($args) {
+
+			$args['type'] = filter_var($_REQUEST["type"], FILTER_SANITIZE_STRING);
+
+			$number_of_paragraphs = 5;
+			if (isset($_REQUEST["paras"]))
+				$number_of_paragraphs = intval($_REQUEST["paras"]);
+
+			if ($number_of_paragraphs < 1)
+				$number_of_paragraphs = 1;
+
+			if ($number_of_paragraphs > 100)
+				$number_of_paragraphs = 100;
+
+			$args['number-of-paragraphs'] = $number_of_paragraphs;
+			$args['start-with-lorem'] = !empty($_REQUEST["start-with-lorem"]) && '1' === $_REQUEST["start-with-lorem"];
+
+			return $args;
+
+		}
+
 
 		function generate_filler($args) {
 
