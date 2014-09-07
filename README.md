@@ -29,3 +29,4 @@ Revision History
 TODO
 
 * Implement the rest of the help page and textdomain
+* Add link from Plugins page to Settings page
