@@ -7,6 +7,7 @@ if (!class_exists('WPAnyIpsumSettings')) {
 	class WPAnyIpsumSettings {
 
 		var $settings_page = 'anyipsum-settings';
+		var $settings_key_general = 'anyipsum-settings-general';
 		var $settings_key_filler = 'anyipsum-settings-custom-filler';
 		var $settings_key_api = 'anyipsum-settings-api';
 		var $plugin_settings_tabs = array();
@@ -23,8 +24,28 @@ if (!class_exists('WPAnyIpsumSettings')) {
 
 
 		function admin_init() {
+			$this->register_general_settings();
 			$this->register_filler_settings();
 			$this->register_api_settings();
+		}
+
+
+		function register_general_settings() {
+			$key = $this->settings_key_general;
+			$this->plugin_settings_tabs[$key] = 'General';
+
+			register_setting( $key, $key );
+
+			$section = 'general';
+
+			add_settings_section( $section, '', array( $this, 'section_header' ), $key );
+
+			add_settings_field( 'name', 'Your Ipsum Name', array( $this, 'settings_input' ), $key, $section,
+				array('key' => $key, 'name' => 'name', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: Bacon, Hipster, Cupcake, etc'));
+
+			add_settings_field( 'start-with', 'Start With Text', array( $this, 'settings_input' ), $key, $section,
+				array('key' => $key, 'name' => 'start-with', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: Bacon ipsum dolor sit amet'));
+
 		}
 
 
@@ -39,10 +60,10 @@ if (!class_exists('WPAnyIpsumSettings')) {
 			add_settings_section( $section, '', array( $this, 'section_header' ), $key );
 
 			add_settings_field( 'custom-words', 'Custom Words', array( $this, 'settings_textarea' ), $key, $section,
-				array('key' => $key, 'name' => 'custom-words', 'rows' => 10, 'cols' => 40));
+				array('key' => $key, 'name' => 'custom-words', 'rows' => 10, 'cols' => 40, 'after' => 'One word/phrase per line'));
 
 			add_settings_field( 'filler-words', 'Filler Words', array( $this, 'settings_textarea' ), $key, $section,
-				array('key' => $key, 'name' => 'filler-words', 'rows' => 10, 'cols' => 40));
+				array('key' => $key, 'name' => 'filler-words', 'rows' => 10, 'cols' => 40, 'after' => 'One word/phrase per line'));
 
 		}
 
@@ -90,7 +111,8 @@ if (!class_exists('WPAnyIpsumSettings')) {
 					'name' => '',
 					'key' => '',
 					'maxlength' => 50,
-					'size' => 30
+					'size' => 30,
+					'after' => '',
 				)
 			);
 
@@ -103,7 +125,10 @@ if (!class_exists('WPAnyIpsumSettings')) {
 			$option = get_option($key);
 			$value = isset($option[$name]) ? esc_attr($option[$name]) : '';
 
-			echo "<input id='{$name}' name='{$key}[{$name}]'  type='text' value='" . $value . "' size='{$size}' maxlength='{$maxlength}' />";
+			echo "<div><input id='{$name}' name='{$key}[{$name}]'  type='text' value='" . $value . "' size='{$size}' maxlength='{$maxlength}' /></div>";
+			if (!empty($args['after']))
+				echo '<div>' . $args['after'] . '</div>';
+
 		}
 
 
@@ -114,7 +139,8 @@ if (!class_exists('WPAnyIpsumSettings')) {
 					'name' => '',
 					'key' => '',
 					'rows' => 10,
-					'cols' => 40
+					'cols' => 40,
+					'after' => '',
 				)
 			);
 
@@ -127,7 +153,10 @@ if (!class_exists('WPAnyIpsumSettings')) {
 			$option = get_option($key);
 			$value = isset($option[$name]) ? esc_attr($option[$name]) : '';
 
-			echo "<textarea id='{$name}' name='{$key}[{$name}]' rows='{$rows}' cols='{$cols}'>" . $value . "</textarea>";
+			echo "<div><textarea id='{$name}' name='{$key}[{$name}]' rows='{$rows}' cols='{$cols}'>" . $value . "</textarea></div>";
+			if (!empty($args['after']))
+				echo '<div>' . $args['after'] . '</div>';
+
 		}
 
 
@@ -137,6 +166,7 @@ if (!class_exists('WPAnyIpsumSettings')) {
 				array(
 					'name' => '',
 					'key' => '',
+					'after' => '',
 				)
 			);
 
@@ -149,8 +179,13 @@ if (!class_exists('WPAnyIpsumSettings')) {
 			if (empty($value))
 				$value = '0';
 
+			echo '<div>';
 			echo "<label><input id='{$name}_1' name='{$key}[{$name}]'  type='radio' value='1' " . ('1' === $value ? " checked=\"checked\"" : "") . "/>Yes</label> ";
 			echo "<label><input id='{$name}_0' name='{$key}[{$name}]'  type='radio' value='0' " . ('0' === $value ? " checked=\"checked\"" : "") . "/>No</label> ";
+			echo '</div>';
+
+			if (!empty($args['after']))
+				echo '<div>' . $args['after'] . '</div>';
 		}
 
 
@@ -161,7 +196,7 @@ if (!class_exists('WPAnyIpsumSettings')) {
 
 		function options_page() {
 
-			$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : $this->settings_key_filler;
+			$tab = !empty( $_GET['tab'] ) ? $_GET['tab'] : $this->settings_key_general;
 			?>
 			<div class="wrap">
 				<?php $this->plugin_options_tabs(); ?>
@@ -176,7 +211,7 @@ if (!class_exists('WPAnyIpsumSettings')) {
 
 
 		function plugin_options_tabs() {
-			$current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : $this->settings_key_filler;
+			$current_tab = !empty( $_GET['tab'] ) ? $_GET['tab'] : $this->settings_key_general;
 			echo '<h2>Any Ipsum Settings</h2><h2 class="nav-tab-wrapper">';
 			foreach ( $this->plugin_settings_tabs as $tab_key => $tab_caption ) {
 				$active = $current_tab == $tab_key ? 'nav-tab-active' : '';

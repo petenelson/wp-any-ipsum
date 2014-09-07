@@ -27,7 +27,8 @@ Revision History
 
 TODO
 
-Make admin settings plugin
-Implement core class with filters
-Implement form
-Implement API endpoint
+* Make admin settings plugin
+* Implement core class with filters
+* Implement form
+* Implement activation/deactivation hooks
+* Implement API endpoint

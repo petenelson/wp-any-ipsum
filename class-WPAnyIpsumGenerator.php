@@ -1,6 +1,6 @@
 <?php
 /*
-Class: Bacon Ipsum Generator
+Class: Any Ipsum Generator
 Author: Pete Nelson (@GunGeekATX)
 Version: 0.0.1
 
@@ -13,146 +13,22 @@ Revision History
 
 class WPAnyIpsumGenerator {
 
+	var $custom_words;
+	var $filler;
+	var $start_with;
+
+	function __constructor() {
+		$this->custom_words = array();
+		$this->filler = array();
+		$this->start_with = '';
+	}
+
 	function GetWords($type) {
 
-
-		$custom_words = array(
-			'beef',
-			'chicken',
-			'pork',
-			'bacon',
-			'chuck',
-			'short loin',
-			'sirloin',
-			'shank',
-			'flank',
-			'sausage',
-			'pork belly',
-			'shoulder',
-			'cow',
-			'pig',
-			'ground round',
-			'hamburger',
-			'meatball',
-			'tenderloin',
-			'strip steak',
-			't-bone',
-			'ribeye',
-			'shankle',
-			'tongue',
-			'tail',
-			'pork chop',
-			'pastrami',
-			'corned beef',
-			'jerky',
-			'ham',
-			'fatback',
-			'ham hock',
-			'pancetta',
-			'pork loin',
-			'short ribs',
-			'spare ribs',
-			'beef ribs',
-			'drumstick',
-			'tri-tip',
-			'ball tip',
-			'venison',
-			'turkey',
-			'biltong',
-			'rump',
-			'jowl',
-			'salami',
-			'bresaola',
-			'meatloaf',
-			'brisket',
-			'boudin',
-			'andouille',
-			'capicola',
-			'swine',
-			'kielbasa',
-			'frankfurter',
-			'prosciutto',
-			'filet mignon',
-			'leberkas',
-			'turducken',
-			'doner',
-			'kevin',
-			'landjaeger',
-			'porchetta'
-		);
-
-		$filler = array(
-				'consectetur',
-				'adipisicing',
-				'elit',
-				'sed',
-				'do',
-				'eiusmod',
-				'tempor',
-				'incididunt',
-				'ut',
-				'labore',
-				'et',
-				'dolore',
-				'magna',
-				'aliqua',
-				'ut',
-				'enim',
-				'ad',
-				'minim',
-				'veniam',
-				'quis',
-				'nostrud',
-				'exercitation',
-				'ullamco',
-				'laboris',
-				'nisi',
-				'ut',
-				'aliquip',
-				'ex',
-				'ea',
-				'commodo',
-				'consequat',
-				'duis',
-				'aute',
-				'irure',
-				'dolor',
-				'in',
-				'reprehenderit',
-				'in',
-				'voluptate',
-				'velit',
-				'esse',
-				'cillum',
-				'dolore',
-				'eu',
-				'fugiat',
-				'nulla',
-				'pariatur',
-				'excepteur',
-				'sint',
-				'occaecat',
-				'cupidatat',
-				'non',
-				'proident',
-				'sunt',
-				'in',
-				'culpa',
-				'qui',
-				'officia',
-				'deserunt',
-				'mollit',
-				'anim',
-				'id',
-				'est',
-				'laborum');
-
-
 		if ($type == 'custom-and-filler')
-			$words = array_merge($custom_words, $filler);
+			$words = array_merge($this->custom_words, empty($this->filler) ? $this->default_filler() : $this->filler);
 		else
-			$words = $custom_words;
-
+			$words = empty($this->custom_words) ? $this->default_filler() : $this->custom_words;
 
 		shuffle($words);
 
@@ -241,7 +117,7 @@ class WPAnyIpsumGenerator {
 
 			if ($i == 0 && $start_with_lorem && count($words) > 0) {
 				$words[0] = strtolower($words[0]);
-				$words = 'Bacon ipsum dolor sit amet ' . $words;
+				$words = (empty($this->start_with) ? 'Lorem ipsum dolor amet' : $this->start_with) . ' ' . $words;
 			}
 
 			$paragraphs[]  = rtrim($words);
@@ -249,6 +125,80 @@ class WPAnyIpsumGenerator {
 		}
 
 		return $paragraphs;
+
+	}
+
+
+	function default_filler() {
+
+		return array(
+				'lorem',
+				'ipsum',
+				'consectetur',
+				'adipisicing',
+				'elit',
+				'sed',
+				'do',
+				'eiusmod',
+				'tempor',
+				'incididunt',
+				'ut',
+				'labore',
+				'et',
+				'dolore',
+				'magna',
+				'aliqua',
+				'ut',
+				'enim',
+				'ad',
+				'minim',
+				'veniam',
+				'quis',
+				'nostrud',
+				'exercitation',
+				'ullamco',
+				'laboris',
+				'nisi',
+				'ut',
+				'aliquip',
+				'ex',
+				'ea',
+				'commodo',
+				'consequat',
+				'duis',
+				'aute',
+				'irure',
+				'dolor',
+				'in',
+				'reprehenderit',
+				'in',
+				'voluptate',
+				'velit',
+				'esse',
+				'cillum',
+				'dolore',
+				'eu',
+				'fugiat',
+				'nulla',
+				'pariatur',
+				'excepteur',
+				'sint',
+				'occaecat',
+				'cupidatat',
+				'non',
+				'proident',
+				'sunt',
+				'in',
+				'culpa',
+				'qui',
+				'officia',
+				'deserunt',
+				'mollit',
+				'anim',
+				'id',
+				'est',
+				'laborum'
+			);
 
 	}
 
