@@ -2,7 +2,7 @@ WordPress plugin to roll your own custom lorem ipsum generator - forked from Bac
 
 = What's in here? =
 
-index.php - WordPress plugin wrapper
+wp-anyipsum.php - WordPress plugin wrapper (loades classes, registers core hooks, etc)
 
 class-WPAnyIpsumCore.php - Exposes filters used by other classes
 
