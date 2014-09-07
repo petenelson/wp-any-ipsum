@@ -2,26 +2,27 @@
 /*
 Class: Any Ipsum Generator
 Author: Pete Nelson (@GunGeekATX)
-Version: 0.0.1
 
 Revision History
 
-= v0.0.1 September 6, 2014 =
+= September 6, 2014 =
 * Initial fork of Bacon Ipsum
 
 */
 
 class WPAnyIpsumGenerator {
 
-	var $custom_words;
-	var $filler;
-	var $start_with;
+	public $custom_words;
+	public $filler;
+	public $start_with;
+
 
 	function __constructor() {
 		$this->custom_words = array();
 		$this->filler = array();
 		$this->start_with = '';
 	}
+
 
 	function get_words($type) {
 
@@ -37,7 +38,7 @@ class WPAnyIpsumGenerator {
 	}
 
 
-	function Make_a_Sentence($type)	{
+	function make_a_sentence($type)	{
 		// A sentence should be bewteen 4 and 15 words.
 		$sentence = '';
 		$length = rand(4, 15);
@@ -80,21 +81,21 @@ class WPAnyIpsumGenerator {
 
 	}
 
-	public function Make_a_Paragraph($type)	{
+	function make_a_paragraph($type)	{
 		// A paragraph should be bewteen 4 and 7 sentences.
 
 		$para = '';
 		$length = rand(4, 7);
 
 		for ($i = 0; $i < $length; $i++)
-			$para .= $this->Make_a_Sentence($type) . ' ';
+			$para .= $this->make_a_sentence($type) . ' ';
 
 		return rtrim($para);
 
 	}
 
 
-	public function Make_Some_Custom_Filler(
+	public function make_some_custom_filler(
 		$type = 'custom-and-filler',
 		$number_of_paragraphs = 5,
 		$start_with_lorem = true,
@@ -110,7 +111,7 @@ class WPAnyIpsumGenerator {
 
 			if ($number_of_sentences > 0) {
 				for ($s = 0; $s < $number_of_sentences; $s++)
-					$words .= $this->Make_a_Sentence($type);
+					$words .= $this->make_a_sentence($type);
 			}
 			else
 				$words = $this->Make_a_Paragraph($type);
@@ -125,6 +126,76 @@ class WPAnyIpsumGenerator {
 		}
 
 		return $paragraphs;
+
+	}
+
+
+	public function default_custom () {
+
+		return array(
+			'beef',
+			'chicken',
+			'pork',
+			'bacon',
+			'chuck',
+			'short loin',
+			'sirloin',
+			'shank',
+			'flank',
+			'sausage',
+			'pork belly',
+			'shoulder',
+			'cow',
+			'pig',
+			'ground round',
+			'hamburger',
+			'meatball',
+			'tenderloin',
+			'strip steak',
+			't-bone',
+			'ribeye',
+			'shankle',
+			'tongue',
+			'tail',
+			'pork chop',
+			'pastrami',
+			'corned beef',
+			'jerky',
+			'ham',
+			'fatback',
+			'ham hock',
+			'pancetta',
+			'pork loin',
+			'short ribs',
+			'spare ribs',
+			'beef ribs',
+			'drumstick',
+			'tri-tip',
+			'ball tip',
+			'venison',
+			'turkey',
+			'biltong',
+			'rump',
+			'jowl',
+			'salami',
+			'bresaola',
+			'meatloaf',
+			'brisket',
+			'boudin',
+			'andouille',
+			'capicola',
+			'swine',
+			'kielbasa',
+			'frankfurter',
+			'prosciutto',
+			'filet mignon',
+			'leberkas',
+			'turducken',
+			'doner',
+			'kevin',
+			'landjaeger',
+			'porchetta'
+			);
 
 	}
 

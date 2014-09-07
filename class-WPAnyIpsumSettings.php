@@ -11,6 +11,7 @@ if (!class_exists('WPAnyIpsumSettings')) {
 		var $settings_key_general = 'anyipsum-settings-general';
 		var $settings_key_filler = 'anyipsum-settings-custom-filler';
 		var $settings_key_api = 'anyipsum-settings-api';
+		var $settings_key_help = 'anyipsum-settings-help';
 		var $plugin_settings_tabs = array();
 
 
@@ -25,10 +26,51 @@ if (!class_exists('WPAnyIpsumSettings')) {
 		}
 
 
+		public function activation_hook() {
+
+			// create default settings
+			add_option( $this->settings_key_general, array('name' => 'Bacon', 'start-with' => 'Bacon ipsum dolor amet'), '', $autoload = 'no' );
+			add_option( $this->settings_key_api, array('api-enabled' => '0', 'api-endpoint' => 'api'), '', $autoload = 'no' );
+
+			$custom = '';
+			$filler = '';
+
+			if (class_exists('WPAnyIpsumGenerator')) {
+				$WPAnyIpsumGenerator = new WPAnyIpsumGenerator();
+				$custom = implode( "\n", $WPAnyIpsumGenerator->default_custom() );
+				$filler = implode( "\n", $WPAnyIpsumGenerator->default_filler() );
+			}
+
+			add_option( $this->settings_key_filler, array('custom-words' => $custom, 'filler-words' => $filler), '', $autoload = 'no' );
+
+		}
+
+
+		public function deactivation_hook() {
+			// placeholder in case we need deactivation code
+		}
+
+
+		public function uninstall_hook() {
+
+			$keys = array(
+				$this->settings_key_general,
+				$this->settings_key_filler,
+				$this->settings_key_api,
+			);
+
+			// cleanup any options
+			foreach ($keys as $key)
+				delete_option( $key );
+
+		}
+
+
 		function admin_init() {
 			$this->register_general_settings();
 			$this->register_filler_settings();
 			$this->register_api_settings();
+			$this->register_help_tab();
 		}
 
 
@@ -87,6 +129,19 @@ if (!class_exists('WPAnyIpsumSettings')) {
 
 			add_settings_field( 'api-endpoint', 'Endpoint Page Name', array( $this, 'settings_input' ), $key, $section,
 				array('key' => $key, 'name' => 'api-endpoint', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: api, ipsum-api, etc' . $permalink_warning));
+
+		}
+
+
+		function register_help_tab() {
+			$key = $this->settings_key_help;
+			$this->plugin_settings_tabs[$key] =  _('Help', $this->text_domain);
+
+			register_setting( $key, $key );
+
+			$section = 'help';
+
+			add_settings_section( $section, '', array( $this, 'section_header' ), $key );
 
 		}
 
@@ -207,7 +262,10 @@ if (!class_exists('WPAnyIpsumSettings')) {
 				<form method="post" action="options.php" class="options-form">
 					<?php settings_fields( $tab ); ?>
 					<?php do_settings_sections( $tab ); ?>
-					<?php submit_button('Save Settings', 'primary', 'submit', true); ?>
+					<?php
+						if ($this->settings_key_help !== $tab)
+							submit_button('Save Settings', 'primary', 'submit', true);
+					?>
 				</form>
 			</div>
 			<?php
@@ -227,9 +285,10 @@ if (!class_exists('WPAnyIpsumSettings')) {
 
 		function section_header($args) {
 
-
-
 			switch ($args['id']) {
+				case 'help';
+					include_once 'admin-help.php';
+					break;
 				case 'api':
 					$output = 'Allows for a JSON API to your custom ipsum.';
 					$endpoint = $this->setting_get( '', $this->settings_key_api, 'api-endpoint' );
