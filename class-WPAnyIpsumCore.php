@@ -1,4 +1,11 @@
 <?php
+/*
+Class: WPAnyIpsumCore
+Author: Pete Nelson (@GunGeekATX)
+
+Exposes filters used by other classes
+
+*/
 
 if (!defined( 'ABSPATH' )) exit('restricted access');
 
@@ -37,11 +44,12 @@ if (!class_exists('WPAnyIpsumCore')) {
 		function generate_filler($args) {
 
 			$args = wp_parse_args( $args, array(
-				'type' => 'custom-and-filler',
-				'number-of-paragraphs' => 5,
-				'start-with-lorem' => true,
-				'number-of-sentences' => 0,
-				));
+					'type' => 'custom-and-filler',
+					'number-of-paragraphs' => 5,
+					'start-with-lorem' => true,
+					'number-of-sentences' => 0,
+				)
+			);
 
 			if (class_exists('WPAnyIpsumGenerator')) {
 

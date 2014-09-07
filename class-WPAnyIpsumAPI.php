@@ -1,4 +1,11 @@
 <?php
+/*
+Class: WPAnyIpsumAPI
+Author: Pete Nelson (@GunGeekATX)
+
+Exposes a JSON API endpoint
+
+*/
 
 if (!defined( 'ABSPATH' )) exit('restricted access');
 

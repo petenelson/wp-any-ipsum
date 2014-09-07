@@ -4,21 +4,22 @@ WordPress plugin to roll your own custom lorem ipsum generator - forked from Bac
 
 index.php - WordPress plugin wrapper
 
-class-AnyIpsumGenerator.php - Contains the WPAnyIpsumGenerator class for generating custom filler text.  For example:
+class-WPAnyIpsumCore.php - Exposes filters used by other classes
 
-	require_once 'class-AnyIpsumGenerator.php';
-	$any_ipsum_generator = new AnyIpsumGenerator();
-	$custom_filler = $any_ipsum_generator->Make_Some_Custom_Filler('custom-and-filler', 3, true);
-
-
-class-WPAnyIpsumForm.php - Shortcode for generating the form to allow visitors to generate your custom ipsum
+class-WPAnyIpsumForm.php - Shortcode for generating the form to allow visitors to generate your custom filler
 
 class-WPAnyIpsumSettings.php - Admin settings for managing your custom filler text
 
-class-WPAnyIpsumAPI.php - Optional JSON API endpoint
+class-WPAnyIpsumAPI.php - JSON API endpoint
+
+class-WPAnyIpsumGenerator.php - The WPAnyIpsumGenerator class for generating custom filler text.
 
 
 Revision History
+
+= v0.5.0 September 7, 2014 =
+* Code review
+
 
 = v0.0.1 September 6, 2014 =
 * Initial fork of Bacon Ipsum
@@ -27,4 +28,4 @@ Revision History
 
 TODO
 
-* Implement activation/deactivation hooks
+* Implement the rest of the help page and textdomain

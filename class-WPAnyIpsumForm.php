@@ -1,4 +1,11 @@
 <?php
+/*
+Class: WPAnyIpsumGenerator
+Author: Pete Nelson (@GunGeekATX)
+
+Handles anyipsum-form shortcode
+
+*/
 
 if (!defined( 'ABSPATH' )) exit('restricted access');
 

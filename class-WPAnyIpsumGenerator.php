@@ -1,9 +1,12 @@
 <?php
 /*
-Class: Any Ipsum Generator
+Class: WPAnyIpsumGenerator
 Author: Pete Nelson (@GunGeekATX)
 
 Revision History
+
+= September 7, 2014 =
+* Made parameters more generic and not meat-specific
 
 = September 6, 2014 =
 * Initial fork of Bacon Ipsum
