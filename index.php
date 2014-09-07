@@ -1,2 +1,2 @@
 <?php
-// Bacon is golden
+// Bacon is delicious.

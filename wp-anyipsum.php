@@ -28,8 +28,6 @@ if (class_exists('WPAnyIpsumSettings')) {
 	add_action( 'plugins_loaded', array($WPAnyIpsumSettings, 'plugins_loaded') );
 
 	register_activation_hook( __FILE__, array($WPAnyIpsumSettings, 'activation_hook') );
-	register_deactivation_hook( __FILE__, array($WPAnyIpsumSettings, 'deactivation_hook') );
-	register_uninstall_hook( __FILE__, array($WPAnyIpsumSettings, 'uninstall_hook') );
 }
 
 

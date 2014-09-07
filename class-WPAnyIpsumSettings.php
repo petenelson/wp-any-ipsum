@@ -51,21 +51,6 @@ if (!class_exists('WPAnyIpsumSettings')) {
 		}
 
 
-		public function uninstall_hook() {
-
-			$keys = array(
-				$this->settings_key_general,
-				$this->settings_key_filler,
-				$this->settings_key_api,
-			);
-
-			// cleanup any options
-			foreach ($keys as $key)
-				delete_option( $key );
-
-		}
-
-
 		function admin_init() {
 			$this->register_general_settings();
 			$this->register_filler_settings();
