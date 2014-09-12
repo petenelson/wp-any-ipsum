@@ -17,6 +17,10 @@ class-WPAnyIpsumGenerator.php - The WPAnyIpsumGenerator class for generating cus
 
 Revision History
 
+= v0.6.0 September 7, 2014 =
+* Made nearly everything configurable (querystring parameters, button text, prompts, etc.)
+
+
 = v0.5.0 September 7, 2014 =
 * Code review
 

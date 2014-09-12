@@ -29,8 +29,20 @@ if (!class_exists('WPAnyIpsumSettings')) {
 		public function activation_hook() {
 
 			// create default settings
-			add_option( $this->settings_key_general, array('name' => 'Bacon', 'start-with' => 'Bacon ipsum dolor amet'), '', $autoload = 'no' );
-			add_option( $this->settings_key_api, array('api-enabled' => '0', 'api-endpoint' => 'api'), '', $autoload = 'no' );
+			add_option( $this->settings_key_general, array(
+				'name' => 'Bacon',
+				'start-with' => 'Bacon ipsum dolor amet',
+				'querystring-all-custom' => 'all-custom',
+				'querystring-custom-and-filler' => 'custom-and-filler',
+				'button-text' => 'Give Me Bacon',
+				'all-custom-text' => 'All Meat',
+				'custom-and-filler-text' => 'Meat and Filler',
+			), '', $autoload = 'no' );
+
+			add_option( $this->settings_key_api, array(
+				'api-enabled' => '0',
+				'api-endpoint' => 'api'
+			), '', $autoload = 'no' );
 
 			$custom = '';
 			$filler = '';
@@ -72,9 +84,23 @@ if (!class_exists('WPAnyIpsumSettings')) {
 			add_settings_field( 'name', 'Your Ipsum Name', array( $this, 'settings_input' ), $key, $section,
 				array('key' => $key, 'name' => 'name', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: Bacon, Hipster, Cupcake, etc'));
 
+			add_settings_field( 'all-custom-text', 'All Custom Text', array( $this, 'settings_input' ), $key, $section,
+				array('key' => $key, 'name' => 'all-custom-text', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: All Meat, Hipster neat'));
+
+			add_settings_field( 'custom-and-filler-text', 'Custom and Filler Text', array( $this, 'settings_input' ), $key, $section,
+				array('key' => $key, 'name' => 'custom-and-filler-text', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: Meat and Filler, Hipster with a shot of Latin'));
+
 			add_settings_field( 'start-with', 'Start With Text', array( $this, 'settings_input' ), $key, $section,
 				array('key' => $key, 'name' => 'start-with', 'size' => 50, 'maxlength' => 50, 'after' => 'Example: Bacon ipsum dolor sit amet'));
 
+			add_settings_field( 'button-text', 'Button Text', array( $this, 'settings_input' ), $key, $section,
+				array('key' => $key, 'name' => 'button-text', 'size' => 50, 'maxlength' => 50, 'after' => 'Example: Give me bacon, Beer me!, etc.'));
+
+			add_settings_field( 'querystring-all-custom', 'Querystring for All Custom', array( $this, 'settings_input' ), $key, $section,
+				array('key' => $key, 'name' => 'querystring-all-custom', 'size' => 50, 'maxlength' => 50, 'after' => 'In case you want something different (like all-meat, hipster-centric, etc.)'));
+
+			add_settings_field( 'querystring-custom-and-filler', 'Querystring for Custom and Filler', array( $this, 'settings_input' ), $key, $section,
+				array('key' => $key, 'name' => 'querystring-custom-and-filler', 'size' => 50, 'maxlength' => 50, 'after' => 'In case you want something different (like meat-and-filler, hipster-latin, etc.)'));
 		}
 
 

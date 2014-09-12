@@ -18,7 +18,8 @@ class WPAnyIpsumGenerator {
 	public $custom_words;
 	public $filler;
 	public $start_with;
-
+	public $type_all_custom;
+	public $type_custom_and_filler;
 
 	function __constructor() {
 		$this->custom_words = array();
@@ -29,7 +30,7 @@ class WPAnyIpsumGenerator {
 
 	function get_words($type) {
 
-		if ($type == 'custom-and-filler')
+		if ($type == $this->type_custom_and_filler)
 			$words = array_merge(empty($this->custom_words) ? $this->default_filler() : $this->custom_words, (empty($this->filler) ? $this->default_filler() : $this->filler));
 		else
 			$words = empty($this->custom_words) ? $this->default_filler() : $this->custom_words;
@@ -99,10 +100,13 @@ class WPAnyIpsumGenerator {
 
 
 	public function make_some_custom_filler(
-		$type = 'custom-and-filler',
+		$type = '',
 		$number_of_paragraphs = 5,
 		$start_with_lorem = true,
 		$number_of_sentences = 0) {
+
+		if (empty($type))
+			$type = $this->type_custom_and_filler;
 
 		$paragraphs = array();
 		if ($number_of_sentences > 0)

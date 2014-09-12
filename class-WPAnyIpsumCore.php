@@ -44,7 +44,7 @@ if (!class_exists('WPAnyIpsumCore')) {
 		function generate_filler($args) {
 
 			$args = wp_parse_args( $args, array(
-					'type' => 'custom-and-filler',
+					'type' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' ),
 					'number-of-paragraphs' => 5,
 					'start-with-lorem' => true,
 					'number-of-sentences' => 0,
@@ -56,7 +56,9 @@ if (!class_exists('WPAnyIpsumCore')) {
 				$generator = new WPAnyIpsumGenerator();
 				$generator->custom_words = $this->get_words('custom-words');
 				$generator->filler = $this->get_words('filler-words');
-				$generator->start_with = apply_filters( 'anyipsum-setting-get', array(), 'anyipsum-settings-general', 'start-with' );
+				$generator->start_with = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'start-with' );
+				$generator->type_all_custom = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' );
+				$generator->type_custom_and_filler = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' );
 
 				return $generator->Make_Some_Custom_Filler(
 					$args['type'],
