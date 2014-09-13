@@ -6,6 +6,7 @@ $keys = array(
 	'anyipsum-settings-general',
 	'anyipsum-settings-custom-filler',
 	'anyipsum-settings-api',
+	'anyipsum-settings-oembed',
 );
 
 // remove options

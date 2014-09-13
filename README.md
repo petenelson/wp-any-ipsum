@@ -12,12 +12,18 @@ class-WPAnyIpsumSettings.php - Admin settings for managing your custom filler te
 
 class-WPAnyIpsumAPI.php - JSON API endpoint
 
+class-WPAnyIpsumOembed.php - oEmbed endpoint
+
 class-WPAnyIpsumGenerator.php - The WPAnyIpsumGenerator class for generating custom filler text.
 
 
 Revision History
 
-= v0.6.0 September 7, 2014 =
+= v0.1.0 September 12, 2014 =
+* Initial Release
+
+
+= v0.6.0 September 11, 2014 =
 * Made nearly everything configurable (querystring parameters, button text, prompts, etc.)
 
 
@@ -28,9 +34,3 @@ Revision History
 = v0.0.1 September 6, 2014 =
 * Initial fork of Bacon Ipsum
 
-
-
-TODO
-
-* Implement the rest of the help page and textdomain
-* Add link from Plugins page to Settings page

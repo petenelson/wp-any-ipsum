@@ -3,17 +3,16 @@
 Plugin Name: Any Ipsum
 Description: Roll your own custom lorem ipsum generator
 Plugin URI: https://github.com/petenelson/wp-any-ipsum
-Version: 0.6.0
-Author: Pete Nelson (@GunGeekATX)
-Author URI: http://petenelson.com
+Version: 0.9.0
+Author: Pete Nelson <a href="#">(@GunGeekATX)</a> | <a href="options-general.php?page=anyipsum-settings">Settings</a>
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // include required files
-$includes = array('Generator', 'Settings', 'Core', 'Form', 'API');
+$includes = array('Generator', 'Settings', 'Core', 'Form', 'API', 'Oembed');
 foreach ($includes as $include)
-	require_once 'class-WPAnyIpsum' . $include . '.php';
+	require_once plugin_dir_path( __FILE__ ) . 'lib/class-WPAnyIpsum' . $include . '.php';
 
 
 // load our classes, hook them to WordPress
@@ -34,6 +33,12 @@ if (class_exists('WPAnyIpsumSettings')) {
 if (class_exists('WPAnyIpsumForm')) {
 	$WPAnyIpsumForm = new WPAnyIpsumForm();
 	add_action( 'plugins_loaded', array($WPAnyIpsumForm, 'plugins_loaded') );
+}
+
+
+if (class_exists('WPAnyIpsumOEmbed')) {
+	$WPAnyIpsumOEmbed = new WPAnyIpsumOEmbed();
+	add_action( 'plugins_loaded', array($WPAnyIpsumOEmbed, 'plugins_loaded') );
 }
 
 
