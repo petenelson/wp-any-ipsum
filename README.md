@@ -20,8 +20,10 @@ readme.txt - Info for the WordPress repo
 
 assets - Screenshots for the WordPress repo
 
+lang - For future translastions
+
 
 Revision History
 
-= v1.0.0 September 12, 2014 =
+= v1.0.1 September 12, 2014 =
 * Initial Release

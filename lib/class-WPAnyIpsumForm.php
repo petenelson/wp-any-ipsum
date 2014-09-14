@@ -20,7 +20,6 @@ if (!class_exists('WPAnyIpsumForm')) {
 
 		function shortcode_form($atts) {
 
-			$text_domain = 'anyipsum';
 			$output = '';
 
 			$ipsum_name = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'name' );
@@ -49,16 +48,16 @@ if (!class_exists('WPAnyIpsumForm')) {
 					<table class="anyipsum-table">
 						<tbody>
 							<tr class="anyipsum-paragraphs">
-								<td class="anyipsum-left-cell"><?php _e('Paragraphs', $text_domain); ?>:</td>
+								<td class="anyipsum-left-cell"><?php _e('Paragraphs', 'any-ipsum'); ?>:</td>
 								<td class="anyipsum-right-cell"><input type="text" name="paras" value="5" maxlength="2" /></td>
 							</tr>
 							<tr class="anyipsum-type">
-								<td class="anyipsum-left-cell"><?php _e('Type', $text_domain); ?>:</td>
+								<td class="anyipsum-left-cell"><?php _e('Type', 'any-ipsum'); ?>:</td>
 								<td class="anyipsum-right-cell"><label><input type="radio" name="type" value="<?php echo esc_attr($all_custom); ?>" <?php checked($all_custom, $type); ?> /><?php echo esc_attr( $all_custom_text ) ?></label> <label><input type="radio" name="type" value="<?php echo esc_attr($custom_and_filler); ?>" <?php checked($custom_and_filler, $type); ?> /><?php echo esc_attr($custom_and_filler_text); ?></label></td>
 							</tr>
 							<tr class="anyipsum-start-with">
 								<td class="anyipsum-left-cell"></td>
-								<td class="anyipsum-right-cell"><input id="start-with-lorem" type="checkbox" name="start-with-lorem" value="1" checked="checked" /> <label for="start-with-lorem"><?php _e('Start with', $text_domain); ?> '<?php echo esc_attr($start_with); ?>...'</label></td>
+								<td class="anyipsum-right-cell"><input id="start-with-lorem" type="checkbox" name="start-with-lorem" value="1" checked="checked" /> <label for="start-with-lorem"><?php _e('Start with', 'any-ipsum'); ?> '<?php echo esc_attr($start_with); ?>...'</label></td>
 							</tr>
 							<tr class="anyipsum-submit">
 								<td class="anyipsum-left-cell"></td>
