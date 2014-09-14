@@ -19,7 +19,7 @@ foreach ($includes as $include)
 add_action( 'plugins_loaded', 'WPAnyIpsum_LoadTextDomain' );
 if (!function_exists('WPAnyIpsum_LoadTextDomain')) {
 	function WPAnyIpsum_LoadTextDomain() {
-		var_dump (load_plugin_textdomain('any-ipsum', false, basename( plugin_dir_path( __FILE__ ) ) . '/lang/' ) );
+		load_plugin_textdomain('any-ipsum', false, basename( plugin_dir_path( __FILE__ ) ) . '/lang/' );
 	}
 }
 

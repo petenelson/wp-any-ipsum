@@ -36,7 +36,7 @@ The plugin installs Bacon Ipsum filler by default, so be sure to sheck Settings/
 == Changelog ==
 
 = 1.0.1 =
-* Fixes for text domains
+* Bug fixes for translations
 
 
 = 1.0.0 =
