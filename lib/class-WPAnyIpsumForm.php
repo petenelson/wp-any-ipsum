@@ -38,11 +38,12 @@ if (!class_exists('WPAnyIpsumForm')) {
 				$start_with = 'Lorem ipsum dolor amet';
 
 			$type = !empty($_REQUEST['type']) ? $_REQUEST['type'] : $all_custom;
+			$permalink_structure = get_option('permalink_structure');
 
 			ob_start();
 			?>
 				<form class="anyipsum-form" action="" method="get">
-					<?php if (is_singular() && empty(get_option('permalink_structure'))) { ?>
+					<?php if (is_singular() && empty($permalink_structure)) { ?>
 					<input type="hidden" name="p" value="<?php echo esc_attr(get_the_id()); ?>" />
 					<?php } ?>
 					<table class="anyipsum-table">

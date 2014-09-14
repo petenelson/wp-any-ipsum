@@ -143,7 +143,8 @@ if (!class_exists('WPAnyIpsumSettings')) {
 			add_settings_field( 'api-enabled', _('Enabled', $this->text_domain), array( $this, 'settings_yes_no' ), $key, $section,
 				array('key' => $key, 'name' => 'api-enabled'));
 
-			$permalink_warning = empty(get_option( 'permalink_structure' )) ? ' (please anable any non-default Permalink structure)' : '';
+			$permalink_structure = get_option( 'permalink_structure' );
+			$permalink_warning = empty($permalink_structure) ? ' (please anable any non-default Permalink structure)' : '';
 
 			add_settings_field( 'api-endpoint', _('Endpoint Page Name', $this->text_domain), array( $this, 'settings_input' ), $key, $section,
 				array('key' => $key, 'name' => 'api-endpoint', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: api, ipsum-api, etc' . $permalink_warning));
@@ -164,7 +165,8 @@ if (!class_exists('WPAnyIpsumSettings')) {
 			add_settings_field( 'oembed-enabled', _('Enabled', $this->text_domain), array( $this, 'settings_yes_no' ), $key, $section,
 				array('key' => $key, 'name' => 'oembed-enabled'));
 
-			$permalink_warning = empty(get_option( 'permalink_structure' )) ? ' (please anable any non-default Permalink structure)' : '';
+			$permalink_structure = get_option( 'permalink_structure' );
+			$permalink_warning = empty($permalink_structure) ? ' (please anable any non-default Permalink structure)' : '';
 
 			add_settings_field( 'oembed-endpoint', _('oEmbed Page Name', $this->text_domain), array( $this, 'settings_input' ), $key, $section,
 				array('key' => $key, 'name' => 'oembed-endpoint', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: oembed, ipsum-oembed' . $permalink_warning));
