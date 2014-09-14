@@ -2,9 +2,9 @@
 /*
 Plugin Name: Any Ipsum
 Description: Roll your own custom lorem ipsum generator
-Plugin URI: https://github.com/petenelson/wp-any-ipsum
-Version: 0.9.0
-Author: Pete Nelson <a href="#">(@GunGeekATX)</a> | <a href="options-general.php?page=anyipsum-settings">Settings</a>
+Plugin URI: https://wordpress.org/plugins/any-ipsum/
+Version: 1.0.0
+Author: Pete Nelson <a href="https://twitter.com/GunGeekATX">(@GunGeekATX)</a> | <a href="options-general.php?page=anyipsum-settings">Settings</a>
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
