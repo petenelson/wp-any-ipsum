@@ -6,7 +6,6 @@ if (!class_exists('WPAnyIpsumOEmbed')) {
 
 	class WPAnyIpsumOEmbed {
 
-
 		public function plugins_loaded() {
 			add_action('parse_request', array($this, 'sniff_requests'), 0);
 		}

@@ -27,6 +27,8 @@ Revision History
 
 = v1.1.0 October 22, 2014 =
 * Added a header for the form shortcode, ex: [anyipsum-form]Give our ipsum a try!  It's the best![/anyipsum-form]
+* Added sentence mode for ipsum generators that want to use full sentences as custom words.
+* The ipsum generator on baconipsum.com site is now powered by this plugin!
 
 = v1.0.1 September 12, 2014 =
 * Initial Release

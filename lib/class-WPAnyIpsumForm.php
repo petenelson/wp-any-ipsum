@@ -13,7 +13,6 @@ if (!class_exists('WPAnyIpsumForm')) {
 
 	class WPAnyIpsumForm {
 
-
 		public function plugins_loaded() {
 			add_shortcode('anyipsum-form', array($this, 'shortcode_form') );
 		}
