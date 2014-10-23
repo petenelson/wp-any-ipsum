@@ -13,12 +13,13 @@ if (!class_exists('WPAnyIpsumForm')) {
 
 	class WPAnyIpsumForm {
 
+
 		public function plugins_loaded() {
 			add_shortcode('anyipsum-form', array($this, 'shortcode_form') );
 		}
 
 
-		function shortcode_form($atts) {
+		function shortcode_form($atts, $content) {
 
 			$output = '';
 
@@ -40,6 +41,14 @@ if (!class_exists('WPAnyIpsumForm')) {
 			$permalink_structure = get_option('permalink_structure');
 
 			ob_start();
+
+			if (!empty($content) && !isset($_REQUEST["type"])) {
+				?>
+					<div class="anyipsum-form-header"><?php echo do_shortcode( $content ); ?>
+				<?php
+			}
+
+
 			?>
 				<form class="anyipsum-form" action="" method="get">
 					<?php if (is_singular() && empty($permalink_structure)) { ?>

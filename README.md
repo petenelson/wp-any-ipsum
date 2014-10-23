@@ -25,5 +25,8 @@ lang - For future translastions
 
 Revision History
 
+= v1.1.0 October 22, 2014 =
+* Added a header for the form shortcode, ex: [anyipsum-form]Give our ipsum a try!  It's the best![/anyipsum-form]
+
 = v1.0.1 September 12, 2014 =
 * Initial Release
