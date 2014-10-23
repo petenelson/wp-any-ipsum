@@ -5,6 +5,9 @@ Author: Pete Nelson (@GunGeekATX)
 
 Revision History
 
+= October 22, 2014 =
+* Added sentence_mode
+
 = September 7, 2014 =
 * Made parameters more generic and not meat-specific
 
@@ -20,11 +23,13 @@ class WPAnyIpsumGenerator {
 	public $start_with;
 	public $type_all_custom;
 	public $type_custom_and_filler;
+	public $sentence_mode;
 
 	function __constructor() {
 		$this->custom_words = array();
 		$this->filler = array();
 		$this->start_with = '';
+		$this->sentence_mode = false;
 	}
 
 
@@ -43,6 +48,17 @@ class WPAnyIpsumGenerator {
 
 
 	function make_a_sentence($type)	{
+
+		if ($this->sentence_mode) {
+			// grab the first random sentence
+			$words = $this->get_words($type);
+			if (count($words) > 0)
+				return $words[0];
+			else
+				return '';
+		}
+
+
 		// A sentence should be bewteen 4 and 15 words.
 		$sentence = '';
 		$length = rand(4, 15);
@@ -77,13 +93,14 @@ class WPAnyIpsumGenerator {
 				$sentence .= $words[$i];
 			}
 
-
 			$sentence = rtrim($sentence) . '. ';
+
 		}
 
 		return $sentence;
 
 	}
+
 
 	function make_a_paragraph($type)	{
 		// A paragraph should be bewteen 4 and 7 sentences.

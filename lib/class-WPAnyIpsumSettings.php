@@ -121,11 +121,13 @@ if (!class_exists('WPAnyIpsumSettings')) {
 			add_settings_section( $section, '', array( $this, 'section_header' ), $key );
 
 			add_settings_field( 'custom-words', __('Custom Words', 'any-ipsum'), array( $this, 'settings_textarea' ), $key, $section,
-				array('key' => $key, 'name' => 'custom-words', 'rows' => 10, 'cols' => 40, 'after' => 'One word/phrase per line'));
+				array('key' => $key, 'name' => 'custom-words', 'rows' => 10, 'cols' => 40, 'after' => 'One word, phrase, or sentence per line'));
 
 			add_settings_field( 'filler-words', __('Filler Words', 'any-ipsum'), array( $this, 'settings_textarea' ), $key, $section,
 				array('key' => $key, 'name' => 'filler-words', 'rows' => 10, 'cols' => 40, 'after' => 'One word/phrase per line'));
 
+			add_settings_field( 'sentence-mode', __('Sentence Mode', 'any-ipsum'), array( $this, 'settings_yes_no' ), $key, $section,
+				array('key' => $key, 'name' => 'sentence-mode', 'after' =>  __('The custom words above are sentences instead of words.  Disables automatic punctuation.') ));
 		}
 
 

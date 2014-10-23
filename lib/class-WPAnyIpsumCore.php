@@ -59,6 +59,7 @@ if (!class_exists('WPAnyIpsumCore')) {
 				$generator->start_with = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'start-with' );
 				$generator->type_all_custom = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' );
 				$generator->type_custom_and_filler = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' );
+				$generator->sentence_mode = apply_filters( 'anyipsum-setting-get', false, 'anyipsum-settings-custom-filler', 'sentence-mode' );
 
 				return $generator->Make_Some_Custom_Filler(
 					$args['type'],
