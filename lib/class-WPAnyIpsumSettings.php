@@ -6,22 +6,23 @@ if (!class_exists('WPAnyIpsumSettings')) {
 
 	class WPAnyIpsumSettings {
 
-		private $settings_page = 'anyipsum-settings';
-		private $settings_key_general = 'anyipsum-settings-general';
-		private $settings_key_filler = 'anyipsum-settings-custom-filler';
-		private $settings_key_api = 'anyipsum-settings-api';
-		private $settings_key_oembed = 'anyipsum-settings-oembed';
-		private $settings_key_help = 'anyipsum-settings-help';
-		private $plugin_settings_tabs = array();
+		private $settings_page 			= 'anyipsum-settings';
+		private $settings_key_general 	= 'anyipsum-settings-general';
+		private $settings_key_filler 	= 'anyipsum-settings-custom-filler';
+		private $settings_key_api 		= 'anyipsum-settings-api';
+		private $settings_key_oembed 	= 'anyipsum-settings-oembed';
+		private $settings_key_help 		= 'anyipsum-settings-help';
+		private $plugin_settings_tabs 	= array();
 
 
 		public function plugins_loaded() {
 			// admin menus
-			add_action('admin_init', array($this, 'admin_init'));
-			add_action('admin_menu', array($this, 'admin_menu'));
+			add_action( 'admin_init', array( $this, 'admin_init' ) );
+			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+			add_action( 'admin_notices', array( $this, 'activation_admin_notice' ) );
 
-			add_filter( 'anyipsum-setting-is-enabled', array($this, 'setting_is_enabled'), 10, 3);
-			add_filter( 'anyipsum-setting-get', array($this, 'setting_get'), 10, 3);
+			add_filter( 'anyipsum-setting-is-enabled', array( $this, 'setting_is_enabled' ), 10, 3 );
+			add_filter( 'anyipsum-setting-get', array( $this, 'setting_get' ), 10, 3 );
 
 		}
 
@@ -60,6 +61,23 @@ if (!class_exists('WPAnyIpsumSettings')) {
 
 			add_option( $this->settings_key_filler, array('custom-words' => $custom, 'filler-words' => $filler), '', $autoload = 'no' );
 
+			// add an option so we can show the activated admin notice
+			add_option( 'anyipsum-plugin-activated', '1' );
+
+		}
+
+
+		function activation_admin_notice() {
+			if ( '1' === get_option( 'anyipsum-plugin-activated' ) ) {
+				?>
+					<div class="updated">
+						<p><?php
+							echo sprintf( __( '<strong>Any Ipsum activated!</strong> Please visit the <a href="%s">Any Ipsum Settings</a> page to customize your ipsum generator.', 'any-ispum' ), admin_url( 'options-general.php?page=anyipsum-settings' ) );
+						?></p>
+					</div>
+				<?php
+				delete_option( 'anyipsum-plugin-activated' );
+			}
 		}
 
 

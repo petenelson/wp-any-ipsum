@@ -4,7 +4,7 @@ Tags: content, ipsum
 Donate link: http://baconipsum.com/
 Requires at least: 4.0
 Tested up to: 4.1
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,7 +35,11 @@ The plugin installs Bacon Ipsum filler by default, so be sure to sheck Settings/
 
 == Changelog ==
 
-= v1.1.0 =
+= v1.2.0 January 7, 2015 =
+* Added admin notice to visit settings page on plugin activation
+* Bug fix for sentences in JSON API
+
+= v1.1.0 October 22, 2014 =
 * Added a header for the form shortcode, ex: [anyipsum-form]Give our ipsum a try!  It's the best![/anyipsum-form]
 * Added sentence mode for ipsum generators that want to use full sentences as custom words.
 * The ipsum generator on baconipsum.com site is now powered by this plugin!

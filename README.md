@@ -25,6 +25,10 @@ lang - For future translastions
 
 Revision History
 
+= v1.2.0 January 7, 2015 =
+* Added admin notice to visit settings page on plugin activation
+* Bug fix for sentences in JSON API
+
 = v1.1.0 October 22, 2014 =
 * Added a header for the form shortcode, ex: [anyipsum-form]Give our ipsum a try!  It's the best![/anyipsum-form]
 * Added sentence mode for ipsum generators that want to use full sentences as custom words.
