@@ -30,37 +30,60 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 		}
 
 
+		private function default_generator_args() {
+			return array(
+				'type' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' ),
+				'start-with-lorem' => true,
+				'sentences' => '',
+				'paras' => 5,
+				'callback' => '',
+			);
+		}
+
+
+
+
 		function parse_request_args( $args ) {
 
-			$args['type'] = WPAnyIpsumCore::get_request( 'type' );
+			// if this is a URL, grab the query string parameters
+			if ( ! empty( $args ) && is_string( $args ) && strpos( $args, '?' ) ) {
+				$args = substr( $args, strpos( $args, '?' ) + 1 );
+			}
 
-			$number_of_paragraphs = intval( WPAnyIpsumCore::get_request( 'paras', 5 ) );
+			$args = wp_parse_args( $args, $this->default_generator_args() );
 
-			if ( $number_of_paragraphs < 1 )
-				$number_of_paragraphs = 1;
+			$args['paras'] = intval( $args['paras'] );
 
-			if ( $number_of_paragraphs > 100 )
-				$number_of_paragraphs = 100;
+			if ( $args['paras'] < 1 )
+				$args['paras'] = 1;
 
-			$args['number-of-paragraphs'] = $number_of_paragraphs;
-			$args['start-with-lorem'] = WPAnyIpsumCore::get_request( 'start-with-lorem' ) === '1';
+			if ( $args['paras'] > 100 )
+				$args['paras'] = 100;
 
 
-			$number_of_sentences = WPAnyIpsumCore::get_request( 'sentences' );
-			if ( ! empty( $number_of_sentences ) ) {
+			$args['number-of-paragraphs'] = $args['paras'];
+			$args['start-with-lorem'] = ! empty( $args['start-with-lorem'] ) && $args['start-with-lorem'] === '1';
 
-				$number_of_sentences = intval( $number_of_sentences );
 
-				if ( $number_of_sentences < 1 )
-					$number_of_sentences = 1;
+			if ( ! empty( $args['sentences'] ) ) {
 
-				if ( $number_of_sentences > 100 )
-					$number_of_sentences = 100;
+				$args['sentences'] = intval( $args['sentences'] );
 
-				$args['number-of-sentences'] = $number_of_sentences;
+				if ( $args['sentences'] < 1 )
+					$args['sentences'] = 1;
+
+				if ( $args['sentences'] > 100 )
+					$args['sentences'] = 100;
 
 			}
 
+			if ( empty( $args['number-of-paragraphs'] ) ) {
+				$args['number-of-paragraphs'] = $args['paras'];
+			}
+
+			if ( empty( $args['number-of-sentences'] ) ) {
+				$args['number-of-sentences'] = $args['sentences'];
+			}
 
 			return $args;
 
@@ -69,13 +92,7 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 
 		function generate_filler( $args ) {
 
-			$args = wp_parse_args( $args, array(
-					'type' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' ),
-					'number-of-paragraphs' => 5,
-					'start-with-lorem' => true,
-					'number-of-sentences' => 0,
-				)
-			);
+			$args = wp_parse_args( $args, $this->default_generator_args() );
 
 			if ( class_exists( 'WPAnyIpsumGenerator' ) ) {
 

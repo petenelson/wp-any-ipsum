@@ -82,10 +82,11 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 			// for customizing/overriding form
 			$form = apply_filters( 'anyipsum-form', $form );
 
+			$type = WPAnyIpsumCore::get_request( 'type' );
 
 			if ( ! empty( $type ) ) {
 
-				$args = apply_filters( 'anyipsum-parse-request-args', array() );
+				$args = apply_filters( 'anyipsum-parse-request-args', $_SERVER['QUERY_STRING'] );
 
 				$paragraphs = apply_filters( 'anyipsum-generate-filler', $args );
 

@@ -48,14 +48,12 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 
 				header( 'Access-Control-Allow-Origin: *' );
 
-				$args = apply_filters( 'anyipsum-parse-request-args', array() );
+				$args = apply_filters( 'anyipsum-parse-request-args', $_SERVER['QUERY_STRING'] );
 				$paras = apply_filters( 'anyipsum-generate-filler', $args );
 
-				$callback = WPAnyIpsumCore::get_request( 'callback' );
-
-				if ( ! empty( $callback ) ) {
+				if ( ! empty( $args['callback'] ) ) {
 					header( "Content-Type: application/javascript" );
-					echo $callback . '(' . json_encode( $paras ) . ');';
+					echo $args['callback'] . '(' . json_encode( $paras ) . ');';
 				}
 				else {
 					header( "Content-Type: application/json; charset=utf-8" );

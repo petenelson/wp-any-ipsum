@@ -37,56 +37,23 @@ if ( ! class_exists( 'WPAnyIpsumOEmbed' ) ) {
 
 			if ( ! empty( $url ) ) {
 
-				$parsed_url = parse_url( $url );
-				if ( is_array( $parsed_url ) && isset( $parsed_url['query'] ) ) {
+				$args = apply_filters( 'anyipsum-parse-request-args', $url );
+				$paras = apply_filters( 'anyipsum-generate-filler', $args );
 
-					parse_str( $parsed_url['query'], $parts );
+				$html = '';
 
-					$number_of_sentences = 0;
-					$number_of_paragraphs = 5;
+				for ( $i=0; $i < count( $paras ); $i++ )
+					$html .= '<p>' . $paras[$i] . '</p>';
 
-					if ( isset( $parts["paras"] ) )
-						$number_of_paragraphs = intval( $parts["paras"] );
+				$oembed = new stdClass();
+				$oembed->type = 'rich';
+				$oembed->html = $html;
+				$oembed->provider_name = 'Bacon Ipsum';
+				$oembed->version = '1.0';
+				$oembed->provider_url = 'http://baconipsum.com';
 
-					if ( isset( $parts["sentences"] ) )
-						$number_of_sentences = intval( $parts["sentences"] );
+				wp_send_json( $oembed );
 
-					if ( $number_of_paragraphs < 1 )
-						$number_of_paragraphs = 1;
-
-					if ( $number_of_paragraphs > 100 )
-						$number_of_paragraphs = 100;
-
-					if ( $number_of_sentences > 100 )
-						$number_of_sentences = 100;
-
-					$start_with_lorem = !empty( $parts["start-with-lorem"] ) && $parts["start-with-lorem"] == "1";
-
-					$type = ! empty( $parts["type"] ) ? filter_var( $parts["type"], FILTER_SANITIZE_STRING ) : '';
-
-					$paras = apply_filters( 'anyipsum-generate-filler', array(
-							'type' => $type,
-							'paras' => $number_of_paragraphs,
-							'sentences' => $number_of_sentences,
-							'start-with-lorem' => $start_with_lorem,
-						) );
-
-					$html = '';
-
-					for ( $i=0; $i < count( $paras ); $i++ )
-						$html .= '<p>' . $paras[$i] . '</p>';
-
-
-					$oembed = new stdClass();
-					$oembed->type = 'rich';
-					$oembed->html = $html;
-					$oembed->provider_name = 'Bacon Ipsum';
-					$oembed->version = '1.0';
-					$oembed->provider_url = 'http://baconipsum.com';
-
-					wp_send_json( $oembed );
-
-				}
 
 			}
 
