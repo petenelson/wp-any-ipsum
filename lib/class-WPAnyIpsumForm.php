@@ -18,17 +18,6 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 		}
 
 
-		private function get_request( $key, $default = '', $filter = FILTER_SANITIZE_STRING ) {
-			foreach (array( INPUT_GET, INPUT_POST ) as $input) {
-				$value = filter_input( $input, $key, $filter );
-				if ( ! empty( $value ) ) {
-					return $value;
-				}
-			}
-			return $default;
-		}
-
-
 		function shortcode_form( $atts, $content ) {
 
 			$output = '';
@@ -38,7 +27,7 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 			$all_custom = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' );
 			$custom_and_filler = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' );
 			$all_custom_text = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'all-custom-text' );
-			$custom_and_filler_text = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'custom-and-filler-text' );
+			$custom_filler_text = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'custom-and-filler-text' );
 			$button_text = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'button-text' );
 
 			if ( empty( $ipsum_name ) )
@@ -47,7 +36,7 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 			if ( empty( $start_with ) )
 				$start_with = 'Lorem ipsum dolor amet';
 
-			$type = $this->get_request( 'type' , $all_custom );
+			$type = WPAnyIpsumCore::get_request( 'type' , $all_custom );
 			$permalink_structure = get_option( 'permalink_structure' );
 
 			ob_start();
@@ -72,7 +61,7 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 							</tr>
 							<tr class="anyipsum-type">
 								<td class="anyipsum-left-cell"><?php _e( 'Type', 'any-ipsum' ); ?>:</td>
-								<td class="anyipsum-right-cell"><label><input type="radio" name="type" value="<?php echo esc_attr( $all_custom ); ?>" <?php checked( $all_custom, $type ); ?> /><?php echo esc_attr( $all_custom_text ) ?></label> <label><input type="radio" name="type" value="<?php echo esc_attr( $custom_and_filler ); ?>" <?php checked( $custom_and_filler, $type ); ?> /><?php echo esc_attr( $custom_and_filler_text ); ?></label></td>
+								<td class="anyipsum-right-cell"><label><input type="radio" name="type" value="<?php echo esc_attr( $all_custom ); ?>" <?php checked( $all_custom, $type ); ?> /><?php echo esc_attr( $all_custom_text ) ?></label> <label><input type="radio" name="type" value="<?php echo esc_attr( $custom_and_filler ); ?>" <?php checked( $custom_and_filler, $type ); ?> /><?php echo esc_attr( $custom_filler_text ); ?></label></td>
 							</tr>
 							<tr class="anyipsum-start-with">
 								<td class="anyipsum-left-cell"></td>

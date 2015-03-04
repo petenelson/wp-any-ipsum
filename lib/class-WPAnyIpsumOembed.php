@@ -31,20 +31,9 @@ if ( ! class_exists( 'WPAnyIpsumOEmbed' ) ) {
 		}
 
 
-		private function get_request( $key, $default = '', $filter = FILTER_SANITIZE_STRING ) {
-			foreach ( array( INPUT_GET, INPUT_POST ) as $input ) {
-				$value = filter_input( $input, $key, $filter );
-				if ( ! empty( $value ) ) {
-					return $value;
-				}
-			}
-			return $default;
-		}
-
-
 		private function handle_oembed_reques() {
 
-			$url = $this->get_request( 'url' );
+			$url = WPAnyIpsumCore::get_request( 'url' );
 
 			if ( ! empty( $url ) ) {
 

@@ -18,17 +18,6 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 		}
 
 
-		private function get_request( $key, $default = '', $filter = FILTER_SANITIZE_STRING ) {
-			foreach (array( INPUT_GET, INPUT_POST ) as $input) {
-				$value = filter_input( $input, $key, $filter );
-				if ( ! empty( $value ) ) {
-					return $value;
-				}
-			}
-			return $default;
-		}
-
-
 		function sniff_requests() {
 
 			if ( apply_filters( 'anyipsum-setting-is-enabled', false, 'anyipsum-settings-api', 'api-enabled' ) ) {
@@ -53,7 +42,7 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 
 		function handle_api_request() {
 
-			$type = $this->get_request( 'type' );
+			$type = WPAnyIpsumCore::get_request( 'type' );
 
 			if ( ! empty ( $type ) ) {
 
@@ -62,7 +51,7 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 				$args = apply_filters( 'anyipsum-parse-request-args', array() );
 				$paras = apply_filters( 'anyipsum-generate-filler', $args );
 
-				$callback = $this->get_request( 'callback' );
+				$callback = WPAnyIpsumCore::get_request( 'callback' );
 
 				if ( ! empty( $callback ) ) {
 					header( "Content-Type: application/javascript" );

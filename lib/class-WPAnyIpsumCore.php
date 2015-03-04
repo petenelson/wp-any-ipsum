@@ -19,7 +19,7 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 		}
 
 
-		private function get_request( $key, $default = '', $filter = FILTER_SANITIZE_STRING ) {
+		static public function get_request( $key, $default = '', $filter = FILTER_SANITIZE_STRING ) {
 			foreach (array( INPUT_GET, INPUT_POST ) as $input) {
 				$value = filter_input( $input, $key, $filter );
 				if ( ! empty( $value ) ) {
@@ -32,9 +32,9 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 
 		function parse_request_args( $args ) {
 
-			$args['type'] = $this->get_request( 'type' );
+			$args['type'] = WPAnyIpsumCore::get_request( 'type' );
 
-			$number_of_paragraphs = intval( $this->get_request( 'paras', 5 ) );
+			$number_of_paragraphs = intval( WPAnyIpsumCore::get_request( 'paras', 5 ) );
 
 			if ( $number_of_paragraphs < 1 )
 				$number_of_paragraphs = 1;
@@ -43,10 +43,10 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 				$number_of_paragraphs = 100;
 
 			$args['number-of-paragraphs'] = $number_of_paragraphs;
-			$args['start-with-lorem'] = $this->get_request( 'start-with-lorem' ) === '1';
+			$args['start-with-lorem'] = WPAnyIpsumCore::get_request( 'start-with-lorem' ) === '1';
 
 
-			$number_of_sentences = $this->get_request( 'sentences' );
+			$number_of_sentences = WPAnyIpsumCore::get_request( 'sentences' );
 			if ( ! empty( $number_of_sentences ) ) {
 
 				$number_of_sentences = intval( $number_of_sentences );
