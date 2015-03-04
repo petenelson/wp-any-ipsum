@@ -33,26 +33,26 @@ class WPAnyIpsumGenerator {
 	}
 
 
-	function get_words($type) {
+	function get_words( $type ) {
 
-		if ($type == $this->type_custom_and_filler)
-			$words = array_merge(empty($this->custom_words) ? $this->default_filler() : $this->custom_words, (empty($this->filler) ? $this->default_filler() : $this->filler));
+		if ( $type == $this->type_custom_and_filler )
+			$words = array_merge( empty( $this->custom_words ) ? $this->default_filler() : $this->custom_words, ( empty( $this->filler ) ? $this->default_filler() : $this->filler ) );
 		else
-			$words = empty($this->custom_words) ? $this->default_filler() : $this->custom_words;
+			$words = empty( $this->custom_words ) ? $this->default_filler() : $this->custom_words;
 
-		shuffle($words);
+		shuffle( $words );
 
 		return $words;
 
 	}
 
 
-	function make_a_sentence($type)	{
+	function make_a_sentence( $type ) {
 
-		if ($this->sentence_mode) {
+		if ( $this->sentence_mode ) {
 			// grab the first random sentence
-			$words = $this->get_words($type);
-			if (count($words) > 0)
+			$words = $this->get_words( $type );
+			if ( count( $words ) > 0 )
 				return $words[0];
 			else
 				return '';
@@ -61,25 +61,24 @@ class WPAnyIpsumGenerator {
 
 		// A sentence should be bewteen 4 and 15 words.
 		$sentence = '';
-		$length = rand(4, 15);
+		$length = rand( 4, 15 );
 
 		// Add a little more randomness to commas, about 2/3rds of the time
-		$includeComma = $length >= 7 && rand(0,2) > 0;
+		$includeComma = $length >= 7 && rand( 0, 2 ) > 0;
 
-		$words = $this->get_words($type);
+		$words = $this->get_words( $type );
 
-		if (count($words) > 0)
-		{
+		if ( count( $words ) > 0 ) {
 			// Capitalize the first word.
-			$words[0] =  ucfirst($words[0]);
+			$words[0] =  ucfirst( $words[0] );
 
-			for ($i = 0; $i < $length; $i++) {
+			for ( $i = 0; $i < $length; $i++ ) {
 
-				if ($i > 0) {
-					if ($i >= 3 && $i != $length - 1 && $includeComma) {
+				if ( $i > 0 ) {
+					if ( $i >= 3 && $i != $length - 1 && $includeComma ) {
 
-						if (rand(0,1) == 1) {
-							$sentence = rtrim($sentence) . ', ';
+						if ( rand( 0, 1 ) == 1 ) {
+							$sentence = rtrim( $sentence ) . ', ';
 							$includeComma = false;
 						}
 						else
@@ -93,7 +92,7 @@ class WPAnyIpsumGenerator {
 				$sentence .= $words[$i];
 			}
 
-			$sentence = rtrim($sentence) . '. ';
+			$sentence = rtrim( $sentence ) . '. ';
 
 		}
 
@@ -102,16 +101,16 @@ class WPAnyIpsumGenerator {
 	}
 
 
-	function make_a_paragraph($type)	{
+	function make_a_paragraph( $type ) {
 		// A paragraph should be bewteen 4 and 7 sentences.
 
 		$para = '';
-		$length = rand(4, 7);
+		$length = rand( 4, 7 );
 
-		for ($i = 0; $i < $length; $i++)
-			$para .= $this->make_a_sentence($type) . ' ';
+		for ( $i = 0; $i < $length; $i++ )
+			$para .= $this->make_a_sentence( $type ) . ' ';
 
-		return rtrim($para);
+		return rtrim( $para );
 
 	}
 
@@ -120,32 +119,32 @@ class WPAnyIpsumGenerator {
 		$type = '',
 		$number_of_paragraphs = 5,
 		$start_with_lorem = true,
-		$number_of_sentences = 0) {
+		$number_of_sentences = 0 ) {
 
-		if (empty($type))
+		if ( empty( $type ) )
 			$type = $this->type_custom_and_filler;
 
 		$paragraphs = array();
-		if ($number_of_sentences > 0)
+		if ( $number_of_sentences > 0 )
 			$number_of_paragraphs = 1;
 
 		$words = '';
 
-		for ($i = 0; $i < $number_of_paragraphs; $i++) {
+		for ( $i = 0; $i < $number_of_paragraphs; $i++ ) {
 
-			if ($number_of_sentences > 0) {
-				for ($s = 0; $s < $number_of_sentences; $s++)
-					$words .= $this->make_a_sentence($type);
+			if ( $number_of_sentences > 0 ) {
+				for ( $s = 0; $s < $number_of_sentences; $s++ )
+					$words .= $this->make_a_sentence( $type );
 			}
 			else
-				$words = $this->Make_a_Paragraph($type);
+				$words = $this->Make_a_Paragraph( $type );
 
-			if ($i == 0 && $start_with_lorem && count($words) > 0) {
-				$words[0] = strtolower($words[0]);
-				$words = (empty($this->start_with) ? 'Lorem ipsum dolor amet' : $this->start_with) . ' ' . $words;
+			if ( $i == 0 && $start_with_lorem && count( $words ) > 0 ) {
+				$words[0] = strtolower( $words[0] );
+				$words = ( empty( $this->start_with ) ? 'Lorem ipsum dolor amet' : $this->start_with ) . ' ' . $words;
 			}
 
-			$paragraphs[]  = rtrim($words);
+			$paragraphs[]  = rtrim( $words );
 
 		}
 
@@ -154,7 +153,7 @@ class WPAnyIpsumGenerator {
 	}
 
 
-	public function default_custom () {
+	public function default_custom() {
 
 		return array(
 			'beef',
@@ -219,7 +218,7 @@ class WPAnyIpsumGenerator {
 			'kevin',
 			'landjaeger',
 			'porchetta'
-			);
+		);
 
 	}
 
@@ -227,73 +226,73 @@ class WPAnyIpsumGenerator {
 	function default_filler() {
 
 		return array(
-				'lorem',
-				'ipsum',
-				'consectetur',
-				'adipisicing',
-				'elit',
-				'sed',
-				'do',
-				'eiusmod',
-				'tempor',
-				'incididunt',
-				'ut',
-				'labore',
-				'et',
-				'dolore',
-				'magna',
-				'aliqua',
-				'ut',
-				'enim',
-				'ad',
-				'minim',
-				'veniam',
-				'quis',
-				'nostrud',
-				'exercitation',
-				'ullamco',
-				'laboris',
-				'nisi',
-				'ut',
-				'aliquip',
-				'ex',
-				'ea',
-				'commodo',
-				'consequat',
-				'duis',
-				'aute',
-				'irure',
-				'dolor',
-				'in',
-				'reprehenderit',
-				'in',
-				'voluptate',
-				'velit',
-				'esse',
-				'cillum',
-				'dolore',
-				'eu',
-				'fugiat',
-				'nulla',
-				'pariatur',
-				'excepteur',
-				'sint',
-				'occaecat',
-				'cupidatat',
-				'non',
-				'proident',
-				'sunt',
-				'in',
-				'culpa',
-				'qui',
-				'officia',
-				'deserunt',
-				'mollit',
-				'anim',
-				'id',
-				'est',
-				'laborum'
-			);
+			'lorem',
+			'ipsum',
+			'consectetur',
+			'adipisicing',
+			'elit',
+			'sed',
+			'do',
+			'eiusmod',
+			'tempor',
+			'incididunt',
+			'ut',
+			'labore',
+			'et',
+			'dolore',
+			'magna',
+			'aliqua',
+			'ut',
+			'enim',
+			'ad',
+			'minim',
+			'veniam',
+			'quis',
+			'nostrud',
+			'exercitation',
+			'ullamco',
+			'laboris',
+			'nisi',
+			'ut',
+			'aliquip',
+			'ex',
+			'ea',
+			'commodo',
+			'consequat',
+			'duis',
+			'aute',
+			'irure',
+			'dolor',
+			'in',
+			'reprehenderit',
+			'in',
+			'voluptate',
+			'velit',
+			'esse',
+			'cillum',
+			'dolore',
+			'eu',
+			'fugiat',
+			'nulla',
+			'pariatur',
+			'excepteur',
+			'sint',
+			'occaecat',
+			'cupidatat',
+			'non',
+			'proident',
+			'sunt',
+			'in',
+			'culpa',
+			'qui',
+			'officia',
+			'deserunt',
+			'mollit',
+			'anim',
+			'id',
+			'est',
+			'laborum'
+		);
 
 	}
 
