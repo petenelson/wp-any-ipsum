@@ -53,16 +53,30 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 			$args = wp_parse_args( $args, $this->default_generator_args() );
 
 			$args['paras'] = intval( $args['paras'] );
+			$args['start-with-lorem'] = ! empty( $args['start-with-lorem'] ) && $args['start-with-lorem'] === '1';
+
+			$args = $this->sanitize_args( $args );
+
+			if ( empty( $args['number-of-paragraphs'] ) ) {
+				$args['number-of-paragraphs'] = $args['paras'];
+			}
+
+			if ( empty( $args['number-of-sentences'] ) ) {
+				$args['number-of-sentences'] = $args['sentences'];
+			}
+
+			return $args;
+
+		}
+
+
+		private function sanitize_args( $args ) {
 
 			if ( $args['paras'] < 1 )
 				$args['paras'] = 1;
 
 			if ( $args['paras'] > 100 )
 				$args['paras'] = 100;
-
-
-			$args['number-of-paragraphs'] = $args['paras'];
-			$args['start-with-lorem'] = ! empty( $args['start-with-lorem'] ) && $args['start-with-lorem'] === '1';
 
 
 			if ( ! empty( $args['sentences'] ) ) {
@@ -77,16 +91,7 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 
 			}
 
-			if ( empty( $args['number-of-paragraphs'] ) ) {
-				$args['number-of-paragraphs'] = $args['paras'];
-			}
-
-			if ( empty( $args['number-of-sentences'] ) ) {
-				$args['number-of-sentences'] = $args['sentences'];
-			}
-
 			return $args;
-
 		}
 
 
