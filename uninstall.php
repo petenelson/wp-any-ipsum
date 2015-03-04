@@ -1,6 +1,5 @@
 <?php
-if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
-    exit();
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) wp_die( 'restricted access' );
 
 $keys = array(
 	'anyipsum-settings-general',

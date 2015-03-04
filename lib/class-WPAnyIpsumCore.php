@@ -7,44 +7,54 @@ Exposes filters used by other classes
 
 */
 
-if (!defined( 'ABSPATH' )) exit('restricted access');
+if ( ! defined( 'ABSPATH' ) ) wp_die( 'restricted access' );
 
-if (!class_exists('WPAnyIpsumCore')) {
+if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 
 	class WPAnyIpsumCore {
 
 		public function plugins_loaded() {
-			add_filter( 'anyipsum-generate-filler', array($this, 'generate_filler') );
-			add_filter( 'anyipsum-parse-request-args', array($this, 'parse_request_args') );
+			add_filter( 'anyipsum-generate-filler', array( $this, 'generate_filler' ) );
+			add_filter( 'anyipsum-parse-request-args', array( $this, 'parse_request_args' ) );
 		}
 
 
-		function parse_request_args($args) {
+		private function get_request( $key, $default = '', $filter = FILTER_SANITIZE_STRING ) {
+			foreach (array( INPUT_GET, INPUT_POST ) as $input) {
+				$value = filter_input( $input, $key, $filter );
+				if ( ! empty( $value ) ) {
+					return $value;
+				}
+			}
+			return $default;
+		}
 
-			$args['type'] = filter_var( $_REQUEST["type"], FILTER_SANITIZE_STRING );
 
-			$number_of_paragraphs = 5;
-			if ( !empty( $_REQUEST["paras"] ) )
-				$number_of_paragraphs = intval( $_REQUEST["paras"] );
+		function parse_request_args( $args ) {
 
-			if ($number_of_paragraphs < 1)
+			$args['type'] = $this->get_request( 'type' );
+
+			$number_of_paragraphs = intval( $this->get_request( 'paras', 5 ) );
+
+			if ( $number_of_paragraphs < 1 )
 				$number_of_paragraphs = 1;
 
-			if ($number_of_paragraphs > 100)
+			if ( $number_of_paragraphs > 100 )
 				$number_of_paragraphs = 100;
 
 			$args['number-of-paragraphs'] = $number_of_paragraphs;
-			$args['start-with-lorem'] = !empty($_REQUEST["start-with-lorem"]) && '1' === $_REQUEST["start-with-lorem"];
+			$args['start-with-lorem'] = $this->get_request( 'start-with-lorem' ) === '1';
 
 
-			if ( !empty( $_REQUEST["sentences"] ) ) {
+			$number_of_sentences = $this->get_request( 'sentences' );
+			if ( ! empty( $number_of_sentences ) ) {
 
-				$number_of_sentences = intval( $_REQUEST["sentences"] );
+				$number_of_sentences = intval( $number_of_sentences );
 
-				if ($number_of_sentences < 1)
+				if ( $number_of_sentences < 1 )
 					$number_of_sentences = 1;
 
-				if ($number_of_sentences > 100)
+				if ( $number_of_sentences > 100 )
 					$number_of_sentences = 100;
 
 				$args['number-of-sentences'] = $number_of_sentences;
@@ -57,7 +67,7 @@ if (!class_exists('WPAnyIpsumCore')) {
 		}
 
 
-		function generate_filler($args) {
+		function generate_filler( $args ) {
 
 			$args = wp_parse_args( $args, array(
 					'type' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' ),
@@ -67,15 +77,15 @@ if (!class_exists('WPAnyIpsumCore')) {
 				)
 			);
 
-			if (class_exists('WPAnyIpsumGenerator')) {
+			if ( class_exists( 'WPAnyIpsumGenerator' ) ) {
 
 				$generator = new WPAnyIpsumGenerator();
-				$generator->custom_words 			= $this->get_words( 'custom-words' );
-				$generator->filler 					= $this->get_words( 'filler-words' );
-				$generator->start_with 				= apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'start-with' );
-				$generator->type_all_custom 		= apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' );
-				$generator->type_custom_and_filler 	= apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' );
-				$generator->sentence_mode 			= apply_filters( 'anyipsum-setting-get', false, 'anyipsum-settings-custom-filler', 'sentence-mode' );
+				$generator->custom_words    = $this->get_words( 'custom-words' );
+				$generator->filler      = $this->get_words( 'filler-words' );
+				$generator->start_with     = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'start-with' );
+				$generator->type_all_custom   = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' );
+				$generator->type_custom_and_filler  = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' );
+				$generator->sentence_mode    = apply_filters( 'anyipsum-setting-get', false, 'anyipsum-settings-custom-filler', 'sentence-mode' );
 
 				return $generator->Make_Some_Custom_Filler(
 					$args['type'],
@@ -91,10 +101,10 @@ if (!class_exists('WPAnyIpsumCore')) {
 		}
 
 
-		function get_words($type) {
+		private function get_words( $type ) {
 			$words = apply_filters( 'anyipsum-setting-get', array(), 'anyipsum-settings-custom-filler', $type );
-			if (!empty($words))
-				$words = explode("\n", $words);
+			if ( !empty( $words ) )
+				$words = explode( "\n", $words );
 			return $words;
 		}
 

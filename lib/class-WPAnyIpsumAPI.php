@@ -7,32 +7,45 @@ Exposes a JSON API endpoint
 
 */
 
-if (!defined( 'ABSPATH' )) exit('restricted access');
+if ( !defined( 'ABSPATH' ) ) wp_die( 'restricted access' );
 
-if (!class_exists('WPAnyIpsumAPI')) {
+if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 
 	class WPAnyIpsumAPI {
 
 		public function plugins_loaded() {
-			add_action('parse_request', array($this, 'sniff_requests'), 0);
+			add_action( 'parse_request', array( $this, 'sniff_requests' ), 0 );
+		}
+
+
+		private function get_request( $key, $default = '', $filter = FILTER_SANITIZE_STRING ) {
+			foreach (array( INPUT_GET, INPUT_POST ) as $input) {
+				$value = filter_input( $input, $key, $filter );
+				if ( ! empty( $value ) ) {
+					return $value;
+				}
+			}
+			return $default;
 		}
 
 
 		function sniff_requests() {
 
-			if (apply_filters( 'anyipsum-setting-is-enabled', false, 'anyipsum-settings-api', 'api-enabled' )) {
+			if ( apply_filters( 'anyipsum-setting-is-enabled', false, 'anyipsum-settings-api', 'api-enabled' ) ) {
 
 				global $wp;
 
 				$pagename = '';
-				if (!empty($wp->query_vars['name']))
+				if ( !empty( $wp->query_vars['name'] ) )
 					$pagename = $wp->query_vars['name'];
 
-				if (!empty($wp->query_vars['pagename']))
+				if ( !empty( $wp->query_vars['pagename'] ) )
 					$pagename = $wp->query_vars['pagename'];
 
-				if( strtolower($pagename) === strtolower(apply_filters( 'anyipsum-setting-get', 'api', 'anyipsum-settings-api', 'api-endpoint' )) )
+				if ( strtolower( $pagename ) === strtolower( apply_filters( 'anyipsum-setting-get', 'api', 'anyipsum-settings-api', 'api-endpoint' ) ) ) {
 					$this->handle_api_request();
+				}
+
 			}
 
 		}
@@ -40,21 +53,24 @@ if (!class_exists('WPAnyIpsumAPI')) {
 
 		function handle_api_request() {
 
-			if (isset($_REQUEST["type"])) {
+			$type = $this->get_request( 'type' );
+
+			if ( ! empty ( $type ) ) {
+
+				header( 'Access-Control-Allow-Origin: *' );
 
 				$args = apply_filters( 'anyipsum-parse-request-args', array() );
-
 				$paras = apply_filters( 'anyipsum-generate-filler', $args );
 
-				header('Access-Control-Allow-Origin: *');
+				$callback = $this->get_request( 'callback' );
 
-				if (isset($_REQUEST["callback"])) {
-					header("Content-Type: application/javascript");
-					echo $_GET['callback'] . '(' . json_encode($paras) . ');';
+				if ( ! empty( $callback ) ) {
+					header( "Content-Type: application/javascript" );
+					echo $callback . '(' . json_encode( $paras ) . ');';
 				}
 				else {
-					header("Content-Type: application/json; charset=utf-8");
-					echo json_encode($paras);
+					header( "Content-Type: application/json; charset=utf-8" );
+					echo json_encode( $paras );
 				}
 
 				exit;
@@ -67,4 +83,3 @@ if (!class_exists('WPAnyIpsumAPI')) {
 	}
 
 }
-
