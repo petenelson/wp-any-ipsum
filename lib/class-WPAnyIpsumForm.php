@@ -20,15 +20,60 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 
 		function shortcode_form( $atts, $content ) {
 
-			$output = '';
+			// generate form template
+			$form = $this->form_template( $content );
 
-			$ipsum_name = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'name' );
-			$start_with = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'start-with' );
-			$all_custom = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' );
+			// for customizing/overriding form
+			$form = apply_filters( 'anyipsum-form', $form );
+
+			$output = $this->add_generated_output();
+
+			return do_shortcode( $output . $form );
+
+		}
+
+
+		private function add_generated_output() {
+
+			$output = '';
+			$type = WPAnyIpsumCore::get_request( 'type' );
+
+			if ( ! empty( $type ) ) {
+
+				$args = apply_filters( 'anyipsum-parse-request-args', $_SERVER['QUERY_STRING'] );
+
+				$paragraphs = apply_filters( 'anyipsum-generate-filler', $args );
+
+				$output = '<div class="anyipsum-output">';
+				foreach ( $paragraphs as $paragraph )
+					$output .= '<p>' . $paragraph . '</p>';
+
+				$output .= '</div>';
+
+				// customize/override output
+				$output = apply_filters( 'anyipsum-form-output', $output, $paragraphs );
+
+			}
+
+			return $output;
+
+		}
+
+
+		private function form_template( $content ) {
+
+
+			$permalink_structure = get_option( 'permalink_structure' );
+
+			// TODO refactor this into one get_options call?
+			$custom_filler_text = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'custom-and-filler-text' );
 			$custom_and_filler = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' );
 			$all_custom_text = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'all-custom-text' );
-			$custom_filler_text = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'custom-and-filler-text' );
+			$all_custom = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' );
 			$button_text = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'button-text' );
+			$start_with = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'start-with' );
+			$ipsum_name = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'name' );
+
 
 			if ( empty( $ipsum_name ) )
 				$ipsum_name = 'Lorem';
@@ -37,18 +82,15 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 				$start_with = 'Lorem ipsum dolor amet';
 
 			$type = WPAnyIpsumCore::get_request( 'type' , $all_custom );
-			$permalink_structure = get_option( 'permalink_structure' );
+
 
 			ob_start();
 
-			if ( !empty( $content ) && ! empty( $type ) ) {
-?>
+			if ( ! empty( $content ) && ! empty( $type ) )  {?>
 					<div class="anyipsum-form-header"><?php echo do_shortcode( $content ); ?>
 				<?php
-			}
+			} ?>
 
-
-?>
 				<form class="anyipsum-form" action="" method="get">
 					<?php if ( is_singular() && empty( $permalink_structure ) ) { ?>
 					<input type="hidden" name="p" value="<?php echo esc_attr( get_the_id() ); ?>" />
@@ -79,29 +121,7 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 			$form = ob_get_contents();
 			ob_end_clean();
 
-			// for customizing/overriding form
-			$form = apply_filters( 'anyipsum-form', $form );
-
-			$type = WPAnyIpsumCore::get_request( 'type' );
-
-			if ( ! empty( $type ) ) {
-
-				$args = apply_filters( 'anyipsum-parse-request-args', $_SERVER['QUERY_STRING'] );
-
-				$paragraphs = apply_filters( 'anyipsum-generate-filler', $args );
-
-				$output = '<div class="anyipsum-output">';
-				foreach ( $paragraphs as $paragraph )
-					$output .= '<p>' . $paragraph . '</p>';
-
-				$output .= '</div>';
-
-				// customize/override output
-				$output = apply_filters( 'anyipsum-form-output', $output, $paragraphs );
-
-			}
-
-			return do_shortcode( $output . $form );
+			return $form;
 
 		}
 
