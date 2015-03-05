@@ -59,8 +59,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-* Initial release
+= v1.2.1 March 4, 2015 =
+* Code refactoring to use filter_input() and better WordPress coding standards
+* Fixed activation bug that was not setting up the initial oEmbed settings
 
 
 == Frequently Asked Questions ==
