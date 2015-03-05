@@ -28,9 +28,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 == Installation ==
 
 1. Upload the wp-any-ipsum directory to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place the `[anyipsum-form]` shortcode in a page or post
-1. Check Settings/Any Ipsum to fully customize your ipsum
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Place the `[anyipsum-form]` shortcode in a page or post
+4. Check Settings/Any Ipsum to fully customize your ipsum
 
 
 == Changelog ==

@@ -1,31 +1,27 @@
+# Any Ipsum
 WordPress plugin to roll your own custom lorem ipsum generator - forked from Bacon Ipsum
 
 [![Code Climate](https://codeclimate.com/github/petenelson/wp-any-ipsum/badges/gpa.svg)](https://codeclimate.com/github/petenelson/wp-any-ipsum)
 
-= What's in here? =
+## What's in here?
 
-wp-anyipsum.php - WordPress plugin wrapper (loades classes, registers core hooks, etc)
+- **wp-anyipsum.php** - WordPress plugin wrapper (loades classes, registers core hooks, etc)
+- **readme.txt** - Info for the WordPress repo
+- **uninstall.php** - WordPress uninstall code
+- **assets/** - Assets for the WordPress plugin repository
+- **lang** - For future translastions
+- **lib/**
+  - **admin-help** - Help page for the plugin
+  - **default-custom.txt** - Default custom text (meat)
+  - **default-filler.txt** - Default filler text (lorem ipsum)
+  - **class-WPAnyIpsumCore.php** - Exposes filters used by other classes
+  - **class-WPAnyIpsumForm.php** - Shortcode for generating the form to allow visitors to generate your custom filler
+  - **class-WPAnyIpsumSettings.php** - Admin settings for managing your custom filler text
+  - **class-WPAnyIpsumAPI.php** - JSON API endpoint
+  - **class-WPAnyIpsumOembed.php** - oEmbed endpoint
+  - **class-WPAnyIpsumGenerator.php** - The WPAnyIpsumGenerator class for generating custom filler text.
 
-lib/class-WPAnyIpsumCore.php - Exposes filters used by other classes
-
-lib/class-WPAnyIpsumForm.php - Shortcode for generating the form to allow visitors to generate your custom filler
-
-lib/class-WPAnyIpsumSettings.php - Admin settings for managing your custom filler text
-
-lib/class-WPAnyIpsumAPI.php - JSON API endpoint
-
-lib/class-WPAnyIpsumOembed.php - oEmbed endpoint
-
-lib/class-WPAnyIpsumGenerator.php - The WPAnyIpsumGenerator class for generating custom filler text.
-
-readme.txt - Info for the WordPress repo
-
-assets - Screenshots for the WordPress repo
-
-lang - For future translastions
-
-
-Revision History
+## Revision History
 
 = v1.2.1 March 4, 2015 =
 * Code refactoring to use filter_input() and better WordPress coding standards
