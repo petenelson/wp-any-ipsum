@@ -25,7 +25,7 @@ class WPAnyIpsumGenerator {
 	public $type_custom_and_filler;
 	public $sentence_mode;
 
-	function __constructor() {
+	public function __constructor() {
 		$this->custom_words = array();
 		$this->filler = array();
 		$this->start_with = '';
@@ -33,7 +33,7 @@ class WPAnyIpsumGenerator {
 	}
 
 
-	function get_words( $type ) {
+	private function get_words( $type ) {
 
 		if ( $type == $this->type_custom_and_filler )
 			$words = array_merge( empty( $this->custom_words ) ? $this->default_filler() : $this->custom_words, ( empty( $this->filler ) ? $this->default_filler() : $this->filler ) );
@@ -47,7 +47,7 @@ class WPAnyIpsumGenerator {
 	}
 
 
-	function make_a_sentence( $type ) {
+	private function make_a_sentence( $type ) {
 
 		if ( $this->sentence_mode ) {
 			// grab the first random sentence
@@ -101,7 +101,7 @@ class WPAnyIpsumGenerator {
 	}
 
 
-	function make_a_paragraph( $type ) {
+	private function make_a_paragraph( $type ) {
 		// A paragraph should be bewteen 4 and 7 sentences.
 
 		$para = '';
@@ -121,12 +121,14 @@ class WPAnyIpsumGenerator {
 		$start_with_lorem = true,
 		$number_of_sentences = 0 ) {
 
-		if ( empty( $type ) )
+		if ( empty( $type ) ) {
 			$type = $this->type_custom_and_filler;
+		}
 
 		$paragraphs = array();
-		if ( $number_of_sentences > 0 )
+		if ( $number_of_sentences > 0 ) {
 			$number_of_paragraphs = 1;
+		}
 
 		$words = '';
 
@@ -136,8 +138,9 @@ class WPAnyIpsumGenerator {
 				for ( $s = 0; $s < $number_of_sentences; $s++ )
 					$words .= $this->make_a_sentence( $type );
 			}
-			else
+			else {
 				$words = $this->Make_a_Paragraph( $type );
+			}
 
 			if ( $i == 0 && $start_with_lorem && count( $words ) > 0 ) {
 				$words[0] = strtolower( $words[0] );
@@ -154,146 +157,12 @@ class WPAnyIpsumGenerator {
 
 
 	public function default_custom() {
-
-		return array(
-			'beef',
-			'chicken',
-			'pork',
-			'bacon',
-			'chuck',
-			'short loin',
-			'sirloin',
-			'shank',
-			'flank',
-			'sausage',
-			'pork belly',
-			'shoulder',
-			'cow',
-			'pig',
-			'ground round',
-			'hamburger',
-			'meatball',
-			'tenderloin',
-			'strip steak',
-			't-bone',
-			'ribeye',
-			'shankle',
-			'tongue',
-			'tail',
-			'pork chop',
-			'pastrami',
-			'corned beef',
-			'jerky',
-			'ham',
-			'fatback',
-			'ham hock',
-			'pancetta',
-			'pork loin',
-			'short ribs',
-			'spare ribs',
-			'beef ribs',
-			'drumstick',
-			'tri-tip',
-			'ball tip',
-			'venison',
-			'turkey',
-			'biltong',
-			'rump',
-			'jowl',
-			'salami',
-			'bresaola',
-			'meatloaf',
-			'brisket',
-			'boudin',
-			'andouille',
-			'capicola',
-			'swine',
-			'kielbasa',
-			'frankfurter',
-			'prosciutto',
-			'filet mignon',
-			'leberkas',
-			'turducken',
-			'doner',
-			'kevin',
-			'landjaeger',
-			'porchetta'
-		);
-
+		return explode( "\n", file_get_contents( plugin_dir_url( __FILE__ ) . 'default-custom.txt' ) );
 	}
 
 
-	function default_filler() {
-
-		return array(
-			'lorem',
-			'ipsum',
-			'consectetur',
-			'adipisicing',
-			'elit',
-			'sed',
-			'do',
-			'eiusmod',
-			'tempor',
-			'incididunt',
-			'ut',
-			'labore',
-			'et',
-			'dolore',
-			'magna',
-			'aliqua',
-			'ut',
-			'enim',
-			'ad',
-			'minim',
-			'veniam',
-			'quis',
-			'nostrud',
-			'exercitation',
-			'ullamco',
-			'laboris',
-			'nisi',
-			'ut',
-			'aliquip',
-			'ex',
-			'ea',
-			'commodo',
-			'consequat',
-			'duis',
-			'aute',
-			'irure',
-			'dolor',
-			'in',
-			'reprehenderit',
-			'in',
-			'voluptate',
-			'velit',
-			'esse',
-			'cillum',
-			'dolore',
-			'eu',
-			'fugiat',
-			'nulla',
-			'pariatur',
-			'excepteur',
-			'sint',
-			'occaecat',
-			'cupidatat',
-			'non',
-			'proident',
-			'sunt',
-			'in',
-			'culpa',
-			'qui',
-			'officia',
-			'deserunt',
-			'mollit',
-			'anim',
-			'id',
-			'est',
-			'laborum'
-		);
-
+	public function default_filler() {
+		return explode( "\n", file_get_contents( plugin_dir_url( __FILE__ ) .  'default-filler.txt' ) );
 	}
 
 
