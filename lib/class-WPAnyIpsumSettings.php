@@ -167,10 +167,16 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			add_settings_field( $section .'-enabled', __( 'Enabled', 'any-ipsum' ), array( $this, 'settings_yes_no' ), $key, $section,
 				array( 'key' => $key, 'name' => $section .'-enabled' ) );
 
-			$permalink_structure = get_option( 'permalink_structure' );
-			$permalink_warning = empty( $permalink_structure ) ? ' ' . __( '(please enable any non-default Permalink structure)', 'any-ipsum' ) : '';
+			$permalink_warning = empty( get_option( 'permalink_structure' ) ) ? ' ' . __( '(please enable any non-default Permalink structure)', 'any-ipsum' ) : '';
 
-			$after ='';
+			$after = $this->get_api_oembed_after( $section );
+
+			add_settings_field( $section .'-endpoint', __( $name .' Page Name', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
+				array( 'key' => $key, 'name' => $section .'-endpoint', 'size' => 20, 'maxlength' => 50, 'after' => $after . $permalink_warning ) );
+		}
+
+
+		private function get_api_oembed_after( $section ) {
 			switch ( $section ) {
 				case 'oembed':
 					$after = __( 'Example: oembed, ipsum-oembed', 'any-ipsum' );
@@ -178,10 +184,11 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 				case 'api':
 					$after = __( 'Example: api, ipsum-api, etc', 'any-ipsum');
 					break;
+				default:
+					$after = '';
+					break;
 			}
-
-			add_settings_field( $section .'-endpoint', __( $name .' Page Name', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
-				array( 'key' => $key, 'name' => $section .'-endpoint', 'size' => 20, 'maxlength' => 50, 'after' => $after . $permalink_warning ) );
+			return $after;
 		}
 
 
