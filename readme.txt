@@ -73,4 +73,4 @@ We can answer them here!
 
 1. Configure your custom ipsum
 2. Sample form
-2. Sample output
+3. Sample output
