@@ -330,7 +330,8 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			</div>
 			<?php
 
-			if ( ! empty( filter_input( INPUT_GET, 'settings-updated', FILTER_SANITIZE_STRING ) ) ) {
+			$settings_updated = filter_input( INPUT_GET, 'settings-updated', FILTER_SANITIZE_STRING );
+			if ( ! empty( $settings_updated ) ) {
 				flush_rewrite_rules( );
 			}
 
