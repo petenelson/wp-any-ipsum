@@ -21,8 +21,7 @@ class WPAnyIpsumGenerator {
 	public $custom_words;
 	public $filler;
 	public $start_with;
-	public $type_all_custom;
-	public $type_custom_and_filler;
+	public $custom_and_filler;
 	public $sentence_mode;
 
 	public function __constructor() {
@@ -35,10 +34,11 @@ class WPAnyIpsumGenerator {
 
 	private function get_words( $type ) {
 
-		if ( $type == $this->type_custom_and_filler )
+		if ( $type == $this->custom_and_filler ) {
 			$words = array_merge( empty( $this->custom_words ) ? $this->default_filler() : $this->custom_words, ( empty( $this->filler ) ? $this->default_filler() : $this->filler ) );
-		else
+		} else {
 			$words = empty( $this->custom_words ) ? $this->default_filler() : $this->custom_words;
+		}
 
 		shuffle( $words );
 
@@ -122,7 +122,7 @@ class WPAnyIpsumGenerator {
 		$number_of_sentences = 0 ) {
 
 		if ( empty( $type ) ) {
-			$type = $this->type_custom_and_filler;
+			$type = $this->custom_and_filler;
 		}
 
 		$paragraphs = array();
