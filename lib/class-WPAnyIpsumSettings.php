@@ -178,7 +178,7 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 					break;
 			}
 
-			add_settings_field( $section .'-endpoint', __( $section .' Page Name', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
+			add_settings_field( $section .'-endpoint', __( $name .' Page Name', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
 				array( 'key' => $key, 'name' => $section .'-endpoint', 'size' => 20, 'maxlength' => 50, 'after' => $after . $permalink_warning ) );
 		}
 
@@ -355,7 +355,11 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 				$endpoint = $this->setting_get( '', $this->settings_key_api, 'api-endpoint' );
 				if ( !empty( $endpoint ) ) {
 					$output .= '<br/>' . __( 'Example', 'any-ipsum' ) . ': ';
-					$url = home_url( $endpoint ) . '?type=' . esc_attr( apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' ) ) . '&amp;paras=3&amp;start-with-lorem=1';
+					$url = add_query_arg( array(
+						'type' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' ),
+						'start-with-lorem' => 1,
+					), site_url( $endpoint . '/' ) );
+
 					$output .= '<a target="_blank" href="' . $url . '">' . $url . '</a>';
 				}
 				break;

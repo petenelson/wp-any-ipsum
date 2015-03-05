@@ -41,9 +41,7 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 		}
 
 
-
-
-		function parse_request_args( $args ) {
+		public function parse_request_args( $args ) {
 
 			// if this is a URL, grab the query string parameters
 			if ( ! empty( $args ) && is_string( $args ) && strpos( $args, '?' ) ) {
@@ -95,7 +93,7 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 		}
 
 
-		function generate_filler( $args ) {
+		public function generate_filler( $args ) {
 
 			$args = wp_parse_args( $args, $this->default_generator_args() );
 

@@ -14,29 +14,25 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 	class WPAnyIpsumAPI {
 
 		public function plugins_loaded() {
-			add_action( 'parse_request', array( $this, 'sniff_requests' ), 0 );
+			add_action( 'init', array( $this, 'register_rewrites' ) );
+			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
+		}
+
+		public function register_rewrites() {
+			$enabled = apply_filters( 'anyipsum-setting-is-enabled', false, 'anyipsum-settings-api', 'api-enabled' );
+			$endpoint = sanitize_key( apply_filters( 'anyipsum-setting-get', 'api', 'anyipsum-settings-api', 'api-endpoint' ) );
+			if ( $enabled && ! empty( $endpoint ) ) {
+				add_rewrite_tag( '%any-ipsum-api-request%', '1' );
+				add_rewrite_rule( $endpoint . '?', 'index.php?any-ipsum-api-request=1', 'top' );
+			}
 		}
 
 
-		function sniff_requests() {
-
-			if ( apply_filters( 'anyipsum-setting-is-enabled', false, 'anyipsum-settings-api', 'api-enabled' ) ) {
-
-				global $wp;
-
-				$pagename = '';
-				if ( !empty( $wp->query_vars['name'] ) )
-					$pagename = $wp->query_vars['name'];
-
-				if ( !empty( $wp->query_vars['pagename'] ) )
-					$pagename = $wp->query_vars['pagename'];
-
-				if ( strtolower( $pagename ) === strtolower( apply_filters( 'anyipsum-setting-get', 'api', 'anyipsum-settings-api', 'api-endpoint' ) ) ) {
-					$this->handle_api_request();
-				}
-
+		public function template_redirect() {
+			global $wp_query;
+			if ( $wp_query->get( 'any-ipsum-api-request' ) === '1' ) {
+				$this->handle_api_request();
 			}
-
 		}
 
 

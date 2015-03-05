@@ -7,7 +7,27 @@ if ( ! class_exists( 'WPAnyIpsumOEmbed' ) ) {
 	class WPAnyIpsumOEmbed {
 
 		public function plugins_loaded() {
-			add_action( 'parse_request', array( $this, 'sniff_requests' ), 0 );
+		}
+
+		public function register_rewrites() {
+			$enabled = apply_filters( 'anyipsum-setting-is-enabled', false, 'anyipsum-settings-oembed', 'oembed-enabled' );
+			$endpoint = sanitize_key( apply_filters( 'anyipsum-setting-get', 'api', 'anyipsum-settings-oembed', 'oembed-endpoint' ) );
+			if ( $enabled && ! empty( $endpoint ) ) {
+				add_rewrite_tag( '%any-ipsum-api-request%', '1' );
+				//add_rewrite_rule( 'hello-world'. '?', 'index.php?any-ipsum-api-request=1', 'top' );
+			}
+		}
+
+		public function template_redirect() {
+
+				global $wp_query;
+				$action = $wp_query->get( 'gga-image-api-action' );
+
+				var_dump($action);
+
+				die();
+
+
 		}
 
 
