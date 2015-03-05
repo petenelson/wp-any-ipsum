@@ -62,34 +62,31 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 
 		private function form_template( $content ) {
 
+			$settings = $this->get_settings();
+			$type = WPAnyIpsumCore::get_request( 'type' , $settings['all_custom'] );
+
+			if ( empty( $settings['ipsum_name'] ) ) {
+				$settings['ipsum_name'] = 'Lorem';
+			}
+
+			if ( empty( $settings['start_with'] ) ) {
+				$settings['start_with'] = 'Lorem ipsum dolor amet';
+			}
+
+			return $this->form_template_html( $content, $type, $settings );
+
+		}
+
+
+		private function form_template_html( $content, $type, $settings ) {
 
 			$permalink_structure = get_option( 'permalink_structure' );
 
-			// TODO refactor this into one get_options call?
-			$custom_filler_text = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'custom-and-filler-text' );
-			$custom_and_filler = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' );
-			$all_custom_text = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'all-custom-text' );
-			$all_custom = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' );
-			$button_text = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'button-text' );
-			$start_with = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'start-with' );
-			$ipsum_name = apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'name' );
-
-
-			if ( empty( $ipsum_name ) )
-				$ipsum_name = 'Lorem';
-
-			if ( empty( $start_with ) )
-				$start_with = 'Lorem ipsum dolor amet';
-
-			$type = WPAnyIpsumCore::get_request( 'type' , $all_custom );
-
-
 			ob_start();
 
-			if ( ! empty( $content ) && ! empty( $type ) )  {?>
-					<div class="anyipsum-form-header"><?php echo do_shortcode( $content ); ?>
-				<?php
-			} ?>
+			if ( ! empty( $content ) && ! empty( $type ) ) { ?>
+				<div class="anyipsum-form-header"><?php echo do_shortcode( $content ); ?>
+			<?php } ?>
 
 				<form class="anyipsum-form" action="" method="get">
 					<?php if ( is_singular() && empty( $permalink_structure ) ) { ?>
@@ -97,22 +94,10 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 					<?php } ?>
 					<table class="anyipsum-table">
 						<tbody>
-							<tr class="anyipsum-paragraphs">
-								<td class="anyipsum-left-cell"><?php _e( 'Paragraphs', 'any-ipsum' ); ?>:</td>
-								<td class="anyipsum-right-cell"><input type="text" name="paras" value="5" maxlength="2" /></td>
-							</tr>
-							<tr class="anyipsum-type">
-								<td class="anyipsum-left-cell"><?php _e( 'Type', 'any-ipsum' ); ?>:</td>
-								<td class="anyipsum-right-cell"><label><input type="radio" name="type" value="<?php echo esc_attr( $all_custom ); ?>" <?php checked( $all_custom, $type ); ?> /><?php echo esc_attr( $all_custom_text ) ?></label> <label><input type="radio" name="type" value="<?php echo esc_attr( $custom_and_filler ); ?>" <?php checked( $custom_and_filler, $type ); ?> /><?php echo esc_attr( $custom_filler_text ); ?></label></td>
-							</tr>
-							<tr class="anyipsum-start-with">
-								<td class="anyipsum-left-cell"></td>
-								<td class="anyipsum-right-cell"><input id="start-with-lorem" type="checkbox" name="start-with-lorem" value="1" checked="checked" /> <label for="start-with-lorem"><?php _e( 'Start with', 'any-ipsum' ); ?> '<?php echo esc_attr( $start_with ); ?>...'</label></td>
-							</tr>
-							<tr class="anyipsum-submit">
-								<td class="anyipsum-left-cell"></td>
-								<td class="anyipsum-right-cell"><input type="submit" value="<?php echo esc_attr( $button_text ); ?>" /></td>
-							</tr>
+							<tr class="anyipsum-paragraphs"><td class="anyipsum-left-cell"><?php _e( 'Paragraphs', 'any-ipsum' ); ?>:</td><td class="anyipsum-right-cell"><input type="text" name="paras" value="5" maxlength="2" /></td></tr>
+							<tr class="anyipsum-type"><td class="anyipsum-left-cell"><?php _e( 'Type', 'any-ipsum' ); ?>:</td><td class="anyipsum-right-cell"><label><input type="radio" name="type" value="<?php echo esc_attr( $settings['all_custom'] ); ?>" <?php checked( $settings['all_custom'], $type ); ?> /><?php echo esc_attr( $settings['all_custom_text'] ) ?></label> <label><input type="radio" name="type" value="<?php echo esc_attr( $settings['custom_and_filler'] ); ?>" <?php checked( $settings['custom_and_filler'], $type ); ?> /><?php echo esc_attr( $settings['custom_filler_text'] ); ?></label></td></tr>
+							<tr class="anyipsum-start-with"><td class="anyipsum-left-cell"></td><td class="anyipsum-right-cell"><input id="start-with-lorem" type="checkbox" name="start-with-lorem" value="1" checked="checked" /> <label for="start-with-lorem"><?php _e( 'Start with', 'any-ipsum' ); ?> '<?php echo esc_attr( $settings['start_with'] ); ?>...'</label></td></tr>
+							<tr class="anyipsum-submit"><td class="anyipsum-left-cell"></td><td class="anyipsum-right-cell"><input type="submit" value="<?php echo esc_attr( $settings['button_text'] ); ?>" /></td></tr>
 						</tbody>
 					</table>
 				</form>
@@ -120,9 +105,21 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 
 			$form = ob_get_contents();
 			ob_end_clean();
-
 			return $form;
+		}
 
+
+		private function get_settings() {
+			$settings = array(
+				'custom_filler_text' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'custom-and-filler-text' ),
+				'custom_and_filler' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' ),
+				'all_custom_text' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'all-custom-text' ),
+				'all_custom' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' ),
+				'button_text' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'button-text' ),
+				'start_with' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'start-with' ),
+				'ipsum_name' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'name' ),
+			);
+			return $settings;
 		}
 
 
