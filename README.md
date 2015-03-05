@@ -28,7 +28,7 @@ lang - For future translastions
 Revision History
 
 = v1.2.1 March 4, 2015 =
-* Code refactoring to use filter_input() and better WordPress code standards
+* Code refactoring to use filter_input() and better WordPress coding standards
 * Fixed activation bug that was not setting up the initial oEmbed settings
 
 = v1.2.0 January 7, 2015 =

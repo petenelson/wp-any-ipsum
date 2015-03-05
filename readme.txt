@@ -4,7 +4,7 @@ Tags: content, ipsum
 Donate link: http://baconipsum.com/
 Requires at least: 4.0
 Tested up to: 4.1
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ Includes:
 * JSON API
 * oEmbed support
 
-The plugin installs Bacon Ipsum filler by default, so be sure to sheck Settings/Any Ipsum to fully customize your ipsum.
+The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/Any Ipsum to fully customize your ipsum.
 
 
 == Installation ==
@@ -36,7 +36,7 @@ The plugin installs Bacon Ipsum filler by default, so be sure to sheck Settings/
 == Changelog ==
 
 = v1.2.1 March 4, 2015 =
-* Code refactoring to use filter_input() and better WordPress code standards
+* Code refactoring to use filter_input() and better WordPress coding standards
 * Fixed activation bug that was not setting up the initial oEmbed settings
 
 = v1.2.0 January 7, 2015 =
