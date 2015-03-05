@@ -25,25 +25,19 @@ if ( ! class_exists( 'WPAnyIpsumOEmbed' ) ) {
 					$pagename = $wp->query_vars['pagename'];
 
 				if ( strtolower( $pagename ) === strtolower( apply_filters( 'anyipsum-setting-get', 'api', 'anyipsum-settings-oembed', 'oembed-endpoint' ) ) )
-					$this->handle_oembed_reques();
+					$this->handle_oembed_request();
 			}
 
 		}
 
 
-		private function handle_oembed_reques() {
+		private function handle_oembed_request() {
 
 			$url = WPAnyIpsumCore::get_request( 'url' );
 
 			if ( ! empty( $url ) ) {
 
-				$args = apply_filters( 'anyipsum-parse-request-args', $url );
-				$paras = apply_filters( 'anyipsum-generate-filler', $args );
-
-				$html = '';
-
-				for ( $i=0; $i < count( $paras ); $i++ )
-					$html .= '<p>' . $paras[$i] . '</p>';
+				$html = $this->build_html( apply_filters( 'anyipsum-generate-filler', apply_filters( 'anyipsum-parse-request-args', $url ) ) );
 
 				$oembed = new stdClass();
 				$oembed->type = 'rich';
@@ -54,11 +48,15 @@ if ( ! class_exists( 'WPAnyIpsumOEmbed' ) ) {
 
 				wp_send_json( $oembed );
 
-
 			}
 
+		}
 
-
+		private function build_html( $paras ) {
+			$html = '';
+			for ( $i=0; $i < count( $paras ); $i++ )
+				$html .= '<p>' . $paras[$i] . '</p>';
+			return $html;
 		}
 
 	}

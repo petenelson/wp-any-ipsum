@@ -23,7 +23,6 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 
 			add_filter( 'anyipsum-setting-is-enabled', array( $this, 'setting_is_enabled' ), 10, 3 );
 			add_filter( 'anyipsum-setting-get', array( $this, 'setting_get' ), 10, 3 );
-
 		}
 
 
@@ -45,7 +44,7 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 					'api-endpoint' => 'ipsum-api',
 				), '', $autoload = 'no' );
 
-			add_option( $this->settings_key_api, array(
+			add_option( $this->settings_key_oembed, array(
 					'oembed-enabled' => '0',
 					'oembed-endpoint' => 'ipsum-oembed',
 				), '', $autoload = 'no' );
@@ -68,8 +67,7 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 
 
 		public function activation_admin_notice() {
-			if ( '1' === get_option( 'anyipsum-plugin-activated' ) ) {
-?>
+			if ( '1' === get_option( 'anyipsum-plugin-activated' ) ) { ?>
 					<div class="updated">
 						<p><?php
 				echo sprintf( __( '<strong>Any Ipsum activated!</strong> Please visit the <a href="%s">Any Ipsum Settings</a> page to customize your ipsum generator.', 'any-ispum' ), admin_url( 'options-general.php?page=anyipsum-settings' ) );
@@ -150,46 +148,38 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 
 
 		private function register_api_settings() {
-			$key = $this->settings_key_api;
-			$this->plugin_settings_tabs[$key] = __( 'API', 'any-ipsum' );
-
-			register_setting( $key, $key );
-
-			$section = 'api';
-
-			add_settings_section( $section, '', array( $this, 'section_header' ), $key );
-
-			add_settings_field( 'api-enabled', __( 'Enabled', 'any-ipsum' ), array( $this, 'settings_yes_no' ), $key, $section,
-				array( 'key' => $key, 'name' => 'api-enabled' ) );
-
-			$permalink_structure = get_option( 'permalink_structure' );
-			$permalink_warning = empty( $permalink_structure ) ? ' (please anable any non-default Permalink structure)' : '';
-
-			add_settings_field( 'api-endpoint', __( 'Endpoint Page Name', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
-				array( 'key' => $key, 'name' => 'api-endpoint', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: api, ipsum-api, etc' . $permalink_warning ) );
-
+			$this->register_api_oembed_settings( $this->settings_key_api, 'API', 'api' );
 		}
 
-
 		private function register_oembed_settings() {
-			$key = $this->settings_key_oembed;
-			$this->plugin_settings_tabs[$key] = __( 'oEmbed', 'any-ipsum' );
+			$this->register_api_oembed_settings( $this->settings_key_oembed, 'oEmbed', 'oembed' );
+		}
+
+		private function register_api_oembed_settings( $key, $name, $section ) {
+			$this->plugin_settings_tabs[$key] = __( $name, 'any-ipsum' );
 
 			register_setting( $key, $key );
 
-			$section = 'oembed';
-
 			add_settings_section( $section, '', array( $this, 'section_header' ), $key );
 
-			add_settings_field( 'oembed-enabled', __( 'Enabled', 'any-ipsum' ), array( $this, 'settings_yes_no' ), $key, $section,
-				array( 'key' => $key, 'name' => 'oembed-enabled' ) );
+			add_settings_field( $section .'-enabled', __( 'Enabled', 'any-ipsum' ), array( $this, 'settings_yes_no' ), $key, $section,
+				array( 'key' => $key, 'name' => $section .'-enabled' ) );
 
 			$permalink_structure = get_option( 'permalink_structure' );
-			$permalink_warning = empty( $permalink_structure ) ? ' (please anable any non-default Permalink structure)' : '';
+			$permalink_warning = empty( $permalink_structure ) ? ' ' . __( '(please enable any non-default Permalink structure)', 'any-ipsum' ) : '';
 
-			add_settings_field( 'oembed-endpoint', __( 'oEmbed Page Name', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
-				array( 'key' => $key, 'name' => 'oembed-endpoint', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: oembed, ipsum-oembed' . $permalink_warning ) );
+			$after ='';
+			switch ( $section ) {
+				case 'oembed':
+					$after = __( 'Example: oembed, ipsum-oembed', 'any-ipsum' );
+					break;
+				case 'api':
+					$after = __( 'Example: api, ipsum-api, etc', 'any-ipsum');
+					break;
+			}
 
+			add_settings_field( $section .'-endpoint', __( $section .' Page Name', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
+				array( 'key' => $key, 'name' => $section .'-endpoint', 'size' => 20, 'maxlength' => 50, 'after' => $after . $permalink_warning ) );
 		}
 
 
