@@ -151,9 +151,11 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			$this->register_api_oembed_settings( $this->settings_key_api, 'API', 'api' );
 		}
 
+
 		private function register_oembed_settings() {
 			$this->register_api_oembed_settings( $this->settings_key_oembed, 'oEmbed', 'oembed' );
 		}
+
 
 		private function register_api_oembed_settings( $key, $name, $section ) {
 			$this->plugin_settings_tabs[$key] = __( $name, 'any-ipsum' );
@@ -298,29 +300,29 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 		}
 
 
-		function admin_menu() {
+		public function admin_menu() {
 			add_options_page( __( 'Any Ipsum Settings', 'any-ipsum' ), __( 'Any Ipsum', 'any-ipsum' ), 'manage_options', $this->settings_page, array( $this, 'options_page' ), 30 );
 		}
 
 
-		function options_page() {
+		public function options_page() {
 
-			$tab = $this->current_tab();
-?>
+			$tab = $this->current_tab(); ?>
 			<div class="wrap">
 				<?php $this->plugin_options_tabs(); ?>
 				<form method="post" action="options.php" class="options-form">
 					<?php settings_fields( $tab ); ?>
 					<?php do_settings_sections( $tab ); ?>
 					<?php
-			if ( $this->settings_key_help !== $tab )
-				submit_button( __( 'Save Settings', 'any-ipsum' ), 'primary', 'submit', true );
-?>
+						if ( $this->settings_key_help !== $tab ) {
+							submit_button( __( 'Save Settings', 'any-ipsum' ), 'primary', 'submit', true );
+						}
+					?>
 				</form>
 			</div>
 			<?php
 
-			if ( ! empty( filter_input( FILTER_SANITIZE_STRING, 'settings-updated', FILTER_SANITIZE_STRING ) ) ) {
+			if ( ! empty( filter_input( INPUT_GET, 'settings-updated', FILTER_SANITIZE_STRING ) ) ) {
 				flush_rewrite_rules( );
 			}
 
@@ -365,8 +367,9 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 				break;
 			}
 
-			if ( !empty( $output ) )
+			if ( !empty( $output ) ) {
 				echo '<p class="settings-section-header">' . $output . '</p>';
+			}
 
 		}
 
