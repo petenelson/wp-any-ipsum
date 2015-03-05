@@ -1,5 +1,5 @@
 # Any Ipsum
-WordPress plugin to roll your own custom lorem ipsum generator - forked from Bacon Ipsum
+[[WordPress plugin](https://wordpress.org/plugins/any-ipsum/)] to roll your own custom lorem ipsum generator - forked from Bacon Ipsum
 
 [![Code Climate](https://codeclimate.com/github/petenelson/wp-any-ipsum/badges/gpa.svg)](https://codeclimate.com/github/petenelson/wp-any-ipsum)
 
@@ -9,7 +9,7 @@ WordPress plugin to roll your own custom lorem ipsum generator - forked from Bac
 - **readme.txt** - Info for the WordPress repo
 - **uninstall.php** - WordPress uninstall code
 - **assets/** - Assets for the WordPress plugin repository
-- **lang** - For future translastions
+- **lang/** - For future translastions
 - **lib/**
   - **admin-help** - Help page for the plugin
   - **default-custom.txt** - Default custom text (meat)
