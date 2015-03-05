@@ -1,5 +1,5 @@
 # Any Ipsum
-[WordPress plugin](https://wordpress.org/plugins/any-ipsum/) to roll your own custom lorem ipsum generator - forked from Bacon Ipsum
+[WordPress plugin](https://wordpress.org/plugins/any-ipsum/) to roll your own custom lorem ipsum generator - forked from [Bacon Ipsum](http://baconipsum.com/)
 
 [![Code Climate](https://codeclimate.com/github/petenelson/wp-any-ipsum/badges/gpa.svg)](https://codeclimate.com/github/petenelson/wp-any-ipsum)
 
