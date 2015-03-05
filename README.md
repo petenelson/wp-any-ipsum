@@ -1,5 +1,7 @@
 WordPress plugin to roll your own custom lorem ipsum generator - forked from Bacon Ipsum
 
+[![Code Climate](https://codeclimate.com/github/petenelson/wp-any-ipsum/badges/gpa.svg)](https://codeclimate.com/github/petenelson/wp-any-ipsum)
+
 = What's in here? =
 
 wp-anyipsum.php - WordPress plugin wrapper (loades classes, registers core hooks, etc)
