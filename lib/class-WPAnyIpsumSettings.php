@@ -167,7 +167,8 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			add_settings_field( $section .'-enabled', __( 'Enabled', 'any-ipsum' ), array( $this, 'settings_yes_no' ), $key, $section,
 				array( 'key' => $key, 'name' => $section .'-enabled' ) );
 
-			$permalink_warning = empty( get_option( 'permalink_structure' ) ) ? ' ' . __( '(please enable any non-default Permalink structure)', 'any-ipsum' ) : '';
+			$permalink_structure = get_option( 'permalink_structure' );
+			$permalink_warning = empty( $permalink_structure ) ? ' ' . __( '(please enable any non-default Permalink structure)', 'any-ipsum' ) : '';
 
 			$after = $this->get_api_oembed_after( $section );
 
