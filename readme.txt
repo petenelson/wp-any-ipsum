@@ -35,6 +35,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Changelog ==
 
+= v1.2.2 March 6, 2015 =
+* Bux fix for API POST requests
+
 = v1.2.1 March 4, 2015 =
 * Code refactoring to use filter_input() and better WordPress coding standards
 * Fixed activation bug that was not setting up the initial oEmbed settings

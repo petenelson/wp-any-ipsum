@@ -38,13 +38,14 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 
 		function handle_api_request() {
 
+			header( 'Access-Control-Allow-Origin: *' );
+
 			$type = WPAnyIpsumCore::get_request( 'type' );
+			$callback = WPAnyIpsumCore::get_request( 'callback' );
 
-			if ( ! empty ( $type ) ) {
+			if ( ! empty ( $type ) || ! empty ( $callback ) ) {
 
-				header( 'Access-Control-Allow-Origin: *' );
-
-				$args = apply_filters( 'anyipsum-parse-request-args', $_SERVER['QUERY_STRING'] );
+				$args = apply_filters( 'anyipsum-parse-request-args', $_SERVER['REQUEST_METHOD'] === 'POST' ? $_REQUEST : $_SERVER['QUERY_STRING'] );
 				$paras = apply_filters( 'anyipsum-generate-filler', $args );
 
 				if ( ! empty( $args['callback'] ) ) {
