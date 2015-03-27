@@ -5,6 +5,9 @@ Author: Pete Nelson (@GunGeekATX)
 
 Revision History
 
+= March 27, 2015 =
+* Trim word before adding to sentence
+
 = October 22, 2014 =
 * Added sentence_mode
 
@@ -53,7 +56,7 @@ class WPAnyIpsumGenerator {
 			// grab the first random sentence
 			$words = $this->get_words( $type );
 			if ( count( $words ) > 0 )
-				return $words[0];
+				return trim( $words[0] );
 			else
 				return '';
 		}
@@ -70,7 +73,7 @@ class WPAnyIpsumGenerator {
 
 		if ( count( $words ) > 0 ) {
 			// Capitalize the first word.
-			$words[0] =  ucfirst( $words[0] );
+			$words[0] =  trim( ucfirst( $words[0] ) );
 
 			for ( $i = 0; $i < $length; $i++ ) {
 
@@ -89,7 +92,7 @@ class WPAnyIpsumGenerator {
 
 				}
 
-				$sentence .= $words[$i];
+				$sentence .= trim( $words[$i] );
 			}
 
 			$sentence = rtrim( $sentence ) . '. ';
@@ -143,7 +146,7 @@ class WPAnyIpsumGenerator {
 			}
 
 			if ( $i == 0 && $start_with_lorem && count( $words ) > 0 ) {
-				$words[0] = strtolower( $words[0] );
+				$words[0] = trim( strtolower( $words[0] ) );
 				$words = ( empty( $this->start_with ) ? 'Lorem ipsum dolor amet' : $this->start_with ) . ' ' . $words;
 			}
 
