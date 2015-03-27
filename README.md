@@ -23,6 +23,9 @@
 
 ## Revision History
 
+### v1.2.3 March 27, 2015
+- Trim each word before adding it to a sentence
+
 ### v1.2.2 March 6, 2015
 - Bux fix for API POST requests
 
