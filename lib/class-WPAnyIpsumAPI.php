@@ -55,7 +55,7 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 				if ( ! empty( $args['callback'] ) ) {
 
                     switch ($format) {
-                        case 'plain':
+                        case 'text':
                             header( "Content-Type: text/plain" );
                             foreach ($paras as $para) {
                                 echo $para . "\n\n";
