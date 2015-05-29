@@ -17,11 +17,15 @@
   - **class-WPAnyIpsumCore.php** - Exposes filters used by other classes
   - **class-WPAnyIpsumForm.php** - Shortcode for generating the form to allow visitors to generate your custom filler
   - **class-WPAnyIpsumSettings.php** - Admin settings for managing your custom filler text
-  - **class-WPAnyIpsumAPI.php** - JSON API endpoint
+  - **class-WPAnyIpsumAPI.php** - API endpoint (supports JSON and plain text)
   - **class-WPAnyIpsumOembed.php** - oEmbed endpoint
   - **class-WPAnyIpsumGenerator.php** - The WPAnyIpsumGenerator class for generating custom filler text.
 
 ## Revision History
+
+### v1.3 May 29, 2015 ###
+- API now supports a 'format' parameter to specify return format
+- 'text' return format added to return ipsum in plain text
 
 ### v1.2.3 March 27, 2015
 - Trim each word before adding it to a sentence

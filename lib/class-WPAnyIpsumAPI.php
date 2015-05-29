@@ -42,6 +42,10 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 
 			$type = WPAnyIpsumCore::get_request( 'type' );
 			$callback = WPAnyIpsumCore::get_request( 'callback' );
+            $format = WPAnyIpsumCore::get_request( 'format' );
+            if ( !in_array($format, array( 'json', 'text' ) ) ) {
+                $format = 'json';
+            }
 
 			if ( ! empty ( $type ) || ! empty ( $callback ) ) {
 
@@ -49,12 +53,32 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 				$paras = apply_filters( 'anyipsum-generate-filler', $args );
 
 				if ( ! empty( $args['callback'] ) ) {
-					header( "Content-Type: application/javascript" );
-					echo $args['callback'] . '(' . json_encode( $paras ) . ');';
-				}
+
+                    switch ($format) {
+                        case 'plain':
+                            header( "Content-Type: text/plain" );
+                            foreach ($paras as $para) {
+                                echo $para . "\n\n";
+                            }
+                            break;
+                        default:
+                            header( "Content-Type: application/javascript" );
+                            echo $args['callback'] . '(' . json_encode( $paras ) . ');';
+                            break;
+                    }
+                }
 				else {
-					header( "Content-Type: application/json; charset=utf-8" );
-					echo json_encode( $paras );
+                    switch ( $format ) {
+                        case 'text':
+                            header( "Content-Type: text/plain" );
+                            foreach ($paras as $para) {
+                                echo $para . "\n\n";
+                            }
+                            break;
+                       default:
+                            header( "Content-Type: application/json; charset=utf-8" );
+                            echo json_encode( $paras );
+                    }
 				}
 
 				exit;
