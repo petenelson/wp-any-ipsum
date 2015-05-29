@@ -1,5 +1,5 @@
 === Any Ipsum ===
-Contributors: gungeekatx
+Contributors: gungeekatx, shooper
 Tags: content, ipsum
 Donate link: http://baconipsum.com/
 Requires at least: 4.0
@@ -35,7 +35,7 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Changelog ==
 
-= v1.3 May 29, 2015 =
+= v1.3.0 May 29, 2015 =
 * API now supports a 'format' parameter to specify return format
 * 'text' return format added to return ipsum in plain text
 
