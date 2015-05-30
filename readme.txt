@@ -13,7 +13,7 @@ Roll your own custom lorem ipsum generator
 == Description ==
 
 If you've ever had an idea for your own custom lorem ipsum generator (like Bacon Ipsum), this plugin will allow you to do so without any coding.  Just fill in a list of words, drop
-the `[anyipsum-form]` shortcode in a post or page, and you have your very own custom ipsum generator.  Forked from [Bacon Ipsum](http://baconipsum.com/)
+the `[anyipsum-form]` shortcode in a post or page, and you have your very own custom ipsum generator. Forked from [Bacon Ipsum](http://baconipsum.com)
 
 Includes:
 
