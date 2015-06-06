@@ -362,7 +362,7 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 				include_once 'admin-help.php';
 				break;
 			case 'api':
-				$output = __( 'Allows for a JSON API to your custom ipsum.', 'any-ipsum' );
+				$output = __( 'Allows for API access to your custom ipsum, that returns JSON, HTML, or plain text.', 'any-ipsum' );
 				$endpoint = $this->setting_get( '', $this->settings_key_api, 'api-endpoint' );
 				if ( !empty( $endpoint ) ) {
 					$output .= '<br/>' . __( 'Example', 'any-ipsum' ) . ': ';
