@@ -23,6 +23,9 @@
 
 ## Revision History
 
+### v1.4 June 5, 2015 ###
+- Added 'html' format to API, which wraps each paragraph in <p> tags.
+
 ### v1.3 May 29, 2015 ###
 - API now supports a 'format' parameter to specify return format
 - 'text' return format added to return ipsum in plain text
