@@ -4,7 +4,7 @@ Tags: content, ipsum
 Donate link: http://baconipsum.com/
 Requires at least: 4.0
 Tested up to: 4.2
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,7 +19,7 @@ Includes:
 
 * [anyipsum-form] shortcode for end-users to use, fully configurable
 * custom words and filler text
-* API (returns JSON or plain text)
+* API (returns JSON, HTML or plain text)
 * oEmbed support
 
 The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/Any Ipsum to fully customize your ipsum.
@@ -35,7 +35,14 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Changelog ==
 
+<<<<<<< HEAD
 = v1.3.0 May 29, 2015 =
+=======
+= v1.4 June 5, 2015 =
+* Added 'html' format to API, which wraps each paragraph in <p> tags.
+
+= v1.3 May 29, 2015 =
+>>>>>>> 181974e2bb1816e267a5611cde7ef639fa670000
 * API now supports a 'format' parameter to specify return format
 * 'text' return format added to return ipsum in plain text
 

@@ -200,7 +200,7 @@ msgid "Save Settings"
 msgstr ""
 
 #: lib/class-WPAnyIpsumSettings.php:334
-msgid "Allows for a JSON API to your custom ipsum."
+msgid "Allows for API access to your custom ipsum, that returns JSON, HTML, or plain text."
 msgstr ""
 
 #: lib/class-WPAnyIpsumSettings.php:337
