@@ -25,6 +25,8 @@
 
 ### v1.4.0 June 5, 2015 ###
 - Added 'html' format to API, which wraps each paragraph in <p> tags.
+- Added charset to Content-Type header for all API calls
+- Added Content-Length header for all API calls
 
 ### v1.3.0 May 29, 2015 ###
 - API now supports a 'format' parameter to specify return format

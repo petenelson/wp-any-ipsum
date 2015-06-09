@@ -35,14 +35,12 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Changelog ==
 
-<<<<<<< HEAD
-= v1.3.0 May 29, 2015 =
-=======
-= v1.4 June 5, 2015 =
+= v1.4.0 June 5, 2015 =
 * Added 'html' format to API, which wraps each paragraph in <p> tags.
+* Added charset to Content-Type header for all API calls
+* Added Content-Length header for all API calls
 
-= v1.3 May 29, 2015 =
->>>>>>> 181974e2bb1816e267a5611cde7ef639fa670000
+= v1.3.0 May 29, 2015 =
 * API now supports a 'format' parameter to specify return format
 * 'text' return format added to return ipsum in plain text
 
@@ -76,10 +74,12 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Upgrade Notice ==
 
-= v1.2.1 March 4, 2015 =
-* Code refactoring to use filter_input() and better WordPress coding standards
-* Fixed activation bug that was not setting up the initial oEmbed settings
+= v1.4.0 June 9, 2015 =
+* Added 'html' format to API, which wraps each paragraph in <p> tags.
+* Added charset to Content-Type header for all API calls
+* Added Content-Length header for all API calls
 
+Thanks to Shawn Hooper for the new text and HTML formats.
 
 == Frequently Asked Questions ==
 
