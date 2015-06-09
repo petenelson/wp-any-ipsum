@@ -36,7 +36,7 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 == Changelog ==
 
 = v1.4.0 June 9, 2015 =
-* Added 'html' format to API, which wraps each paragraph in <p> tags.
+* Added 'html' format to API, which wraps each paragraph in p tags.
 * Added range values for the 'paras' parameter to allow random number of paragraphs, ex: paras=3-7
 * Added charset to Content-Type header for all API calls
 * Added Content-Length header for all API calls
@@ -76,7 +76,7 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 == Upgrade Notice ==
 
 = v1.4.0 June 9, 2015 =
-* Added 'html' format to API, which wraps each paragraph in <p> tags.
+* Added 'html' format to API, which wraps each paragraph in p tags.
 * Added range values for the 'paras' parameter to allow random number of paragraphs, ex: paras=3-7
 * Added charset to Content-Type header for all API calls
 * Added Content-Length header for all API calls
