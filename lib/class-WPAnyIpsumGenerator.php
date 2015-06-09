@@ -110,8 +110,9 @@ class WPAnyIpsumGenerator {
 		$para = '';
 		$length = rand( 4, 7 );
 
-		for ( $i = 0; $i < $length; $i++ )
+		for ( $i = 0; $i < $length; $i++ ) {
 			$para .= $this->make_a_sentence( $type ) . ' ';
+		}
 
 		return rtrim( $para );
 
@@ -119,10 +120,12 @@ class WPAnyIpsumGenerator {
 
 
 	public function make_some_custom_filler(
-		$type = '',
-		$number_of_paragraphs = 5,
-		$start_with_lorem = true,
-		$number_of_sentences = 0 ) {
+			$type = '',
+			$number_of_paragraphs = 5,
+			$start_with_lorem = true,
+			$number_of_sentences = 0,
+			$max_paragraphs = 5
+		) {
 
 		if ( empty( $type ) ) {
 			$type = $this->custom_and_filler;
@@ -131,6 +134,15 @@ class WPAnyIpsumGenerator {
 		$paragraphs = array();
 		if ( $number_of_sentences > 0 ) {
 			$number_of_paragraphs = 1;
+		}
+
+		if ( $number_of_paragraphs > $max_paragraphs ) {
+			$max_paragraphs = $number_of_paragraphs;
+		}
+
+		if ( $max_paragraphs !== $number_of_paragraphs ) {
+			// generate a random amount of paragraphs
+			$number_of_paragraphs = rand( $number_of_paragraphs, $max_paragraphs );
 		}
 
 		$words = '';

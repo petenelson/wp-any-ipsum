@@ -36,6 +36,7 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 				'start-with-lorem' => true,
 				'sentences' => '',
 				'paras' => 5,
+				'max-paras' => 5,
 				'callback' => '',
 			);
 		}
@@ -50,14 +51,25 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 
 			$args = wp_parse_args( $args, $this->default_generator_args() );
 
-			$args['paras'] = intval( $args['paras'] );
+			if ( false !== strpos( $args['paras'], '-') ) {
+				$parts = explode( '-', $args['paras'] );
+				$args['paras'] = absint( $parts[0] );
+				$args['max-paras'] = absint( $parts[1] );
+			} else {
+				$args['paras'] = absint( $args['paras'] );
+				$args['max-paras'] = $args['paras'];
+			}
+
 			$args['start-with-lorem'] = ! empty( $args['start-with-lorem'] ) && $args['start-with-lorem'] === '1';
 
 			$args = $this->sanitize_args( $args );
 
 			if ( empty( $args['number-of-paragraphs'] ) ) {
 				$args['number-of-paragraphs'] = $args['paras'];
+				$args['max-number-of-paragraphs'] = $args['paras'];
 			}
+
+			$args['max-number-of-paragraphs'] = $args['max-paras'];
 
 			if ( empty( $args['number-of-sentences'] ) ) {
 				$args['number-of-sentences'] = $args['sentences'];
@@ -70,22 +82,33 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 
 		private function sanitize_args( $args ) {
 
-			if ( $args['paras'] < 1 )
+			if ( $args['paras'] < 1 ) {
 				$args['paras'] = 1;
+			}
 
-			if ( $args['paras'] > 100 )
+			if ( $args['paras'] > 100 ) {
 				$args['paras'] = 100;
+			}
 
+			if ( $args['max-paras'] < 1 ) {
+				$args['max-paras'] = 1;
+			}
+
+			if ( $args['max-paras'] > 100 ) {
+				$args['max-paras'] = 100;
+			}
 
 			if ( ! empty( $args['sentences'] ) ) {
 
 				$args['sentences'] = intval( $args['sentences'] );
 
-				if ( $args['sentences'] < 1 )
+				if ( $args['sentences'] < 1 ) {
 					$args['sentences'] = 1;
+				}
 
-				if ( $args['sentences'] > 100 )
+				if ( $args['sentences'] > 100 ) {
 					$args['sentences'] = 100;
+				}
 
 			}
 
@@ -110,7 +133,8 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 					$args['type'],
 					$args['number-of-paragraphs'],
 					$args['start-with-lorem'],
-					$args['number-of-sentences']
+					$args['number-of-sentences'],
+					$args['max-number-of-paragraphs']
 				);
 
 			}
@@ -122,8 +146,9 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 
 		private function get_words( $type ) {
 			$words = apply_filters( 'anyipsum-setting-get', array(), 'anyipsum-settings-custom-filler', $type );
-			if ( !empty( $words ) )
+			if ( !empty( $words ) ) {
 				$words = explode( "\n", $words );
+			}
 			return $words;
 		}
 
