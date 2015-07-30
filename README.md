@@ -23,6 +23,9 @@
 
 ## Revision History
 
+### v1.4.1 July 30, 2015 ###
+- Fixed a missing </div> tag in the form
+
 ### v1.4.0 June 9, 2015 ###
 - Added 'html' format to API, which wraps each paragraph in <p> tags.
 - Added range values for the 'paras' parameter to allow random number of paragraphs, ex: paras=3-7

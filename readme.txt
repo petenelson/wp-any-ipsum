@@ -4,7 +4,7 @@ Tags: content, ipsum
 Donate link: http://baconipsum.com/
 Requires at least: 4.0
 Tested up to: 4.2
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 == Changelog ==
+
+= v1.4.1 July 30, 2015 =
+* Fixed a missing </div> tag in the form
 
 = v1.4.0 June 9, 2015 =
 * Added 'html' format to API, which wraps each paragraph in p tags.
@@ -75,13 +78,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Upgrade Notice ==
 
-= v1.4.0 June 9, 2015 =
-* Added 'html' format to API, which wraps each paragraph in p tags.
-* Added range values for the 'paras' parameter to allow random number of paragraphs, ex: paras=3-7
-* Added charset to Content-Type header for all API calls
-* Added Content-Length header for all API calls
+= v1.4.1 July 30, 2015 =
+* Fixed a missing </div> tag in the form
 
-Thanks to Shawn Hooper for the new text and HTML formats.
 
 == Frequently Asked Questions ==
 
