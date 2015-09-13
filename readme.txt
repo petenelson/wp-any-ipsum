@@ -3,8 +3,13 @@ Contributors: gungeekatx, shooper
 Tags: content, ipsum
 Donate link: http://baconipsum.com/
 Requires at least: 4.0
+<<<<<<< HEAD
 Tested up to: 4.3
 Stable tag: 1.5.0
+=======
+Tested up to: 4.2
+Stable tag: 1.4.1
+>>>>>>> origin/fix-html-issue
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,8 +40,13 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Changelog ==
 
+<<<<<<< HEAD
 = v1.5.0 June 19, 2015 =
 * Action 'anyipsum-filler-generated' is fired after either the shortcode or API generates any custom filler (useful for logging)
+=======
+= v1.4.1 July 30, 2015 =
+* Fixed a missing </div> tag in the form
+>>>>>>> origin/fix-html-issue
 
 = v1.4.0 June 9, 2015 =
 * Added 'html' format to API, which wraps each paragraph in p tags.
@@ -78,8 +88,13 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Upgrade Notice ==
 
+<<<<<<< HEAD
 = v1.5.0 June 19, 2015 =
 * Action 'anyipsum-filler-generated' is fired after either the shortcode or API generates any custom filler (useful for logging)
+=======
+= v1.4.1 July 30, 2015 =
+* Fixed a missing </div> tag in the form
+>>>>>>> origin/fix-html-issue
 
 
 == Frequently Asked Questions ==

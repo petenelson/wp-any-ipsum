@@ -93,7 +93,7 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 			ob_start();
 
 			if ( ! empty( $content ) && ! empty( $type ) ) { ?>
-				<div class="anyipsum-form-header"><?php echo do_shortcode( $content ); ?>
+				<div class="anyipsum-form-header"><?php echo do_shortcode( $content ); ?></div>
 			<?php } ?>
 
 				<form class="anyipsum-form" action="" method="get">
