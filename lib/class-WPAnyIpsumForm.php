@@ -7,7 +7,7 @@ Handles anyipsum-form shortcode
 
 */
 
-if ( ! defined( 'ABSPATH' ) ) wp_die( 'restricted access' );
+if ( ! defined( 'ABSPATH' ) ) die( 'restricted access' );
 
 if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 
@@ -45,13 +45,21 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 				$paragraphs = apply_filters( 'anyipsum-generate-filler', $args );
 
 				$output = '<div class="anyipsum-output">';
-				foreach ( $paragraphs as $paragraph )
+				foreach ( $paragraphs as $paragraph ) {
 					$output .= '<p>' . $paragraph . '</p>';
+				}
 
 				$output .= '</div>';
 
 				// customize/override output
 				$output = apply_filters( 'anyipsum-form-output', $output, $paragraphs );
+
+				// send notification for anything else that's hooked in
+				$args['source'] = 'web';
+				$args['format'] = 'html';
+				$args['output'] = $output;
+
+				do_action( 'anyipsum-filler-generated', $args );
 
 			}
 

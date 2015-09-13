@@ -3,8 +3,8 @@ Contributors: gungeekatx, shooper
 Tags: content, ipsum
 Donate link: http://baconipsum.com/
 Requires at least: 4.0
-Tested up to: 4.2
-Stable tag: 1.4.0
+Tested up to: 4.3
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 == Changelog ==
+
+= v1.5.0 June 19, 2015 =
+* Action 'anyipsum-filler-generated' is fired after either the shortcode or API generates any custom filler (useful for logging)
 
 = v1.4.0 June 9, 2015 =
 * Added 'html' format to API, which wraps each paragraph in p tags.
@@ -75,13 +78,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Upgrade Notice ==
 
-= v1.4.0 June 9, 2015 =
-* Added 'html' format to API, which wraps each paragraph in p tags.
-* Added range values for the 'paras' parameter to allow random number of paragraphs, ex: paras=3-7
-* Added charset to Content-Type header for all API calls
-* Added Content-Length header for all API calls
+= v1.5.0 June 19, 2015 =
+* Action 'anyipsum-filler-generated' is fired after either the shortcode or API generates any custom filler (useful for logging)
 
-Thanks to Shawn Hooper for the new text and HTML formats.
 
 == Frequently Asked Questions ==
 

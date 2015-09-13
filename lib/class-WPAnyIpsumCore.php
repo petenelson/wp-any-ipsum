@@ -7,7 +7,7 @@ Exposes filters used by other classes
 
 */
 
-if ( ! defined( 'ABSPATH' ) ) wp_die( 'restricted access' );
+if ( ! defined( 'ABSPATH' ) ) die( 'restricted access' );
 
 if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 

@@ -7,7 +7,7 @@ Exposes a JSON API endpoint
 
 */
 
-if ( !defined( 'ABSPATH' ) ) wp_die( 'restricted access' );
+if ( !defined( 'ABSPATH' ) ) die( 'restricted access' );
 
 if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 
@@ -89,10 +89,19 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 				$content_type = 'application/javascript';
 			}
 
-			header( 'Content-Type: ' . $content_type . '; charset=' . get_bloginfo( 'charset' ) );
-			header( 'Content-Length: ' . strlen( $output_prefix . $output . $output_suffix ) );
+			$output = $output_prefix . $output . $output_suffix;
 
-			echo $output_prefix . $output . $output_suffix;
+			header( 'Content-Type: ' . $content_type . '; charset=' . get_bloginfo( 'charset' ) );
+			header( 'Content-Length: ' . strlen( $output ) );
+
+			echo $output;
+
+			// send notification for anything else that's hooked in
+			$args['source'] = 'api';
+			$args['format'] = $format;
+			$args['output'] = $output;
+
+			do_action( 'anyipsum-filler-generated', $args );
 
 			exit;
 
