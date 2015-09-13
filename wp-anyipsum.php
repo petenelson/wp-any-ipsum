@@ -3,7 +3,7 @@
 Plugin Name: Any Ipsum
 Description: Roll your own custom lorem ipsum generator
 Plugin URI: https://wordpress.org/plugins/any-ipsum/
-Version: 1.5.0
+Version: 1.6.0
 Author: Pete Nelson <a href="https://twitter.com/GunGeekATX">(@GunGeekATX)</a>
 Text Domain: any-ipsum
 Domain Path: /lang
@@ -12,7 +12,7 @@ Domain Path: /lang
 if ( ! defined( 'ABSPATH' ) ) die( 'restricted access' );
 
 // include required files
-$includes = array( 'Generator', 'Settings', 'Core', 'Form', 'API', 'Oembed' );
+$includes = array( 'Generator', 'Settings', 'Core', 'Form', 'API', 'Oembed', 'WPCLI' );
 foreach ( $includes as $include )
 	require_once plugin_dir_path( __FILE__ ) . 'lib/class-WPAnyIpsum' . $include . '.php';
 
@@ -54,4 +54,10 @@ if ( class_exists( 'WPAnyIpsumOEmbed' ) ) {
 if ( class_exists( 'WPAnyIpsumAPI' ) ) {
 	$WPAnyIpsumAPI = new WPAnyIpsumAPI();
 	add_action( 'plugins_loaded', array( $WPAnyIpsumAPI, 'plugins_loaded' ) );
+}
+
+
+if ( class_exists( 'WPAnyIpsumWPCLI' ) ) {
+	$WPAnyIpsumWPCLI = new WPAnyIpsumWPCLI();
+	add_action( 'plugins_loaded', array( $WPAnyIpsumWPCLI, 'plugins_loaded' ) );
 }
