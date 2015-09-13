@@ -23,6 +23,9 @@
 
 ## Revision History
 
+### v1.5.0 June 19, 2015 ###
+- Action 'anyipsum-filler-generated' is fired after either the shortcode or API generates any custom filler (useful for logging)
+
 ### v1.4.0 June 9, 2015 ###
 - Added 'html' format to API, which wraps each paragraph in <p> tags.
 - Added range values for the 'paras' parameter to allow random number of paragraphs, ex: paras=3-7
