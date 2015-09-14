@@ -57,7 +57,6 @@ if ( class_exists( 'WPAnyIpsumAPI' ) ) {
 }
 
 
-if ( class_exists( 'WPAnyIpsumWPCLI' ) ) {
-	$WPAnyIpsumWPCLI = new WPAnyIpsumWPCLI();
-	add_action( 'plugins_loaded', array( $WPAnyIpsumWPCLI, 'plugins_loaded' ) );
+if ( defined( 'WP_CLI' ) && WP_CLI && class_exists( 'WPAnyIpsumWPCLI' ) ) {
+	WP_CLI::add_command( 'any-ipsum', 'WPAnyIpsumWPCLI' );
 }

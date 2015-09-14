@@ -60,7 +60,7 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 				$args['max-paras'] = $args['paras'];
 			}
 
-			$args['start-with-lorem'] = ! empty( $args['start-with-lorem'] ) && $args['start-with-lorem'] === '1';
+			$args['start-with-lorem'] = ! empty( $args['start-with-lorem'] ) && ( $args['start-with-lorem'] === '1' || $args['start-with-lorem'] === 1 || $args['start-with-lorem'] );
 
 			$args = $this->sanitize_args( $args );
 
