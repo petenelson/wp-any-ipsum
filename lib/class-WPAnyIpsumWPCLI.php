@@ -109,6 +109,13 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 				} else {
 					WP_CLI::line( 'Post ID ' . $post_id . ' generated: ' . $post_args['post_title'] );
 					$generated++;
+
+					// send notification for anything else that's hooked in
+					$assoc_args['source'] = 'api';
+					$assoc_args['output'] = $post_args['post_content'];
+
+					do_action( 'anyipsum-filler-generated', $assoc_args );
+
 				}
 
 			}
