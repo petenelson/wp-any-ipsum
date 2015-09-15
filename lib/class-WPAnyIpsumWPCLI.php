@@ -33,7 +33,7 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 * : Flag to set using filler content to create post titles of varying lengths, no-titles will use generic 'Post #'
 		 *
 		 * [--post_type=<post>]
-		 * : post type to create, defaults to 'post' but can also be a custom post type
+		 * : post type to create, defaults to 'post', but can also be a custom post type
 		 *
 		 * [--post_status=<publish>]
 		 * : post status, defaults to 'publish'
@@ -50,11 +50,28 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 */
 		public function generate_posts( $positional_args, $assoc_args ) {
 
+			$generates = 0;
+
 			list( $number_of_posts ) = $positional_args;
 
 			// parse some of our command-line args
 			$number_of_posts  = absint( $number_of_posts );
-			$filler_titles    = ( isset( $assoc_args['titles'] ) && $assoc_args['titles'] ) || ! isset( $assoc_args['titles'] );
+			if ( empty( $number_of_posts ) ) {
+				$number_of_posts = 10;
+			}
+
+			// WP CLI Utils has get_flag_value() which we maybe can use if we can support namespaces
+			$filler_titles    = \WP_CLI\Utils\get_flag_value( $assoc_args, 'titles', true );
+			$post_status      = ! empty( $assoc_args['post_status'] ) ? $assoc_args['post_status'] : 'publish';
+			$post_type        = ! empty( $assoc_args['post_type'] ) ? $assoc_args['post_type'] : 'post';
+
+			if ( ! in_array( $post_type, get_post_types() ) ) {
+				WP_CLI::error( 'Invalid post_type ' . $post_type );
+			}
+
+			if ( ! array_key_exists( $post_status, get_post_statuses() ) ) {
+				WP_CLI::error( 'Invalid post_status ' . $post_status );
+			}
 
 			$assoc_args       = apply_filters( 'anyipsum-parse-request-args', $assoc_args );
 			if ( $filler_titles ) {
@@ -63,36 +80,40 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 				$sentence_args['number-of-sentences'] = 1;
 			}
 
-			for ( $i=0; $i < $number_of_posts; $i++ ) {
+			for ( $i = 0; $i < $number_of_posts; $i++ ) {
 
+				// generate post content filler
 				$paras  = apply_filters( 'anyipsum-generate-filler', $assoc_args );
 
+				// create the post title
 				if ( $filler_titles ) {
 					$sentences = apply_filters( 'anyipsum-generate-filler', $sentence_args );
 				} else {
 					$sentences = array( 'Post ' . ( $i + 1 ) );
 				}
 
-
+				// build arguments to create posts
 				$post_args = array(
-					'post_type' => 'post',
-					'post_content' => implode( "\n\n", $paras ),
-					'post_status' => 'publish',
-					'post_title' => $sentences[0],
+					'post_type'       => $post_type,
+					'post_content'    => implode( "\n\n", $paras ),
+					'post_status'     => $post_status,
+					'post_title'      => $sentences[0],
 					);
 
+				// create a post
 				$post_id = wp_insert_post( $post_args );
 
-				WP_CLI::line( 'Post ID ' . $post_id . ' generated: ' . $post_args['post_title'] );
+				// output results to console
+				if ( empty( $post_id ) ) {
+					WP_CLI::warning( 'Unable to generate post' );
+				} else {
+					WP_CLI::line( 'Post ID ' . $post_id . ' generated: ' . $post_args['post_title'] );
+					$generated++;
+				}
 
 			}
 
-
-
-
-
-
-			WP_CLI::success( 'done' );
+			WP_CLI::success( 'Done! ' . number_format( $generated ) . ' posts generated.' );
 
 		}
 
