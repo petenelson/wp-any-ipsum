@@ -1,6 +1,6 @@
 <?php
 /**
- * Implements example command.
+ * Interact with the Any Ipsum plugin
  */
 
 if ( ! defined( 'ABSPATH' ) ) die( 'restricted access' );
@@ -29,8 +29,8 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 * [--start-with-lorem]
 		 * : Adds your 'Stars With' text at the beginning (Bacon ipsum dolor amet)
 		 *
-		 * [--no-titles]
-		 * : Disables using filler content to create post titles of varying lengths
+		 * [--[no-]titles]
+		 * : Flag to set using filler content to create post titles of varying lengths, no-titles will use generic 'Post #'
 		 *
 		 * [--post_type=<post>]
 		 * : post type to create, defaults to 'post' but can also be a custom post type
@@ -46,27 +46,28 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 *
 		 * @subcommand generate-posts
 		 *
-		 * @synopsis [<posts>] [--paras=<paragraphs>] [--type=<filler-and-custom>] [--start-with-lorem] [--titles] [--post_type=<post>]
+		 * @synopsis [<posts>] [--paras=<paragraphs>] [--type=<filler-and-custom>] [--start-with-lorem] [--[no-]titles] [--post_type=<post>] [--post_status=<publish>]
 		 */
 		public function generate_posts( $positional_args, $assoc_args ) {
 
 			list( $number_of_posts ) = $positional_args;
 
+			// parse some of our command-line args
 			$number_of_posts  = absint( $number_of_posts );
+			$filler_titles    = ( isset( $assoc_args['titles'] ) && $assoc_args['titles'] ) || ! isset( $assoc_args['titles'] );
 
 			$assoc_args       = apply_filters( 'anyipsum-parse-request-args', $assoc_args );
-			if ( ! empty( $assoc_args['no-titles'] ) ) {
+			if ( $filler_titles ) {
 				$sentence_args = $assoc_args;
 				$sentence_args['start-with-lorem'] = false;
 				$sentence_args['number-of-sentences'] = 1;
 			}
 
-			for ($i=0; $i < $number_of_posts ; $i++) {
-
+			for ( $i=0; $i < $number_of_posts; $i++ ) {
 
 				$paras  = apply_filters( 'anyipsum-generate-filler', $assoc_args );
 
-				if ( ! empty( $assoc_args['no-titles'] ) ) {
+				if ( $filler_titles ) {
 					$sentences = apply_filters( 'anyipsum-generate-filler', $sentence_args );
 				} else {
 					$sentences = array( 'Post ' . ( $i + 1 ) );
