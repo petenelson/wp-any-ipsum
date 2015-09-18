@@ -124,9 +124,9 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 			$end_time = current_time( 'timestamp' );
 
 			WP_CLI::success(
-				sprintf( 'Done! %s posts generated in %s seconds',
-					number_format( $generated ),
-					number_format( $end_time - $start_time )
+				sprintf( 'Done! %d posts generated in %d seconds',
+					$generated,
+					$end_time - $start_time
 					)
 				);
 
