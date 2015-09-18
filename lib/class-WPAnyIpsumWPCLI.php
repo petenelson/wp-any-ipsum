@@ -67,11 +67,11 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 			$post_type        = ! empty( $assoc_args['post_type'] ) ? $assoc_args['post_type'] : 'post';
 
 			if ( ! in_array( $post_type, get_post_types() ) ) {
-				WP_CLI::error( 'Invalid post_type ' . $post_type );
+				WP_CLI::error( sprintf( 'Invalid post_type %s', $post_type ) );
 			}
 
 			if ( ! array_key_exists( $post_status, get_post_statuses() ) ) {
-				WP_CLI::error( 'Invalid post_status ' . $post_status );
+				WP_CLI::error( sprintf( 'Invalid post_status %s', $post_status ) );
 			}
 
 			$assoc_args       = apply_filters( 'anyipsum-parse-request-args', $assoc_args );
@@ -90,7 +90,7 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 				if ( $filler_titles ) {
 					$sentences = apply_filters( 'anyipsum-generate-filler', $sentence_args );
 				} else {
-					$sentences = array( 'Post ' . ( $i + 1 ) );
+					$sentences = array( sprintf( 'Post %d', ( $i + 1 ) ) );
 				}
 
 				// build arguments to create posts
@@ -108,7 +108,7 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 				if ( empty( $post_id ) ) {
 					WP_CLI::warning( 'Unable to generate post' );
 				} else {
-					WP_CLI::line( 'Post ID ' . $post_id . ' generated: ' . $post_args['post_title'] );
+					WP_CLI::line( sprintf( 'Post ID %d generated: %s', $post_id, $post_args['post_title'] ) );
 					$generated++;
 
 					// send notification for anything else that's hooked in
