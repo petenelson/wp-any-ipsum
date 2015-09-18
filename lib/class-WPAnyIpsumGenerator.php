@@ -136,7 +136,7 @@ class WPAnyIpsumGenerator {
 			$number_of_paragraphs = 1;
 		}
 
-		if ( $number_of_paragraphs > $max_paragraphs ) {
+		if ( $number_of_paragraphs > $max_paragraphs || $number_of_sentences > 0 ) {
 			$max_paragraphs = $number_of_paragraphs;
 		}
 

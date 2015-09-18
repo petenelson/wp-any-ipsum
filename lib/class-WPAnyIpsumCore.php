@@ -13,20 +13,37 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 
 	class WPAnyIpsumCore {
 
+		const PLUGIN_NAME       = 'any-ipsum';
+		const PLUGIN_VERSION    = '1.6.0';
+
 		public function plugins_loaded() {
 			add_filter( 'anyipsum-generate-filler', array( $this, 'generate_filler' ) );
 			add_filter( 'anyipsum-parse-request-args', array( $this, 'parse_request_args' ) );
+			add_action( 'admin_init', array( $this, 'store_plugin_version' ) );
 		}
 
 
 		static public function get_request( $key, $default = '', $filter = FILTER_SANITIZE_STRING ) {
-			foreach (array( INPUT_GET, INPUT_POST ) as $input) {
+			foreach ( array( INPUT_GET, INPUT_POST ) as $input ) {
 				$value = filter_input( $input, $key, $filter );
 				if ( ! empty( $value ) ) {
 					return $value;
 				}
 			}
 			return $default;
+		}
+
+
+		/**
+		 * Stores the plugin version in the options table if it doesn't exist (autoload no)
+		 * @return void
+		 */
+		public function store_plugin_version() {
+			// putting this here in case we need to use it for admin upgrade notices
+			$option = get_option( WPAnyIpsumCore::PLUGIN_NAME . '-version' );
+			if ( empty( $option ) ) {
+				add_option( WPAnyIpsumCore::PLUGIN_NAME . '-version', WPAnyIpsumCore::PLUGIN_VERSION, '', 'no' );
+			}
 		}
 
 
@@ -60,7 +77,7 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 				$args['max-paras'] = $args['paras'];
 			}
 
-			$args['start-with-lorem'] = ! empty( $args['start-with-lorem'] ) && $args['start-with-lorem'] === '1';
+			$args['start-with-lorem'] = ! empty( $args['start-with-lorem'] ) && ( $args['start-with-lorem'] === '1' || $args['start-with-lorem'] === 1 || $args['start-with-lorem'] );
 
 			$args = $this->sanitize_args( $args );
 
