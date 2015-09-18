@@ -50,7 +50,8 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 */
 		public function generate_posts( $positional_args, $assoc_args ) {
 
-			$generated = 0;
+			$generated   = 0;
+			$start_time  = current_time( 'timestamp' );
 
 			list( $number_of_posts ) = $positional_args;
 
@@ -120,7 +121,14 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 
 			}
 
-			WP_CLI::success( 'Done! ' . number_format( $generated ) . ' posts generated.' );
+			$end_time = current_time( 'timestamp' );
+
+			WP_CLI::success(
+				sprintf( 'Done! %s posts generated in %s seconds',
+					number_format( $generated ),
+					number_format( $end_time - $start_time )
+					)
+				);
 
 		}
 
