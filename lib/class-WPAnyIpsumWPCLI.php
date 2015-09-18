@@ -19,7 +19,7 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 * : The number of posts to generate, defaults to 10
 		 *
 		 * [--paras=<paragraphs>]
-		 * : The number of paragraphs in each post, defaults to 5
+		 * : The number of paragraphs in each post, defaults to 5, can be a number of a range (ex: 2-7 for two to seven paragraphs)
 		 *
 		 * [--type=<all-custom>]
 		 * : all-custom - uses just your custom words (default)
@@ -50,7 +50,7 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 */
 		public function generate_posts( $positional_args, $assoc_args ) {
 
-			$generates = 0;
+			$generated = 0;
 
 			list( $number_of_posts ) = $positional_args;
 
