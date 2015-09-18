@@ -24,7 +24,7 @@
 
 ## Revision History
 
-### v1.6.0 September 18, 2015 ###
+### v1.6.1 September 18, 2015 ###
 - Added WP-CLI support for generating posts.  Try 'wp help any-ipsum generate-posts' for more info
 - Fixed a bug with sentence mode generating a random number of sentences
 

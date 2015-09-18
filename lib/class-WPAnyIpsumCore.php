@@ -14,7 +14,7 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 	class WPAnyIpsumCore {
 
 		const PLUGIN_NAME       = 'any-ipsum';
-		const PLUGIN_VERSION    = '1.6.0';
+		const PLUGIN_VERSION    = '1.6.1';
 
 		public function plugins_loaded() {
 			add_filter( 'anyipsum-generate-filler', array( $this, 'generate_filler' ) );
