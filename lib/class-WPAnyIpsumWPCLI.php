@@ -53,6 +53,9 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 			$generated   = 0;
 			$start_time  = current_time( 'timestamp' );
 
+			if ( empty( $positional_args ) ) {
+				$positional_args = array( 10 );
+			}
 			list( $number_of_posts ) = $positional_args;
 
 			// parse some of our command-line args
