@@ -17,11 +17,16 @@
   - **class-WPAnyIpsumCore.php** - Exposes filters used by other classes
   - **class-WPAnyIpsumForm.php** - Shortcode for generating the form to allow visitors to generate your custom filler
   - **class-WPAnyIpsumSettings.php** - Admin settings for managing your custom filler text
+  - **class-WPAnyIpsumWPCLI.php** - WP-CLI commands
   - **class-WPAnyIpsumAPI.php** - API endpoint (supports JSON and plain text)
   - **class-WPAnyIpsumOembed.php** - oEmbed endpoint
   - **class-WPAnyIpsumGenerator.php** - The WPAnyIpsumGenerator class for generating custom filler text.
 
 ## Revision History
+
+### v1.6.0 September 18, 2015 ###
+- Added WP-CLI support for generating posts.  Try 'wp help any-ipsum generate-posts' for more info
+- Fixed a bug with sentence mode generating a random number of sentences
 
 ### v1.5.0 June 19, 2015 ###
 - Action 'anyipsum-filler-generated' is fired after either the shortcode or API generates any custom filler (useful for logging)

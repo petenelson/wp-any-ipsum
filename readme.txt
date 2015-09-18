@@ -21,6 +21,7 @@ Includes:
 * custom words and filler text
 * API (returns JSON, HTML or plain text)
 * oEmbed support
+* WP-CLI support via the 'wp any-ipsum' command
 
 The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/Any Ipsum to fully customize your ipsum.
 
@@ -34,6 +35,10 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 == Changelog ==
+
+= v1.6.0 September 18, 2015 =
+* Added WP-CLI support for generating posts.  Try 'wp help any-ipsum generate-posts' for more info
+* Fixed a bug with sentence mode generating a random number of sentences
 
 = v1.5.0 June 19, 2015 =
 * Action 'anyipsum-filler-generated' is fired after either the shortcode or API generates any custom filler (useful for logging)
@@ -81,8 +86,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Upgrade Notice ==
 
-= v1.5.0 June 19, 2015 =
-* Action 'anyipsum-filler-generated' is fired after either the shortcode or API generates any custom filler (useful for logging)
+= v1.6.0 September 18, 2015 =
+* Added WP-CLI support for generating posts.  Try 'wp help any-ipsum generate-posts' for more info
+* Fixed a bug with sentence mode generating a random number of sentences
 
 
 == Frequently Asked Questions ==
