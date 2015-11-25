@@ -38,6 +38,10 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 * [--post_status=<publish>]
 		 * : post status, defaults to 'publish'
 		 *
+		 * [--category=<category>]
+		 * : category ID, slug, or name.  If a slug or name is passed
+		 * and it does not exist, it will be created automatically.
+		 *
 		 * ## EXAMPLES
 		 *
 		 *     wp any-ispum generate-posts 25
@@ -46,13 +50,14 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 *
 		 * @subcommand generate-posts
 		 *
-		 * @synopsis [<posts>] [--paras=<paragraphs>] [--type=<filler-and-custom>] [--start-with-lorem] [--[no-]titles] [--post_type=<post>] [--post_status=<publish>]
+		 * @synopsis [<posts>] [--paras=<paragraphs>] [--type=<filler-and-custom>] [--start-with-lorem] [--[no-]titles] [--post_type=<post>] [--post_status=<publish>] [--category=<category>]
 		 */
 		public function generate_posts( $positional_args, $assoc_args ) {
 
 			$generated   = 0;
 			$start_time  = current_time( 'timestamp' );
 
+			// default to 10 posts
 			if ( empty( $positional_args ) ) {
 				$positional_args = array( 10 );
 			}
@@ -84,6 +89,44 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 				$sentence_args['number-of-sentences'] = 1;
 			}
 
+			// check for a category
+			if ( ! empty( $assoc_args['category'] ) ) {
+
+				$category = $assoc_args['category'];
+
+				if ( absint( $category ) > 0 ) {
+					$category_by_id = get_category( $category );
+					if ( empty( $category_by_id ) ) {
+						WP_CLI::error( sprintf( 'Invalid category ID %d', $category ) );
+					} else {
+						$category_id = absint( $category );
+					}
+				} else {
+
+					// try to get the category
+					foreach ( array( 'slug', 'name' ) as $field ) {
+						$existing_category = get_term_by( $field, $category, 'category' );
+						if ( ! empty( $existing_category ) ) {
+							$category_id = $existing_category->term_id;
+							break;
+						}
+					}
+
+					// create the category if it doesn't exist
+					if ( empty( $category_id ) ) {
+						$category_id = wp_insert_category( array( 'cat_name' => $category ) );
+						if ( empty( $category_id ) ) {
+							WP_CLI::error( sprintf( 'Error creating category %s', $category ) );
+						} else {
+							WP_CLI::line( sprintf( 'Category "%s" created, ID %d', $category, $category_id ) );
+						}
+					}
+
+				}
+
+			}
+
+
 			for ( $i = 0; $i < $number_of_posts; $i++ ) {
 
 				// generate post content filler
@@ -103,6 +146,10 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 					'post_status'     => $post_status,
 					'post_title'      => $sentences[0],
 					);
+
+				if ( ! empty( $category_id ) ) {
+					$post_args['post_category'] = array( $category_id );
+				}
 
 				// create a post
 				$post_id = wp_insert_post( $post_args );
