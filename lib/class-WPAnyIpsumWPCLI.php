@@ -19,7 +19,8 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 * : The number of posts to generate, defaults to 10
 		 *
 		 * [--paras=<paragraphs>]
-		 * : The number of paragraphs in each post, defaults to 5, can be a number of a range (ex: 2-7 for two to seven paragraphs)
+		 * : The number of paragraphs in each post, defaults to 5, can be a number of a
+		 * range (ex: 2-7 for two to seven paragraphs)
 		 *
 		 * [--type=<all-custom>]
 		 * : all-custom - uses just your custom words (default)
@@ -29,8 +30,12 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 * [--start-with-lorem]
 		 * : Adds your 'Stars With' text at the beginning (Bacon ipsum dolor amet)
 		 *
+		 * [--excerpt]
+		 * : Takes the first sentence from the post and makes it the post excerpt
+		 *
 		 * [--[no-]titles]
-		 * : Flag to set using filler content to create post titles of varying lengths, no-titles will use generic 'Post #'
+		 * : Flag to set using filler content to create post titles of varying
+		 * lengths, no-titles will use generic 'Post #'
 		 *
 		 * [--post_type=<post>]
 		 * : post type to create, defaults to 'post', but can also be a custom post type
@@ -44,13 +49,13 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 *
 		 * ## EXAMPLES
 		 *
-		 *     wp any-ispum generate-posts 25
+		 *     wp any-ipsum generate-posts 25
 		 *
-		 *     wp any-ispum generate-posts --paras=10 --type=filler-and-custom --start-with-lorem
+		 *     wp any-ipsum generate-posts --paras=10 --type=filler-and-custom --start-with-lorem --excerpt --category="Any Ipsum Sample"
 		 *
 		 * @subcommand generate-posts
 		 *
-		 * @synopsis [<posts>] [--paras=<paragraphs>] [--type=<filler-and-custom>] [--start-with-lorem] [--[no-]titles] [--post_type=<post>] [--post_status=<publish>] [--category=<category>]
+		 * @synopsis [<posts>] [--paras=<paragraphs>] [--type=<filler-and-custom>] [--start-with-lorem] [--excerpt] [--[no-]titles] [--post_type=<post>] [--post_status=<publish>] [--category=<category>]
 		 */
 		public function generate_posts( $positional_args, $assoc_args ) {
 
@@ -71,6 +76,7 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 
 			// WP CLI Utils has get_flag_value() which we maybe can use if we can support namespaces
 			$filler_titles    = \WP_CLI\Utils\get_flag_value( $assoc_args, 'titles', true );
+			$excerpt          = ! empty( $assoc_args['excerpt'] );
 			$post_status      = ! empty( $assoc_args['post_status'] ) ? $assoc_args['post_status'] : 'publish';
 			$post_type        = ! empty( $assoc_args['post_type'] ) ? $assoc_args['post_type'] : 'post';
 
@@ -147,9 +153,21 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 					'post_title'      => $sentences[0],
 					);
 
+				// set the excerpt
+				if ( ! empty( $excerpt ) && ! empty( $paras ) ) {
+					$content_sentences = explode('.', $paras[0], 2 );
+					if ( ! empty( $content_sentences ) ) {
+						$post_args['post_excerpt'] = $content_sentences[0] . '.';
+					}
+				}
+
+				// set the category
 				if ( ! empty( $category_id ) ) {
 					$post_args['post_category'] = array( $category_id );
 				}
+
+				// allow filtering of the args
+				$post_args = apply_filters( 'anyipsum-filler-wp-cli-insert-post-args', $post_args );
 
 				// create a post
 				$post_id = wp_insert_post( $post_args );
@@ -162,6 +180,9 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 					$generated++;
 
 					// send notification for anything else that's hooked in
+
+					do_action( 'anyipsum-filler-wp-cli-post-inserted', $post_id );
+
 					$assoc_args['source'] = 'api';
 					$assoc_args['output'] = $post_args['post_content'];
 
