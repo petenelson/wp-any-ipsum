@@ -7,6 +7,8 @@ Tested up to: 4.4
 Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: any-ipsum
+Domain Path: /lang
 
 Roll your own custom lorem ipsum generator
 
@@ -78,10 +80,8 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 * Added sentence mode for ipsum generators that want to use full sentences as custom words.
 * The ipsum generator on baconipsum.com site is now powered by this plugin!
 
-
 = 1.0.1 =
 * Bug fixes for translations
-
 
 = 1.0.0 =
 * Initial release

@@ -3,6 +3,15 @@ module.exports = function( grunt ) {
 	grunt.initConfig( {
 		pkg:    grunt.file.readJSON( 'package.json' ),
 
+		makepot: {
+			target: {
+				options: {
+					type:       'wp-plugin',
+					mainFile:   'wp-anyipsum.php'
+				}
+			}
+		},
+
 		clean:  {
 			wp: [ "release" ]
 		},
@@ -50,7 +59,7 @@ module.exports = function( grunt ) {
 	// Register tasks
 
 	// create release for WordPress repository
-	grunt.registerTask( 'wp', [ 'clean', 'copy' ] );
+	grunt.registerTask( 'wp', [ 'makepot', 'clean', 'copy' ] );
 
 	grunt.util.linefeed = '\n';
 
