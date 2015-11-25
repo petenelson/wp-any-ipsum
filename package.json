@@ -10,10 +10,18 @@
     "type": "git",
     "url": "https://github.com/petenelson/wp-any-ipsum.git"
   },
+  "keywords": [
+     "wordpress", "lorem ipsum"
+  ],
   "author": "Pete Nelson",
   "license": "GPLv2 or later",
   "bugs": {
     "url": "https://github.com/petenelson/wp-any-ipsum/issues"
   },
-  "homepage": "https://github.com/petenelson/wp-any-ipsum"
+  "homepage": "https://github.com/petenelson/wp-any-ipsum",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-copy": "^0.8.2"
+  }
 }
