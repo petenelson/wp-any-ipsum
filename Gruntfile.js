@@ -8,27 +8,50 @@ module.exports = function( grunt ) {
 		},
 
 		copy:   {
-			main: {
+
+			// create release for WordPress repository
+			wp: {
 				files: [
-					// lib
-					{ expand: true, src: ['lib/**'], dest: 'release/' }
+
+					// directories
+					{ expand: true, src: ['lang/**'], dest: 'release/' },
+					{ expand: true, src: ['lib/**'], dest: 'release/' },
+
+					// root dir files
+					{
+						expand: true,
+						src: [
+							'*.php',
+							'readme.txt',
+							],
+						dest: 'release/'
+					}
+
 				]
-			}
+			} // wp
+
 		}
 
 	} ); // grunt.initConfig
 
 
-
-
 	// Load tasks
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-copy');
+	var tasks = [
+		'grunt-contrib-clean',
+		'grunt-contrib-copy',
+		'grunt-wp-i18n',
+		];
+
+	for	( var i = 0; i < tasks.length; i++ ) {
+		grunt.loadNpmTasks( tasks[ i ] );
+	};
+
 
 	// Register tasks
+
+	// create release for WordPress repository
 	grunt.registerTask( 'wp', [ 'clean', 'copy' ] );
 
-	// grunt.registerTask( 'test', ['phpunit', 'qunit'] );
-
 	grunt.util.linefeed = '\n';
+
 };
