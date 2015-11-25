@@ -3,8 +3,8 @@ Contributors: gungeekatx, shooper
 Tags: content, ipsum
 Donate link: http://baconipsum.com/
 Requires at least: 4.0
-Tested up to: 4.3
-Stable tag: 1.6.1
+Tested up to: 4.4
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 == Changelog ==
+
+= v1.7.0 November ??, 2015 =
+* Added --category support to WP-CLI, pass in either an ID, slug, or name
 
 = v1.6.1 September 18, 2015 =
 * Added WP-CLI support for generating posts.  Try 'wp help any-ipsum generate-posts' for more info

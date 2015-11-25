@@ -24,6 +24,9 @@
 
 ## Revision History
 
+### v1.7.0 November ??, 2015 ###
+- Added --category support to WP-CLI, pass in either an ID, slug, or name
+
 ### v1.6.1 September 18, 2015 ###
 - Added WP-CLI support for generating posts.  Try 'wp help any-ipsum generate-posts' for more info
 - Fixed a bug with sentence mode generating a random number of sentences
