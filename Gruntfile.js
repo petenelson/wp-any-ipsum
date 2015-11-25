@@ -12,13 +12,6 @@ module.exports = function( grunt ) {
 			}
 		},
 
-		po2mo: {
-			files: {
-				src: 'lang/*.po',
-				expand: true,
-			}
-		},
-
 		clean:  {
 			wp: [ "release" ]
 		},
@@ -55,8 +48,7 @@ module.exports = function( grunt ) {
 	var tasks = [
 		'grunt-contrib-clean',
 		'grunt-contrib-copy',
-		'grunt-wp-i18n',
-		'grunt-po2mo'
+		'grunt-wp-i18n'
 		];
 
 	for	( var i = 0; i < tasks.length; i++ ) {
