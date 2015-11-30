@@ -38,7 +38,7 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Changelog ==
 
-= v1.7.0 November 25, 2015 =
+= v1.7.0 November 30, 2015 =
 * Added --category support to WP-CLI, pass in either an ID, slug, or name
 * Added --excerpt support to WP-CLI, pass this flag to use the first sentence of the post content as the post excerpt
 * Added 'anyipsum-filler-wp-cli-insert-post-args' filter to allow modifications of the post insert args before each new post is created
@@ -92,7 +92,7 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Upgrade Notice ==
 
-= v1.7.0 November 25, 2015 =
+= v1.7.0 November 30, 2015 =
 * Added --category support to WP-CLI, pass in either an ID, slug, or name
 * Added --excerpt support to WP-CLI, pass this flag to use the first sentence of the post content as the post excerpt
 * Added 'anyipsum-filler-wp-cli-insert-post-args' filter to allow modifications of the post insert args before each new post is created
