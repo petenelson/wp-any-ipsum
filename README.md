@@ -24,6 +24,12 @@
 
 ## Revision History
 
+### v1.7.0 November 30, 2015 ###
+- Added --category support to WP-CLI, pass in either an ID, slug, or name
+- Added --excerpt support to WP-CLI, pass this flag to use the first sentence of the post content as the post excerpt
+- Added 'anyipsum-filler-wp-cli-insert-post-args' filter to allow modifications of the post insert args before each new post is created
+- Added 'anyipsum-filler-wp-cli-post-inserted' action which is fired after each new post is created, passes post_id
+
 ### v1.6.1 September 18, 2015 ###
 - Added WP-CLI support for generating posts.  Try 'wp help any-ipsum generate-posts' for more info
 - Fixed a bug with sentence mode generating a random number of sentences

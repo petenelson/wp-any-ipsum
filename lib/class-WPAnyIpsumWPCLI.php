@@ -19,7 +19,8 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 * : The number of posts to generate, defaults to 10
 		 *
 		 * [--paras=<paragraphs>]
-		 * : The number of paragraphs in each post, defaults to 5, can be a number of a range (ex: 2-7 for two to seven paragraphs)
+		 * : The number of paragraphs in each post, defaults to 5, can be a number of a
+		 * range (ex: 2-7 for two to seven paragraphs)
 		 *
 		 * [--type=<all-custom>]
 		 * : all-custom - uses just your custom words (default)
@@ -29,8 +30,12 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 * [--start-with-lorem]
 		 * : Adds your 'Stars With' text at the beginning (Bacon ipsum dolor amet)
 		 *
+		 * [--excerpt]
+		 * : Takes the first sentence from the post and makes it the post excerpt
+		 *
 		 * [--[no-]titles]
-		 * : Flag to set using filler content to create post titles of varying lengths, no-titles will use generic 'Post #'
+		 * : Flag to set using filler content to create post titles of varying
+		 * lengths, no-titles will use generic 'Post #'
 		 *
 		 * [--post_type=<post>]
 		 * : post type to create, defaults to 'post', but can also be a custom post type
@@ -38,21 +43,26 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 * [--post_status=<publish>]
 		 * : post status, defaults to 'publish'
 		 *
+		 * [--category=<category>]
+		 * : category ID, slug, or name.  If a slug or name is passed
+		 * and it does not exist, it will be created automatically.
+		 *
 		 * ## EXAMPLES
 		 *
-		 *     wp any-ispum generate-posts 25
+		 *     wp any-ipsum generate-posts 25
 		 *
-		 *     wp any-ispum generate-posts --paras=10 --type=filler-and-custom --start-with-lorem
+		 *     wp any-ipsum generate-posts --paras=10 --type=filler-and-custom --start-with-lorem --excerpt --category="Any Ipsum Sample"
 		 *
 		 * @subcommand generate-posts
 		 *
-		 * @synopsis [<posts>] [--paras=<paragraphs>] [--type=<filler-and-custom>] [--start-with-lorem] [--[no-]titles] [--post_type=<post>] [--post_status=<publish>]
+		 * @synopsis [<posts>] [--paras=<paragraphs>] [--type=<filler-and-custom>] [--start-with-lorem] [--excerpt] [--[no-]titles] [--post_type=<post>] [--post_status=<publish>] [--category=<category>]
 		 */
 		public function generate_posts( $positional_args, $assoc_args ) {
 
 			$generated   = 0;
 			$start_time  = current_time( 'timestamp' );
 
+			// default to 10 posts
 			if ( empty( $positional_args ) ) {
 				$positional_args = array( 10 );
 			}
@@ -66,6 +76,7 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 
 			// WP CLI Utils has get_flag_value() which we maybe can use if we can support namespaces
 			$filler_titles    = \WP_CLI\Utils\get_flag_value( $assoc_args, 'titles', true );
+			$excerpt          = ! empty( $assoc_args['excerpt'] );
 			$post_status      = ! empty( $assoc_args['post_status'] ) ? $assoc_args['post_status'] : 'publish';
 			$post_type        = ! empty( $assoc_args['post_type'] ) ? $assoc_args['post_type'] : 'post';
 
@@ -83,6 +94,44 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 				$sentence_args['start-with-lorem'] = false;
 				$sentence_args['number-of-sentences'] = 1;
 			}
+
+			// check for a category
+			if ( ! empty( $assoc_args['category'] ) ) {
+
+				$category = $assoc_args['category'];
+
+				if ( absint( $category ) > 0 ) {
+					$category_by_id = get_category( $category );
+					if ( empty( $category_by_id ) ) {
+						WP_CLI::error( sprintf( 'Invalid category ID %d', $category ) );
+					} else {
+						$category_id = absint( $category );
+					}
+				} else {
+
+					// try to get the category
+					foreach ( array( 'slug', 'name' ) as $field ) {
+						$existing_category = get_term_by( $field, $category, 'category' );
+						if ( ! empty( $existing_category ) ) {
+							$category_id = $existing_category->term_id;
+							break;
+						}
+					}
+
+					// create the category if it doesn't exist
+					if ( empty( $category_id ) ) {
+						$category_id = wp_insert_category( array( 'cat_name' => $category ) );
+						if ( empty( $category_id ) ) {
+							WP_CLI::error( sprintf( 'Error creating category %s', $category ) );
+						} else {
+							WP_CLI::line( sprintf( 'Category "%s" created, ID %d', $category, $category_id ) );
+						}
+					}
+
+				}
+
+			}
+
 
 			for ( $i = 0; $i < $number_of_posts; $i++ ) {
 
@@ -104,6 +153,22 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 					'post_title'      => $sentences[0],
 					);
 
+				// set the excerpt
+				if ( ! empty( $excerpt ) && ! empty( $paras ) ) {
+					$content_sentences = explode('.', $paras[0], 2 );
+					if ( ! empty( $content_sentences ) ) {
+						$post_args['post_excerpt'] = $content_sentences[0] . '.';
+					}
+				}
+
+				// set the category
+				if ( ! empty( $category_id ) ) {
+					$post_args['post_category'] = array( $category_id );
+				}
+
+				// allow filtering of the args
+				$post_args = apply_filters( 'anyipsum-filler-wp-cli-insert-post-args', $post_args );
+
 				// create a post
 				$post_id = wp_insert_post( $post_args );
 
@@ -115,6 +180,9 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 					$generated++;
 
 					// send notification for anything else that's hooked in
+
+					do_action( 'anyipsum-filler-wp-cli-post-inserted', $post_id );
+
 					$assoc_args['source'] = 'api';
 					$assoc_args['output'] = $post_args['post_content'];
 

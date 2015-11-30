@@ -3,10 +3,12 @@ Contributors: gungeekatx, shooper
 Tags: content, ipsum
 Donate link: http://baconipsum.com/
 Requires at least: 4.0
-Tested up to: 4.3
-Stable tag: 1.6.1
+Tested up to: 4.4
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: any-ipsum
+Domain Path: /lang
 
 Roll your own custom lorem ipsum generator
 
@@ -35,6 +37,12 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 == Changelog ==
+
+= v1.7.0 November 30, 2015 =
+* Added --category support to WP-CLI, pass in either an ID, slug, or name
+* Added --excerpt support to WP-CLI, pass this flag to use the first sentence of the post content as the post excerpt
+* Added 'anyipsum-filler-wp-cli-insert-post-args' filter to allow modifications of the post insert args before each new post is created
+* Added 'anyipsum-filler-wp-cli-post-inserted' action which is fired after each new post is created, passes post_id
 
 = v1.6.1 September 18, 2015 =
 * Added WP-CLI support for generating posts.  Try 'wp help any-ipsum generate-posts' for more info
@@ -75,10 +83,8 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 * Added sentence mode for ipsum generators that want to use full sentences as custom words.
 * The ipsum generator on baconipsum.com site is now powered by this plugin!
 
-
 = 1.0.1 =
 * Bug fixes for translations
-
 
 = 1.0.0 =
 * Initial release
@@ -86,9 +92,11 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Upgrade Notice ==
 
-= v1.6.1 September 18, 2015 =
-* Added WP-CLI support for generating posts.  Try 'wp help any-ipsum generate-posts' for more info
-* Fixed a bug with sentence mode generating a random number of sentences
+= v1.7.0 November 30, 2015 =
+* Added --category support to WP-CLI, pass in either an ID, slug, or name
+* Added --excerpt support to WP-CLI, pass this flag to use the first sentence of the post content as the post excerpt
+* Added 'anyipsum-filler-wp-cli-insert-post-args' filter to allow modifications of the post insert args before each new post is created
+* Added 'anyipsum-filler-wp-cli-post-inserted' action which is fired after each new post is created, passes post_id
 
 
 == Frequently Asked Questions ==
