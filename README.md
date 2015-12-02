@@ -24,6 +24,9 @@
 
 ## Revision History
 
+### v1.8.0 December 1, 2015 ###
+- Changed the WP-CLI generate-posts output to display a progress bar instead of individual posts (can be toggled via --no-progress-bar)
+
 ### v1.7.0 November 30, 2015 ###
 - Added --category support to WP-CLI, pass in either an ID, slug, or name
 - Added --excerpt support to WP-CLI, pass this flag to use the first sentence of the post content as the post excerpt

@@ -4,7 +4,7 @@ Tags: content, ipsum
 Donate link: http://baconipsum.com/
 Requires at least: 4.0
 Tested up to: 4.4
-Stable tag: 1.7.0
+Stable tag: 1.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: any-ipsum
@@ -37,6 +37,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 == Changelog ==
+
+= v1.8.0 December 1, 2015 =
+* Changed the WP-CLI generate-posts output to display a progress bar instead of individual posts (can be toggled via --no-progress-bar)
 
 = v1.7.0 November 30, 2015 =
 * Added --category support to WP-CLI, pass in either an ID, slug, or name
@@ -91,6 +94,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 == Upgrade Notice ==
+
+= v1.8.0 December 1, 2015 =
+* Changed the WP-CLI generate-posts output to display a progress bar instead of individual posts (can be toggled via --no-progress-bar)
 
 = v1.7.0 November 30, 2015 =
 * Added --category support to WP-CLI, pass in either an ID, slug, or name
