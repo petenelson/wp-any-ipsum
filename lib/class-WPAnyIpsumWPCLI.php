@@ -47,6 +47,9 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 * : category ID, slug, or name.  If a slug or name is passed
 		 * and it does not exist, it will be created automatically.
 		 *
+		 * [--[no-]progress-bar]
+		 * : Show a progress bar (default) or show each individual post as it's generated
+		 *
 		 * ## EXAMPLES
 		 *
 		 *     wp any-ipsum generate-posts 25
@@ -55,7 +58,7 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 		 *
 		 * @subcommand generate-posts
 		 *
-		 * @synopsis [<posts>] [--paras=<paragraphs>] [--type=<filler-and-custom>] [--start-with-lorem] [--excerpt] [--[no-]titles] [--post_type=<post>] [--post_status=<publish>] [--category=<category>]
+		 * @synopsis [<posts>] [--paras=<paragraphs>] [--type=<filler-and-custom>] [--start-with-lorem] [--excerpt] [--[no-]titles] [--post_type=<post>] [--post_status=<publish>] [--category=<category>] [--[no-]progress-bar]
 		 */
 		public function generate_posts( $positional_args, $assoc_args ) {
 
@@ -75,10 +78,11 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 			}
 
 			// WP CLI Utils has get_flag_value() which we maybe can use if we can support namespaces
-			$filler_titles    = \WP_CLI\Utils\get_flag_value( $assoc_args, 'titles', true );
-			$excerpt          = ! empty( $assoc_args['excerpt'] );
-			$post_status      = ! empty( $assoc_args['post_status'] ) ? $assoc_args['post_status'] : 'publish';
-			$post_type        = ! empty( $assoc_args['post_type'] ) ? $assoc_args['post_type'] : 'post';
+			$filler_titles        = \WP_CLI\Utils\get_flag_value( $assoc_args, 'titles', true );
+			$show_progress_bar    = \WP_CLI\Utils\get_flag_value( $assoc_args, 'progress-bar', true );
+			$excerpt              = ! empty( $assoc_args['excerpt'] );
+			$post_status          = ! empty( $assoc_args['post_status'] ) ? $assoc_args['post_status'] : 'publish';
+			$post_type            = ! empty( $assoc_args['post_type'] ) ? $assoc_args['post_type'] : 'post';
 
 			if ( ! in_array( $post_type, get_post_types() ) ) {
 				WP_CLI::error( sprintf( 'Invalid post_type %s', $post_type ) );
@@ -132,6 +136,9 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 
 			}
 
+			if ( $show_progress_bar ) {
+				$progress_bar = \WP_CLI\Utils\make_progress_bar( 'Generating Posts:', $number_of_posts );
+			}
 
 			for ( $i = 0; $i < $number_of_posts; $i++ ) {
 
@@ -176,7 +183,12 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 				if ( empty( $post_id ) ) {
 					WP_CLI::warning( 'Unable to generate post' );
 				} else {
-					WP_CLI::line( sprintf( 'Post ID %d generated: %s', $post_id, $post_args['post_title'] ) );
+					if ( $show_progress_bar ) {
+						$progress_bar->tick();
+					} else {
+						WP_CLI::line( sprintf( 'Post ID %d generated: %s', $post_id, $post_args['post_title'] ) );
+					}
+
 					$generated++;
 
 					// send notification for anything else that's hooked in
@@ -190,6 +202,10 @@ if ( defined('WP_CLI') && WP_CLI && ! class_exists( 'WPAnyIpsumWPCLI' ) ) {
 
 				}
 
+			}
+
+			if ( $show_progress_bar ) {
+				$progress_bar->finish();
 			}
 
 			$end_time = current_time( 'timestamp' );
