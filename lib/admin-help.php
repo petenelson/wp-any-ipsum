@@ -1,5 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) wp_die( 'restricted access' );
+if ( ! defined( 'ABSPATH' ) ) die( 'restricted access' );
 $text_domain = 'any-ipsum';
 ?>
 <style>
