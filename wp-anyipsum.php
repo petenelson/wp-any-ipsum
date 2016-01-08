@@ -3,7 +3,7 @@
 Plugin Name: Any Ipsum
 Description: Roll your own custom lorem ipsum generator
 Plugin URI: https://wordpress.org/plugins/any-ipsum/
-Version: 1.8.0
+Version: 1.8.1
 Author: Pete Nelson (@GunGeekATX)
 Text Domain: any-ipsum
 Domain Path: /lang

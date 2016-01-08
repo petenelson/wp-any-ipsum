@@ -119,13 +119,13 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 
 		private function get_settings() {
 			$settings = array(
-				'custom_filler_text' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'custom-and-filler-text' ),
-				'custom_and_filler' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' ),
-				'all_custom_text' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'all-custom-text' ),
-				'all_custom' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' ),
-				'button_text' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'button-text' ),
-				'start_with' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'start-with' ),
-				'ipsum_name' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'name' ),
+				'custom_filler_text'   => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'custom-and-filler-text' ),
+				'custom_and_filler'    => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' ),
+				'all_custom_text'      => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'all-custom-text' ),
+				'all_custom'           => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' ),
+				'button_text'          => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'button-text' ),
+				'start_with'           => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'start-with' ),
+				'ipsum_name'           => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'name' ),
 			);
 			return $settings;
 		}
