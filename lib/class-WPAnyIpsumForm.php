@@ -103,8 +103,22 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 					<table class="anyipsum-table">
 						<tbody>
 							<tr class="anyipsum-paragraphs"><td class="anyipsum-left-cell"><?php _e( 'Paragraphs', 'any-ipsum' ); ?>:</td><td class="anyipsum-right-cell"><input type="text" name="paras" value="5" maxlength="2" /></td></tr>
-							<tr class="anyipsum-type"><td class="anyipsum-left-cell"><?php _e( 'Type', 'any-ipsum' ); ?>:</td><td class="anyipsum-right-cell"><label><input type="radio" name="type" value="<?php echo esc_attr( $settings['all_custom'] ); ?>" <?php checked( $settings['all_custom'], $type ); ?> /><?php echo esc_attr( $settings['all_custom_text'] ) ?></label> <label><input type="radio" name="type" value="<?php echo esc_attr( $settings['custom_and_filler'] ); ?>" <?php checked( $settings['custom_and_filler'], $type ); ?> /><?php echo esc_attr( $settings['custom_filler_text'] ); ?></label></td></tr>
-							<tr class="anyipsum-start-with"><td class="anyipsum-left-cell"></td><td class="anyipsum-right-cell"><input id="start-with-lorem" type="checkbox" name="start-with-lorem" value="1" checked="checked" /> <label for="start-with-lorem"><?php _e( 'Start with', 'any-ipsum' ); ?> '<?php echo esc_attr( $settings['start_with'] ); ?>...'</label></td></tr>
+							<tr class="anyipsum-type">
+								<td class="anyipsum-left-cell"><?php _e( 'Type', 'any-ipsum' ); ?>:</td>
+								<td class="anyipsum-right-cell">
+									<input id="any-ipsum-all-custom" type="radio" name="type" value="<?php echo esc_attr( $settings['all_custom'] ); ?>" <?php checked( $settings['all_custom'], $type ); ?> />
+									<label for="any-ipsum-all-custom"><?php echo esc_attr( $settings['all_custom_text'] ) ?></label>
+									<input id="any-ipsum-custom-and-filler" type="radio" name="type" value="<?php echo esc_attr( $settings['custom_and_filler'] ); ?>" <?php checked( $settings['custom_and_filler'], $type ); ?> />
+									<label for="any-ipsum-custom-and-filler"><?php echo esc_attr( $settings['custom_filler_text'] ); ?></label>
+								</td>
+							</tr>
+							<tr class="anyipsum-start-with">
+								<td class="anyipsum-left-cell"></td>
+								<td class="anyipsum-right-cell">
+									<input id="start-with-lorem" type="checkbox" name="start-with-lorem" value="1" checked="checked" />
+									<label for="start-with-lorem"><?php _e( 'Start with', 'any-ipsum' ); ?> '<?php echo esc_attr( $settings['start_with'] ); ?>...'</label>
+								</td>
+							</tr>
 							<tr class="anyipsum-submit"><td class="anyipsum-left-cell"></td><td class="anyipsum-right-cell"><input type="submit" value="<?php echo esc_attr( $settings['button_text'] ); ?>" /></td></tr>
 						</tbody>
 					</table>
