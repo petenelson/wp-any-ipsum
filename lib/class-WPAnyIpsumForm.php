@@ -122,6 +122,7 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 									<label for="start-with-lorem"><?php _e( 'Start with', 'any-ipsum' ); ?> '<?php echo esc_attr( $settings['start_with'] ); ?>...'</label>
 								</td>
 							</tr>
+							<?php do_action( 'anyipsum-after-starts-with-row', $content, $type, $settings ); ?>
 							<tr class="anyipsum-submit"><td class="anyipsum-left-cell"></td><td class="anyipsum-right-cell"><input type="submit" value="<?php echo esc_attr( $settings['button_text'] ); ?>" /></td></tr>
 						</tbody>
 					</table>
