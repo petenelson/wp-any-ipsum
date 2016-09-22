@@ -44,6 +44,9 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 
 				$paragraphs = apply_filters( 'anyipsum-generate-filler', $args );
 
+				// Allow filtering of the generated filler.
+				$paragraphs = apply_filters( 'anyipsum-generated-filler', $paragraphs );
+
 				$output = '<div class="anyipsum-output">';
 				foreach ( $paragraphs as $paragraph ) {
 					$output .= '<p>' . $paragraph . '</p>';
