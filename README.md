@@ -4,9 +4,12 @@
 **Donate link:** http://baconipsum.com/  
 **Requires at least:** 4.0  
 **Tested up to:** 4.4  
-**Stable tag:** 1.8.1  
+**Stable tag:** 1.9.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
+
+[![Code Climate](https://codeclimate.com/github/petenelson/wp-any-ipsum/badges/gpa.svg)](https://codeclimate.com/github/petenelson/wp-any-ipsum)
+
 **Text Domain:** any-ipsum  
 **Domain Path:** /lang  
 
@@ -37,6 +40,11 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 ## Changelog ##
+
+### v1.9.0 September 23, 2016 ###
+* Added 'anyipsum-generated-filler' filter to allow modification of generated filler before display.
+* Added 'anyipsum-after-starts-with-row' action to HTML form.
+* Reformatted some of the label tags in the HTML form.
 
 ### v1.8.1 January 8, 2016 ###
 * Fixed a bug that was always showing the 'Starts with' text (thanks @ghost_harrenhal)
