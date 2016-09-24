@@ -3,8 +3,8 @@ Contributors: gungeekatx, shooper
 Tags: content, ipsum
 Donate link: http://baconipsum.com/
 Requires at least: 4.0
-Tested up to: 4.5
-Stable tag: 1.8.1
+Tested up to: 4.6
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: any-ipsum
@@ -37,6 +37,11 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 == Changelog ==
+
+= v1.9.0 September 23, 2016 =
+* Added 'anyipsum-generated-filler' filter to allow modification of generated filler before display.
+* Added 'anyipsum-after-starts-with-row' action to HTML form.
+* Reformatted some of the label tags in the HTML form.
 
 = v1.8.1 January 8, 2016 =
 * Fixed a bug that was always showing the 'Starts with' text (thanks @ghost_harrenhal)
@@ -98,11 +103,10 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 == Upgrade Notice ==
 
-= v1.8.1 January 8, 2016 =
-* Fixed a bug that was always showing the 'Starts with' text (thanks @ghost_harrenhal)
-
-= v1.8.0 December 1, 2015 =
-* Changed the WP-CLI generate-posts output to display a progress bar instead of individual posts (can be toggled via --no-progress-bar)
+= v1.9.0 September 23, 2016 =
+* Added 'anyipsum-generated-filler' filter to allow modification of generated filler before display.
+* Added 'anyipsum-after-starts-with-row' action to HTML form.
+* Reformatted some of the label tags in the HTML form.
 
 
 == Frequently Asked Questions ==
