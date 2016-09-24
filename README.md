@@ -121,11 +121,11 @@ We can answer them here!
 ## Screenshots ##
 
 ### 1. Configure your custom ipsum ###
-![Configure your custom ipsum](https://raw.githubusercontent.com/petenelson/dashboard-directory-size/master/assets/screenshot-1.png)
+![Configure your custom ipsum](https://raw.githubusercontent.com/petenelson/wp-any-ipsum/master/assets/screenshot-1.png)
 
 ### 2. Sample form ###
-![Sample form](https://raw.githubusercontent.com/petenelson/dashboard-directory-size/master/assets/screenshot-2.png)
+![Sample form](https://raw.githubusercontent.com/petenelson/wp-any-ipsum/master/assets/screenshot-2.png)
 
 ### 3. Sample output ###
-![Sample output](https://raw.githubusercontent.com/petenelson/dashboard-directory-size/master/assets/screenshot-3.png)
+![Sample output](https://raw.githubusercontent.com/petenelson/wp-any-ipsum/master/assets/screenshot-3.png)
 
