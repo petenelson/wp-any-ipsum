@@ -5,13 +5,13 @@
 **Requires at least:** 4.0  
 **Tested up to:** 4.7  
 **Stable tag:** 1.9.0  
+**Text Domain:** any-ipsum  
+**Domain Path:** /lang  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
 [![Code Climate](https://codeclimate.com/github/petenelson/wp-any-ipsum/badges/gpa.svg)](https://codeclimate.com/github/petenelson/wp-any-ipsum)
 
-**Text Domain:** any-ipsum  
-**Domain Path:** /lang  
 
 Roll your own custom lorem ipsum generator
 
