@@ -3,7 +3,7 @@
 **Tags:** content, ipsum  
 **Donate link:** http://baconipsum.com/  
 **Requires at least:** 4.0  
-**Tested up to:** 4.8  
+**Tested up to:** 4.9  
 **Stable tag:** 1.9.0  
 **Text Domain:** any-ipsum  
 **Domain Path:** /lang  
