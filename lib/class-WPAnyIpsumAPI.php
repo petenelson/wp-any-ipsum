@@ -55,6 +55,9 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 			$args = apply_filters( 'anyipsum-parse-request-args', $_SERVER['REQUEST_METHOD'] === 'POST' ? $_REQUEST : $_SERVER['QUERY_STRING'] );
 			$paras = apply_filters( 'anyipsum-generate-filler', $args );
 
+			// Allow filtering of the generated filler.
+			$paras = apply_filters( 'anyipsum-generated-filler', $paras );
+
 			$content_type = '';
 			$output = '';
 
