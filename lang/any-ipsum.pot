@@ -1,14 +1,14 @@
-# Copyright (C) 2016 Pete Nelson (@GunGeekATX)
+# Copyright (C) 2017 Pete Nelson (@GunGeekATX)
 # This file is distributed under the same license as the Any Ipsum package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Any Ipsum 1.9.0\n"
+"Project-Id-Version: Any Ipsum 1.9.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-anyipsum\n"
-"POT-Creation-Date: 2016-09-24 00:52:58+00:00\n"
+"POT-Creation-Date: 2017-11-15 16:10:40+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 0.5.4\n"
