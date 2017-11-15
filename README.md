@@ -4,7 +4,7 @@
 **Donate link:** http://baconipsum.com/  
 **Requires at least:** 4.0  
 **Tested up to:** 4.9  
-**Stable tag:** 1.9.0  
+**Stable tag:** 1.9.1  
 **Text Domain:** any-ipsum  
 **Domain Path:** /lang  
 **License:** GPLv2 or later  
@@ -40,6 +40,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 ## Changelog ##
+
+### v1.9.1 November 15, 2017 ###
+* Added 'anyipsum-generated-filler' filter to API output.
 
 ### v1.9.0 September 23, 2016 ###
 * Added 'anyipsum-generated-filler' filter to allow modification of generated filler before display.
@@ -105,6 +108,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 ## Upgrade Notice ##
+
+### v1.9.1 November 15, 2017 ###
+* Added 'anyipsum-generated-filler' filter to API output.
 
 ### v1.9.0 September 23, 2016 ###
 * Added 'anyipsum-generated-filler' filter to allow modification of generated filler before display.
