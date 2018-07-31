@@ -146,11 +146,11 @@ class WPAnyIpsumGenerator {
 					$words .= $this->make_a_sentence( $type );
 			}
 			else {
-				$words = $this->Make_a_Paragraph( $type );
+				$words = $this->make_a_paragraph( $type );
 			}
 
-			if ( $i == 0 && $start_with_lorem && count( $words ) > 0 ) {
-				$words[0] = trim( strtolower( $words[0] ) );
+			if ( $i == 0 && $start_with_lorem && strlen( $words ) > 0 ) {
+				$words = strtolower( substr( $words , 0, 1 ) ) . substr( $words, 1 );
 				$words = ( empty( $this->start_with ) ? 'Lorem ipsum dolor amet' : $this->start_with ) . ' ' . $words;
 			}
 
