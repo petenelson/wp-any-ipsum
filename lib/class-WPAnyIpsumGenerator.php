@@ -54,16 +54,20 @@ class WPAnyIpsumGenerator {
 		}
 
 
+		$words = $this->get_words( $type );
+
 		// A sentence should be bewteen 4 and 15 words.
 		$sentence = '';
 		$length = rand( 4, 15 );
 
+		if ( is_array( $words ) && $length > count( $words ) ) {
+			$length = count($words);
+		}
+
 		// Add a little more randomness to commas, about 2/3rds of the time
 		$includeComma = $length >= 7 && rand( 0, 2 ) > 0;
 
-		$words = $this->get_words( $type );
-
-		if ( count( $words ) > 0 ) {
+		if ( is_array( $words ) && count( $words ) > 0 ) {
 			// Capitalize the first word.
 			$words[0] =  trim( ucfirst( $words[0] ) );
 
