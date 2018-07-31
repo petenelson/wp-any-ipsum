@@ -60,5 +60,8 @@ doner
 kevin
 landjaeger
 porchetta
+alcatra
+picanha
+cupim
 burgdoggen
 buffalo
