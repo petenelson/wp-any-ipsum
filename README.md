@@ -4,7 +4,7 @@
 **Donate link:** http://baconipsum.com/  
 **Requires at least:** 4.0  
 **Tested up to:** 4.9  
-**Stable tag:** 1.9.2  
+**Stable tag:** 1.9.3  
 **Text Domain:** any-ipsum  
 **Domain Path:** /lang  
 **License:** GPLv2 or later  
@@ -41,8 +41,8 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 ## Changelog ##
 
-### v1.9.2 July 30, 2018 ###
-* Fixed bugs in the code that loads default filler and custom words (props @colinusher)
+### v1.9.3 July 31, 2018 ###
+* Fixed bugs in the code that loads default filler and custom words and an array count bug (props @colinusher)
 
 ### v1.9.1 November 15, 2017 ###
 * Added 'anyipsum-generated-filler' filter to API output.
@@ -112,8 +112,8 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 ## Upgrade Notice ##
 
-### v1.9.2 July 30, 2018 ###
-* Fixed bugs in the code that loads default filler and custom words (props @colinusher)
+### v1.9.3 July 31, 2018 ###
+* Fixed bugs in the code that loads default filler and custom words and an array count bug (props @colinusher)
 
 ### v1.9.1 November 15, 2017 ###
 * Added 'anyipsum-generated-filler' filter to API output.
