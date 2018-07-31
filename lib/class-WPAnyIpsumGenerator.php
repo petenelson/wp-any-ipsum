@@ -2,21 +2,6 @@
 /*
 Class: WPAnyIpsumGenerator
 Author: Pete Nelson (@GunGeekATX)
-
-Revision History
-
-= March 27, 2015 =
-* Trim word before adding to sentence
-
-= October 22, 2014 =
-* Added sentence_mode
-
-= September 7, 2014 =
-* Made parameters more generic and not meat-specific
-
-= September 6, 2014 =
-* Initial fork of Bacon Ipsum
-
 */
 
 class WPAnyIpsumGenerator {
@@ -34,28 +19,35 @@ class WPAnyIpsumGenerator {
 		$this->sentence_mode = false;
 	}
 
+	/**
+	 * Returns a random list of filler words, or custom and filler words,
+	 * depending on type.
+	 *
+	 * @param  string $type The type to return.
+	 * @return array
+	 */
+	public function get_words( $type ) {
 
-	private function get_words( $type ) {
+		$custom_words = empty( $this->custom_words ) ? $this->default_custom() : $this->custom_words;
+		$filler_words = empty( $this->filler ) ? $this->default_filler() : $this->filler;
 
 		if ( $type == $this->custom_and_filler ) {
-			$words = array_merge( empty( $this->custom_words ) ? $this->default_filler() : $this->custom_words, ( empty( $this->filler ) ? $this->default_filler() : $this->filler ) );
+			$words = array_merge( $custom_words, $filler_words );
 		} else {
-			$words = empty( $this->custom_words ) ? $this->default_filler() : $this->custom_words;
+			$words = $custom_words;
 		}
 
 		shuffle( $words );
 
-		return $words;
-
+		return apply_filters( 'wp_any_ipsum_get_words', $words, $type );
 	}
 
-
-	private function make_a_sentence( $type ) {
+	public function make_a_sentence( $type ) {
 
 		if ( $this->sentence_mode ) {
 			// grab the first random sentence
 			$words = $this->get_words( $type );
-			if ( count( $words ) > 0 )
+			if ( is_array( $words ) && count( $words ) > 0 )
 				return trim( $words[0] );
 			else
 				return '';
@@ -100,11 +92,9 @@ class WPAnyIpsumGenerator {
 		}
 
 		return $sentence;
-
 	}
 
-
-	private function make_a_paragraph( $type ) {
+	public function make_a_paragraph( $type ) {
 		// A paragraph should be bewteen 4 and 7 sentences.
 
 		$para = '';
@@ -115,9 +105,7 @@ class WPAnyIpsumGenerator {
 		}
 
 		return rtrim( $para );
-
 	}
-
 
 	public function make_some_custom_filler(
 			$type = '',
@@ -141,7 +129,7 @@ class WPAnyIpsumGenerator {
 		}
 
 		if ( $max_paragraphs !== $number_of_paragraphs ) {
-			// generate a random amount of paragraphs
+			// Generate a random amount of paragraphs.
 			$number_of_paragraphs = rand( $number_of_paragraphs, $max_paragraphs );
 		}
 
@@ -167,18 +155,33 @@ class WPAnyIpsumGenerator {
 		}
 
 		return $paragraphs;
-
 	}
 
-
+	/**
+	 * Returns the default list of custom words.
+	 *
+	 * @return array
+	 */
 	public function default_custom() {
-		return explode( "\n", file_get_contents( plugin_dir_url( __FILE__ ) . 'default-custom.txt' ) );
+		$filename = apply_filters( 'wp_any_ipsum_default_custom_filename', WP_ANY_IPSUM_ROOT . 'lib/default-custom.txt' );
+		if ( file_exists( $filename ) ) {
+			return explode( PHP_EOL, file_get_contents( $filename ) );
+		} else {
+			return array();
+		}
 	}
 
-
+	/**
+	 * Returns the default list of filler words.
+	 *
+	 * @return array
+	 */
 	public function default_filler() {
-		return explode( "\n", file_get_contents( plugin_dir_url( __FILE__ ) .  'default-filler.txt' ) );
+		$filename = apply_filters( 'wp_any_ipsum_default_filler_filename', WP_ANY_IPSUM_ROOT . 'lib/default-filler.txt' );
+		if ( file_exists( $filename ) ) {
+			return explode( PHP_EOL, file_get_contents( $filename ) );
+		} else {
+			return array();
+		}
 	}
-
-
 }

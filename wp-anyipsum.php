@@ -11,6 +11,8 @@ Domain Path: /lang
 
 if ( ! defined( 'ABSPATH' ) ) die( 'restricted access' );
 
+define( 'WP_ANY_IPSUM_ROOT', trailingslashit( dirname(  __FILE__ ) ) );
+
 // include required files
 $includes = array( 'Generator', 'Settings', 'Core', 'Form', 'API', 'Oembed', 'WPCLI' );
 foreach ( $includes as $include )
