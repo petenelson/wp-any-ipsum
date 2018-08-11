@@ -1,0 +1,14 @@
+# docker-compose up
+version: '3'
+services:
+  mysql:
+    image: mysql:latest
+    container_name: wp_any_ipsum_test_mysql
+    restart: always
+    ports:
+      - "3308:3306" # Notice this exposed the port as 3308 to prevent conflicts with any other MySQL that's running.
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
