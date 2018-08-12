@@ -42,17 +42,25 @@ class WPAnyIpsumGenerator {
 		return apply_filters( 'wp_any_ipsum_get_words', $words, $type );
 	}
 
+	/**
+	 * Returns a sentence based on randomized custom words and filler, or
+	 * a single line from the custom words if the generator is in sentence
+	 * mode.
+	 *
+	 * @param  string $type The type, either custom or custom and filler,
+	 *                      based on matching the custom_and_filler setting.
+	 * @return string
+	 */
 	public function make_a_sentence( $type ) {
 
 		if ( $this->sentence_mode ) {
-			// grab the first random sentence
+			// Grab the first random sentence.
 			$words = $this->get_words( $type );
 			if ( is_array( $words ) && count( $words ) > 0 )
 				return trim( $words[0] );
 			else
 				return '';
 		}
-
 
 		$words = $this->get_words( $type );
 
