@@ -39,7 +39,7 @@ class WPAnyIpsumGenerator {
 
 		shuffle( $words );
 
-		return apply_filters( 'wp_any_ipsum_get_words', $words, $type );
+		return apply_filters( 'wp_any_ipsum_get_words', array_values( $words ), $type );
 	}
 
 	/**
@@ -64,7 +64,6 @@ class WPAnyIpsumGenerator {
 
 		$words = $this->get_words( $type );
 
-		// A sentence should be bewteen 4 and 15 words.
 		$sentence = '';
 		$length = $this->get_sentence_length();
 

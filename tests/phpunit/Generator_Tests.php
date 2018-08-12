@@ -91,18 +91,11 @@ class Generator_Tests extends WP_UnitTestCase {
 			'flank',
 			'sausage',
 			'shoulder',
-			'cow',
-			'pig',
-			't-bone',
-			'ribeye',
-			'shankle',
-			'tongue',
-			'tail',
-			'pastrami',
-			'jerky',
-			'ham',
-			'fatback',
-			'pancetta',
+		];
+
+		$generator->filler = [
+			'lorem',
+			'ipsum',
 		];
 
 		$sentence = trim( $generator->make_a_sentence( 'meat-and-filler' ) );
@@ -129,7 +122,7 @@ class Generator_Tests extends WP_UnitTestCase {
 
 			$words = explode( ' ', $sentence );
 			$this->assertGreaterThanOrEqual( 4, count( $words ) );
-			$this->assertLessThanOrEqual( 15, count( $words ) );
+			$this->assertLessThanOrEqual( 12, count( $words ) );
 
 			if ( false !== stripos( $sentence, 'bacon' ) ) {
 				$has_meat = true;
