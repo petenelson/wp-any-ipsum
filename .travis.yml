@@ -1,7 +1,7 @@
 language: php
 
 php:
-    - "7.0"
+    - "7.1"
 
 # Declare which versions of WordPress to test against.
 # Also declare whether or not to test in Multisite.
