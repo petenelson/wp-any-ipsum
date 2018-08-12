@@ -168,7 +168,7 @@ class WPAnyIpsumGenerator {
 	 */
 	public function default_custom() {
 		$filename = apply_filters( 'wp_any_ipsum_default_custom_filename', WP_ANY_IPSUM_ROOT . 'lib/default-custom.txt' );
-		if ( file_exists( $filename ) ) {
+		if ( is_string( $filename ) && file_exists( $filename ) ) {
 			return explode( PHP_EOL, file_get_contents( $filename ) );
 		} else {
 			return array();
@@ -182,7 +182,7 @@ class WPAnyIpsumGenerator {
 	 */
 	public function default_filler() {
 		$filename = apply_filters( 'wp_any_ipsum_default_filler_filename', WP_ANY_IPSUM_ROOT . 'lib/default-filler.txt' );
-		if ( file_exists( $filename ) ) {
+		if ( is_string( $filename ) && file_exists( $filename ) ) {
 			return explode( PHP_EOL, file_get_contents( $filename ) );
 		} else {
 			return array();
