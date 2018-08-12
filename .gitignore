@@ -1,3 +1,5 @@
+vendor/
+test-coverage-html/
 .phpintel
 npm-debug.log
 node_modules

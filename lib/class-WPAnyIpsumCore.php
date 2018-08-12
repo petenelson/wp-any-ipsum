@@ -47,7 +47,7 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 		}
 
 
-		private function default_generator_args() {
+		public function default_generator_args() {
 			return array(
 				'type'                => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' ),
 				'start-with-lorem'    => false,

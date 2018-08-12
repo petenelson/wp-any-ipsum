@@ -1,0 +1,22 @@
+<phpunit
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	verbose="true"
+	>
+	<testsuites>
+		<testsuite name="wp-any-ipsum-tests">
+			<directory suffix=".php">tests/phpunit</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist>
+			<directory suffix=".php">lib</directory>
+		</whitelist>
+	</filter>
+	<php>
+		<ini name="error_reporting" value="32767" />
+		<ini name="display_errors" value="1" />
+		<ini name="display_startup_errors" value="1" />
+	</php>
+</phpunit>
