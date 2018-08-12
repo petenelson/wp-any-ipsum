@@ -66,51 +66,67 @@ class WPAnyIpsumGenerator {
 
 		// A sentence should be bewteen 4 and 15 words.
 		$sentence = '';
-		$length = rand( 4, 15 );
+		$length = $this->get_sentence_length();
 
 		if ( is_array( $words ) && $length > count( $words ) ) {
-			$length = count($words);
+			$length = count( $words );
 		}
 
-		// Add a little more randomness to commas, about 2/3rds of the time
-		$includeComma = $length >= 7 && rand( 0, 2 ) > 0;
+		$words = array_values( array_slice( $words, 0, $length ) );
 
 		if ( is_array( $words ) && count( $words ) > 0 ) {
+
+			// Add a little more randomness to commas, about 2/3rds of the time
+			$includeComma = count( $words ) >= 7 && rand( 0, 2 ) > 0;
+
 			// Capitalize the first word.
 			$words[0] =  trim( ucfirst( $words[0] ) );
 
-			for ( $i = 0; $i < $length; $i++ ) {
-
+			// Add a comma, maybe.
+			for ( $i = 0; $i < count( $words ); $i++ ) {
 				if ( $i > 0 ) {
-					if ( $i >= 3 && $i != $length - 1 && $includeComma ) {
-
+					if ( $i >= 3 && $i != count( $words ) - 1 && $includeComma ) {
 						if ( rand( 0, 1 ) == 1 ) {
-							$sentence = rtrim( $sentence ) . ', ';
+							$words[ $i ] = $words[ $i ] . ',';
 							$includeComma = false;
 						}
-						else
-							$sentence .= ' ';
 					}
-					else
-						$sentence .= ' ';
-
 				}
-
-				$sentence .= trim( $words[$i] );
 			}
 
-			$sentence = rtrim( $sentence ) . '. ';
+			$words = array_map( 'trim', $words );
 
+			// Create a sentence.
+			$sentence = implode( ' ', $words ) . '.';
 		}
 
 		return $sentence;
 	}
 
-	public function make_a_paragraph( $type ) {
+	/**
+	 * Returns a random number for the length of a sentence in words.
+	 *
+	 * @return int
+	 */
+	public function get_sentence_length() {
+		// A sentence should be between 4 and 15 words.
+		return apply_filters( 'wp_any_ipsum_random_sentence_length', rand( 4, 15 ) );
+	}
+
+	/**
+	 * Returns a random number for the length of a paragraph in sentences.
+	 *
+	 * @return int
+	 */
+	public function get_paragraph_length() {
 		// A paragraph should be bewteen 4 and 7 sentences.
+		return apply_filters( 'wp_any_ipsum_random_paragraph_length', rand( 4, 7 ) );
+	}
+
+	public function make_a_paragraph( $type ) {
 
 		$para = '';
-		$length = rand( 4, 7 );
+		$length = $this->get_paragraph_length();
 
 		for ( $i = 0; $i < $length; $i++ ) {
 			$para .= $this->make_a_sentence( $type ) . ' ';
