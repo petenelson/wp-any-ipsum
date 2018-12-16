@@ -47,5 +47,5 @@ class WP_Any_Ipsum_Unit_Tests {
 	}
 }
 
-$wp_austin_unit_tests = new WP_Any_Ipsum_Unit_Tests();
-$wp_austin_unit_tests->bootstrap();
+$wp_any_ipsum_tests = new WP_Any_Ipsum_Unit_Tests();
+$wp_any_ipsum_tests->bootstrap();
