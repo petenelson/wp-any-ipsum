@@ -1,9 +1,9 @@
 === Any Ipsum ===
 Contributors: gungeekatx, shooper
 Tags: content, ipsum
-Donate link: http://baconipsum.com/
+Donate link: https://baconipsum.com/
 Requires at least: 4.0
-Tested up to: 4.9
+Tested up to: 5.5
 Stable tag: 1.9.3
 Text Domain: any-ipsum
 Domain Path: /lang
