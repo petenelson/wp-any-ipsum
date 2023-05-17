@@ -1,5 +1,6 @@
 .phpintel
 npm-debug.log
 node_modules
+vendor
 release
 .mo
