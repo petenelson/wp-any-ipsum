@@ -31,7 +31,6 @@ if ( class_exists( 'WPAnyIpsumCore' ) ) {
 	add_action( 'plugins_loaded', array( $WPAnyIpsumCore, 'plugins_loaded' ) );
 }
 
-
 if ( class_exists( 'WPAnyIpsumSettings' ) ) {
 	$WPAnyIpsumSettings = new WPAnyIpsumSettings();
 	add_action( 'plugins_loaded', array( $WPAnyIpsumSettings, 'plugins_loaded' ) );
@@ -39,24 +38,20 @@ if ( class_exists( 'WPAnyIpsumSettings' ) ) {
 	register_activation_hook( __FILE__, array( $WPAnyIpsumSettings, 'activation_hook' ) );
 }
 
-
 if ( class_exists( 'WPAnyIpsumForm' ) ) {
 	$WPAnyIpsumForm = new WPAnyIpsumForm();
 	add_action( 'plugins_loaded', array( $WPAnyIpsumForm, 'plugins_loaded' ) );
 }
-
 
 if ( class_exists( 'WPAnyIpsumOEmbed' ) ) {
 	$WPAnyIpsumOEmbed = new WPAnyIpsumOEmbed();
 	add_action( 'plugins_loaded', array( $WPAnyIpsumOEmbed, 'plugins_loaded' ) );
 }
 
-
 if ( class_exists( 'WPAnyIpsumAPI' ) ) {
 	$WPAnyIpsumAPI = new WPAnyIpsumAPI();
 	add_action( 'plugins_loaded', array( $WPAnyIpsumAPI, 'plugins_loaded' ) );
 }
-
 
 if ( defined( 'WP_CLI' ) && WP_CLI && class_exists( 'WPAnyIpsumWPCLI' ) ) {
 	WP_CLI::add_command( 'any-ipsum', 'WPAnyIpsumWPCLI' );

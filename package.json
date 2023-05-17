@@ -7,7 +7,8 @@
     "lint-release": "npm install && composer install && npm run lint",
     "lint-css": "stylelint assets/css",
     "lint-js": "eslint assets/js",
-    "lint-php": "composer run lint"
+    "lint-php": "composer run lint",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -39,7 +40,7 @@
       "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
     ]
   },
- "devDependencies": {
+  "devDependencies": {
     "husky": "^8.0.3"
   }
 }
