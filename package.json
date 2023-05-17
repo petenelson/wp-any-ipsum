@@ -4,10 +4,6 @@
   "description": "Roll your own custom lorem ipsum generator",
   "main": "Gruntfile.js",
   "scripts": {
-    "lint-release": "npm install && composer install && npm run lint",
-    "lint-css": "stylelint assets/css",
-    "lint-js": "eslint assets/js",
-    "lint-php": "composer run lint",
     "prepare": "husky install"
   },
   "repository": {
