@@ -9,7 +9,9 @@ Text Domain: any-ipsum
 Domain Path: /lang
 */
 
-if ( ! defined( 'ABSPATH' ) ) die( 'restricted access' );
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'restricted access' );
+}
 
 define( 'WP_ANY_IPSUM_ROOT', trailingslashit( dirname(  __FILE__ ) ) );
 
@@ -56,3 +58,4 @@ if ( class_exists( 'WPAnyIpsumAPI' ) ) {
 if ( defined( 'WP_CLI' ) && WP_CLI && class_exists( 'WPAnyIpsumWPCLI' ) ) {
 	WP_CLI::add_command( 'any-ipsum', 'WPAnyIpsumWPCLI' );
 }
+

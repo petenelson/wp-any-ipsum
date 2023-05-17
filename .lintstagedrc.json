@@ -1,11 +1,5 @@
 {
-  "*.css": [
-	"stylelint"
-  ],
-  "*.js": [
-	"eslint"
-  ],
-  "*.php": [
-	"./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
-  ]
+	"*.php": [
+		"./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
+	]
 }
