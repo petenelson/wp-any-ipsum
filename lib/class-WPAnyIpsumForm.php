@@ -1,7 +1,7 @@
 <?php
 /*
 Class: WPAnyIpsumGenerator
-Author: Pete Nelson (@GunGeekATX)
+Author: Pete Nelson (@CodeGeekATX)
 
 Handles anyipsum-form shortcode
 
