@@ -101,6 +101,8 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 
 			$section = 'general';
 
+			$options = get_option( $key );
+
 			add_settings_section( $section, '', array( $this, 'section_header' ), $key );
 
 			add_settings_field( 'name', __( 'Your Ipsum Name', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
@@ -114,6 +116,9 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 
 			add_settings_field( 'start-with', __( 'Start With Text', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
 				array( 'key' => $key, 'name' => 'start-with', 'size' => 50, 'maxlength' => 50, 'after' => 'Example: Bacon ipsum dolor sit amet' ) );
+
+			add_settings_field( 'hide-start-with', __( 'Hide Start With', 'any-ipsum' ), array( $this, 'settings_yes_no' ), $key, $section,
+				array( 'key' => $key, 'name' => 'hide-start-with', 'after' =>  __( "Don't show the Start With checkbox" ) ) );
 
 			add_settings_field( 'button-text', __( 'Button Text', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
 				array( 'key' => $key, 'name' => 'button-text', 'size' => 50, 'maxlength' => 50, 'after' => 'Example: Give me bacon, Beer me!, etc.' ) );
@@ -236,18 +241,30 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			);
 
 
-			$name = $args['name'];
-			$key = $args['key'];
-			$size = $args['size'];
+			$name      = $args['name'];
+			$key       = $args['key'];
+			$size      = $args['size'];
 			$maxlength = $args['maxlength'];
 
 			$option = get_option( $key );
-			$value = isset( $option[$name] ) ? esc_attr( $option[$name] ) : '';
+			$value  = isset( $option[$name] ) ? $option[$name] : '';
 
-			echo "<div><input id='{$name}' name='{$key}[{$name}]'  type='text' value='" . $value . "' size='{$size}' maxlength='{$maxlength}' /></div>";
-			if ( !empty( $args['after'] ) )
-				echo '<div>' . __( $args['after'], 'any-ipsum' ) . '</div>';
 
+ 			echo '<div>';
+ 			echo sprintf(
+				'<input id="%1$s" name="%2$s" type="text" value="%3$s" size="%4$s" maxlength="%5$s" />',
+				esc_attr( $name ),
+				esc_attr( "{$key}[{$name}]" ),
+				esc_attr( $value ),
+				esc_attr( $size ),
+				esc_attr( $maxlength )
+ 			);
+
+ 			echo '</div>';
+
+			if ( !empty( $args['after'] ) ) {
+				echo '<p class="description">' . esc_html( $args['after'] ) . '</p>';
+			}
 		}
 
 
@@ -274,7 +291,7 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 
 			echo "<div><textarea id='{$name}' name='{$key}[{$name}]' rows='{$rows}' cols='{$cols}'>" . $value . "</textarea></div>";
 			if ( !empty( $args['after'] ) )
-				echo '<div>' . $args['after'] . '</div>';
+				echo '<p class="description">' . esc_html( $args['after'] ) . '</p>';
 
 		}
 
@@ -283,20 +300,21 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 
 			$args = wp_parse_args( $args,
 				array(
-					'name' => '',
-					'key' => '',
+					'name'  => '',
+					'key'   => '',
 					'after' => '',
 				)
 			);
 
 			$name = $args['name'];
-			$key = $args['key'];
+			$key  = $args['key'];
 
 			$option = get_option( $key );
-			$value = isset( $option[$name] ) ? esc_attr( $option[$name] ) : '';
+			$value  = isset( $option[$name] ) ? esc_attr( $option[$name] ) : '';
 
-			if ( empty( $value ) )
+			if ( empty( $value ) ) {
 				$value = '0';
+			}
 
 			echo '<div>';
 			echo "<label><input id='{$name}_1' name='{$key}[{$name}]'  type='radio' value='1' " . ( '1' === $value ? " checked=\"checked\"" : "" ) . "/>" . __( 'Yes', 'any-ipsum' ) . "</label> ";
@@ -304,7 +322,7 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			echo '</div>';
 
 			if ( !empty( $args['after'] ) )
-				echo '<div>' . __( $args['after'], 'any-ipsum' ) . '</div>';
+				echo '<p class="description">' . esc_html( $args['after'] ) . '</p>';
 		}
 
 
@@ -377,12 +395,8 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			}
 
 			if ( !empty( $output ) ) {
-				echo '<p class="settings-section-header">' . $output . '</p>';
+				echo '<p class="settings-section-header">' . wp_kses_post( $output ) . '</p>';
 			}
-
 		}
-
-
 	}
-
 }
