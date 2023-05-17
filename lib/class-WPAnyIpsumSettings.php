@@ -114,11 +114,14 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			add_settings_field( 'custom-and-filler-text', __( 'Custom and Filler Text', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
 				array( 'key' => $key, 'name' => 'custom-and-filler-text', 'size' => 20, 'maxlength' => 50, 'after' => 'Example: Meat and Filler, Hipster with a shot of Latin' ) );
 
+			add_settings_field( 'hide-type', __( 'Hide All Custom/Custom and Filler', 'any-ipsum' ), array( $this, 'settings_yes_no' ), $key, $section,
+				array( 'key' => $key, 'name' => 'hide-type', 'after' =>  __( "Hides the radio button to select all custom or custom and filler text." ) ) );
+
 			add_settings_field( 'start-with', __( 'Start With Text', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
 				array( 'key' => $key, 'name' => 'start-with', 'size' => 50, 'maxlength' => 50, 'after' => 'Example: Bacon ipsum dolor sit amet' ) );
 
 			add_settings_field( 'hide-start-with', __( 'Hide Start With', 'any-ipsum' ), array( $this, 'settings_yes_no' ), $key, $section,
-				array( 'key' => $key, 'name' => 'hide-start-with', 'after' =>  __( "Don't show the Start With checkbox" ) ) );
+				array( 'key' => $key, 'name' => 'hide-start-with', 'after' =>  __( "Hides the Start With checkbox" ) ) );
 
 			add_settings_field( 'button-text', __( 'Button Text', 'any-ipsum' ), array( $this, 'settings_input' ), $key, $section,
 				array( 'key' => $key, 'name' => 'button-text', 'size' => 50, 'maxlength' => 50, 'after' => 'Example: Give me bacon, Beer me!, etc.' ) );
