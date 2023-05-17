@@ -1,6 +1,6 @@
 {
   "name": "wp-any-ipsum",
-  "version": "1.7.0",
+  "version": "1.9.4",
   "description": "Roll your own custom lorem ipsum generator",
   "main": "Gruntfile.js",
   "scripts": {
