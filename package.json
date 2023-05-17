@@ -24,23 +24,8 @@
     "url": "https://github.com/petenelson/wp-any-ipsum/issues"
   },
   "homepage": "https://github.com/petenelson/wp-any-ipsum",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.css": [
-      "stylelint"
-    ],
-    "*.js": [
-      "eslint"
-    ],
-    "*.php": [
-      "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
-    ]
-  },
   "devDependencies": {
-    "husky": "^8.0.3"
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2"
   }
 }
