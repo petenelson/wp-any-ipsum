@@ -25,7 +25,6 @@ if ( !function_exists( 'WPAnyIpsum_LoadTextDomain' ) ) {
 	}
 }
 
-
 // load our classes, hook them to WordPress
 if ( class_exists( 'WPAnyIpsumCore' ) ) {
 	$WPAnyIpsumCore = new WPAnyIpsumCore();

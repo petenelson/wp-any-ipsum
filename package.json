@@ -4,7 +4,10 @@
   "description": "Roll your own custom lorem ipsum generator",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint-release": "npm install && composer install && npm run lint",
+    "lint-css": "stylelint assets/css",
+    "lint-js": "eslint assets/js",
+    "lint-php": "composer run lint"
   },
   "repository": {
     "type": "git",
@@ -20,7 +23,23 @@
     "url": "https://github.com/petenelson/wp-any-ipsum/issues"
   },
   "homepage": "https://github.com/petenelson/wp-any-ipsum",
-  "devDependencies": {
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.css": [
+      "stylelint"
+    ],
+    "*.js": [
+      "eslint"
+    ],
+    "*.php": [
+      "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
+    ]
+  },
+ "devDependencies": {
     "husky": "^8.0.3"
   }
 }
