@@ -1,13 +1,13 @@
 <?php
-/*
-Class: WPAnyIpsumCore
-Author: Pete Nelson (@GunGeekATX)
+/**
+ * Class: WPAnyIpsumCore
+ * Author: Pete Nelson (@CodeGeekATX)
+ * Exposes filters used by other classes
+ */
 
-Exposes filters used by other classes
-
-*/
-
-if ( ! defined( 'ABSPATH' ) ) die( 'restricted access' );
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'restricted access' );
+}
 
 if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 
@@ -17,11 +17,10 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 		const PLUGIN_VERSION    = '1.9.4';
 
 		public function plugins_loaded() {
-			add_filter( 'anyipsum-generate-filler',       array( $this, 'generate_filler' ) );
-			add_filter( 'anyipsum-parse-request-args',    array( $this, 'parse_request_args' ) );
-			add_action( 'admin_init',                     array( $this, 'store_plugin_version' ) );
+			add_filter( 'anyipsum-generate-filler',    [ $this, 'generate_filler' ] );
+			add_filter( 'anyipsum-parse-request-args', [ $this, 'parse_request_args' ] );
+			add_action( 'admin_init',                  [ $this, 'store_plugin_version' ] );
 		}
-
 
 		static public function get_request( $key, $default = '', $filter = FILTER_SANITIZE_STRING ) {
 			foreach ( array( INPUT_GET, INPUT_POST ) as $input ) {
@@ -32,7 +31,6 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 			}
 			return $default;
 		}
-
 
 		/**
 		 * Stores the plugin version in the options table if it doesn't exist (autoload no)
@@ -46,7 +44,6 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 			}
 		}
 
-
 		private function default_generator_args() {
 			return array(
 				'type'                => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-custom-and-filler' ),
@@ -57,7 +54,6 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 				'callback'            => '',
 			);
 		}
-
 
 		public function parse_request_args( $args ) {
 
@@ -96,7 +92,6 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 
 		}
 
-
 		private function sanitize_args( $args ) {
 
 			if ( $args['paras'] < 1 ) {
@@ -132,7 +127,6 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 			return $args;
 		}
 
-
 		public function generate_filler( $args ) {
 
 			$args = wp_parse_args( $args, $this->default_generator_args() );
@@ -155,11 +149,10 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 				);
 
 			}
-			else
-				return array();
-
+			else {
+				return [];
+			}
 		}
-
 
 		private function get_words( $type ) {
 			$words = apply_filters( 'anyipsum-setting-get', array(), 'anyipsum-settings-custom-filler', $type );
@@ -168,8 +161,5 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 			}
 			return $words;
 		}
-
-
 	}
-
 }
