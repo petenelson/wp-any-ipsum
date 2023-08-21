@@ -22,7 +22,23 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 			add_action( 'admin_init',                  [ $this, 'store_plugin_version' ] );
 		}
 
-		static public function get_request( $key, $default = '', $filter = FILTER_SANITIZE_STRING ) {
+		/**
+		 * Gets a sanitized field from $_GET or $_POST.
+		 *
+		 * @param  string    $key     The field name.
+		 * @param  mixed     $default The default value if the key is not found.
+		 * @param  int|array $filter  The filter constant, defaults to sanitize_text_field().
+		 * @return string
+		 */
+		static public function get_request( $key, $default = '', $filter = false ) {
+
+			if ( empty( $filter ) ) {
+				$filter = [
+					'filter'  => FILTER_CALLBACK,
+					'options' => '\sanitize_text_field',
+				];
+			}
+
 			foreach ( array( INPUT_GET, INPUT_POST ) as $input ) {
 				$value = filter_input( $input, $key, $filter );
 				if ( ! empty( $value ) ) {
