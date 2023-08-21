@@ -1,7 +1,7 @@
 <?php
 /*
 Class: WPAnyIpsumAPI
-Author: Pete Nelson (@GunGeekATX)
+Author: Pete Nelson (@CodeGeekATX)
 
 Exposes a JSON API endpoint
 

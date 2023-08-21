@@ -1,0 +1,26 @@
+{
+  "name": "petenelson/wp-any-ipsum",
+  "type": "wordpress-plugin",
+  "description": "WP Any Ipsum",
+  "authors": [
+    {
+      "name": "Pete Nelson",
+      "email": "pete@petenelson.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "require-dev": {
+    "10up/phpcs-composer": "dev-master"
+  },
+  "scripts": {
+    "lint": "phpcs .",
+    "lint-fix": "phpcbf ."
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}
