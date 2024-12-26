@@ -1,5 +1,7 @@
 <?php
 
+use function \WPAnyIpsum\Sanitizers\sanitized_get_field;
+
 if ( ! defined( 'ABSPATH' ) ) die( 'restricted access' );
 
 if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
@@ -330,7 +332,7 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			</div>
 			<?php
 
-			$settings_updated = filter_input( INPUT_GET, 'settings-updated', FILTER_SANITIZE_STRING );
+			$settings_updated = sanitized_get_field( 'settings-updated' );
 			if ( ! empty( $settings_updated ) ) {
 				flush_rewrite_rules( );
 			}
@@ -339,7 +341,7 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 
 
 		private function current_tab() {
-			$current_tab = filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_STRING );
+			$current_tab = sanitized_get_field( 'tab' );
 			return empty( $current_tab ) ? $this->settings_key_general : $current_tab;
 		}
 

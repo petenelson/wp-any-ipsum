@@ -3,8 +3,8 @@ Contributors: gungeekatx, shooper
 Tags: content, ipsum
 Donate link: https://baconipsum.com/
 Requires at least: 4.0
-Tested up to: 5.5
-Stable tag: 1.9.3
+Tested up to: 6.7.1
+Stable tag: 1.9.4
 Text Domain: any-ipsum
 Domain Path: /lang
 License: GPLv2 or later
@@ -37,6 +37,9 @@ The plugin installs Bacon Ipsum filler by default, so be sure to check Settings/
 
 
 == Changelog ==
+
+= v1.9.4 December 26, 2024 =
+* Fixed deprecated notices for PHP 8.
 
 = v1.9.3 July 31, 2018 =
 * Fixed bugs in the code that loads default filler and custom words and an array count bug (props @colinusher)

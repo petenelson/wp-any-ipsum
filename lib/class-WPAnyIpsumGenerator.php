@@ -1,8 +1,7 @@
 <?php
-/*
-Class: WPAnyIpsumGenerator
-Author: Pete Nelson (@GunGeekATX)
-*/
+/**
+ * Class WPAnyIpsumGenerator
+ */
 
 class WPAnyIpsumGenerator {
 
@@ -12,10 +11,15 @@ class WPAnyIpsumGenerator {
 	public $custom_and_filler;
 	public $sentence_mode;
 
+	/**
+	 * Constructor.
+	 *
+	 * @return void
+	 */
 	public function __constructor() {
-		$this->custom_words = array();
-		$this->filler = array();
-		$this->start_with = '';
+		$this->custom_words  = array();
+		$this->filler        = array();
+		$this->start_with    = '';
 		$this->sentence_mode = false;
 	}
 

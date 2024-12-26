@@ -21,11 +21,11 @@
   },
   "homepage": "https://github.com/petenelson/wp-any-ipsum",
   "devDependencies": {
-    "grunt": "^1.0.3",
-    "grunt-contrib-clean": "^2.0.0",
+    "grunt": "^1.6.1",
+    "grunt-contrib-clean": "^2.0.1",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-insert": "^0.1.0",
-    "grunt-wp-i18n": "^1.0.2",
-    "grunt-wp-readme-to-markdown": "^2.0.1"
+    "grunt-potomo": "^3.5.0",
+    "grunt-wp-i18n": "^1.0.3",
+    "grunt-wp-readme-to-markdown": "^2.1.0"
   }
 }
