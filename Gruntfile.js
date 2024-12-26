@@ -27,15 +27,6 @@ module.exports = function( grunt ) {
 			},
 		},
 
-		insert: {
-			options: {},
-			badges: {
-				src: "badges.md",
-				dest: "README.md",
-				match: "**License URI:** http://www.gnu.org/licenses/gpl-2.0.html  "
-			},
-		},
-
 		copy: {
 
 			// create release for WordPress repository
@@ -69,7 +60,6 @@ module.exports = function( grunt ) {
 		'grunt-contrib-clean',
 		'grunt-contrib-copy',
 		'grunt-wp-readme-to-markdown',
-		'grunt-insert',
 		'grunt-wp-i18n'
 		];
 
@@ -83,7 +73,7 @@ module.exports = function( grunt ) {
 	// create release for WordPress repository
 	grunt.registerTask( 'wp', [ 'makepot', 'clean', 'copy' ] );
 
-	grunt.registerTask( 'readme', ['wp_readme_to_markdown', 'insert:badges'] );
+	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
 
 	grunt.util.linefeed = '\n';
 

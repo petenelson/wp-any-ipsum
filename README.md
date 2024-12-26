@@ -1,5 +1,5 @@
 # Any Ipsum #
-**Contributors:** [gungeekatx](https://profiles.wordpress.org/gungeekatx), [shooper](https://profiles.wordpress.org/shooper)  
+**Contributors:** [gungeekatx](https://profiles.wordpress.org/gungeekatx/), [shooper](https://profiles.wordpress.org/shooper/)  
 **Tags:** content, ipsum  
 **Donate link:** https://baconipsum.com/  
 **Requires at least:** 4.0  
@@ -9,9 +9,6 @@
 **Domain Path:** /lang  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
-
-[![Code Climate](https://codeclimate.com/github/petenelson/wp-any-ipsum/badges/gpa.svg)](https://codeclimate.com/github/petenelson/wp-any-ipsum)
-
 
 Roll your own custom lorem ipsum generator
 
