@@ -1,11 +1,7 @@
 <?php
-/*
-Class: WPAnyIpsumCore
-Author: Pete Nelson (@GunGeekATX)
-
-Exposes filters used by other classes
-
-*/
+/**
+ * Class WPAnyIpsumCore
+ */
 
 if ( ! defined( 'ABSPATH' ) ) die( 'restricted access' );
 
@@ -22,14 +18,44 @@ if ( ! class_exists( 'WPAnyIpsumCore' ) ) {
 			add_action( 'admin_init',                     array( $this, 'store_plugin_version' ) );
 		}
 
+		/**
+		 * Gets a request parameter from either the GET or POST superglobals.
+		 *
+		 * @param string $key     The key to look for in the superglobals.
+		 * @param string $default The default value to return if the key is not found.
+		 * @param boolean $filter The filter to apply to the value.
+		 * @return mixed
+		 */
+		static public function get_request( $key, $default = '', $filter = false ) {
 
-		static public function get_request( $key, $default = '', $filter = FILTER_SANITIZE_STRING ) {
-			foreach ( array( INPUT_GET, INPUT_POST ) as $input ) {
-				$value = filter_input( $input, $key, $filter );
-				if ( ! empty( $value ) ) {
-					return $value;
-				}
+			if ( false === $filter ) {
+				$filter = \WPAnyIpsum\Sanitizers\filter_sanitize_text_field();
 			}
+
+			// Try the GET superglobal first.
+			$get = filter_var_array(
+				$_GET,
+				array(
+					$key => $filter,
+				)
+			);
+
+			if ( ! empty( $get[ $key ] ) ) {
+				return $get[ $key ];
+			}
+
+			// Then the POST superglobal.
+			$post = filter_var_array(
+				$_POST,
+				array(
+					$key => $filter,
+				)
+			);
+
+			if ( ! empty( $post[ $key ] ) ) {
+				return $post[ $key ];
+			}
+
 			return $default;
 		}
 

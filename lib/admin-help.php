@@ -60,7 +60,7 @@ $text_domain = 'any-ipsum';
 	<h3 class="title"><?php _e( 'Contact', $text_domain ); ?></h3>
 	<p>
 		<?php _e( 'E-Mail', $text_domain ) ?>: <a href="mailto:pete@petenelson.com">pete@petenelson.com</a><br/>
-		<?php _e( 'Twitter', $text_domain ) ?>: <a href="https://twitter.com/GunGeekATX" target="_blank">@GunGeekATX</a><br/>
+		<?php _e( 'Twitter', $text_domain ) ?>: <a href="https://twitter.com/CodeGeekATX" target="_blank">@CodeGeekATX</a><br/>
 		<?php _e( 'GitHub', $text_domain ) ?>: <a href="https://github.com/petenelson/wp-any-ipsum" target="_blank">https://github.com/petenelson/wp-any-ipsum</a><br/>
 	</p>
 

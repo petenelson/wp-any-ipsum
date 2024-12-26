@@ -1,11 +1,7 @@
 <?php
-/*
-Class: WPAnyIpsumGenerator
-Author: Pete Nelson (@GunGeekATX)
-
-Handles anyipsum-form shortcode
-
-*/
+/**
+ * Class WPAnyIpsumForm
+ */
 
 if ( ! defined( 'ABSPATH' ) ) die( 'restricted access' );
 
@@ -13,11 +9,22 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 
 	class WPAnyIpsumForm {
 
+		/**
+		 * WordPress hooks and filters.
+		 *
+		 * @return void
+		 */
 		public function plugins_loaded() {
 			add_shortcode( 'anyipsum-form', array( $this, 'shortcode_form' ) );
 		}
 
-
+		/**
+		 * Generates the form for the shortcode.
+		 *
+		 * @param array  $atts    Shortcode attributes.
+		 * @param string $content Shortcode content.
+		 * @return string
+		 */
 		function shortcode_form( $atts, $content ) {
 
 			// generate form template
@@ -29,10 +36,13 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 			$output = $this->add_generated_output();
 
 			return do_shortcode( $output . $form );
-
 		}
 
-
+		/**
+		 * Adds the generated output to the form.
+		 *
+		 * @return string
+		 */
 		private function add_generated_output() {
 
 			$output = '';
@@ -67,7 +77,6 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 			}
 
 			return $output;
-
 		}
 
 
