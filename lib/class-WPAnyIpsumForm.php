@@ -59,7 +59,7 @@ if ( !class_exists( 'WPAnyIpsumForm' ) ) {
 
 				$output = '<div class="anyipsum-output">';
 				foreach ( $paragraphs as $paragraph ) {
-					$output .= '<p>' . $paragraph . '</p>';
+					$output .= '<p>' . wp_kses_post( $paragraph ) . '</p>';
 				}
 
 				$output .= '</div>';
