@@ -48,6 +48,12 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 				$format = 'json';
 			}
 
+			// The callback is echoed back into a JavaScript response, so only allow
+			// a valid JS function name (optionally namespaced) through.
+			if ( ! empty( $callback ) && ! preg_match( '/^[a-zA-Z_$][a-zA-Z0-9_$]*(\.[a-zA-Z_$][a-zA-Z0-9_$]*)*$/', $callback ) ) {
+				$callback = '';
+			}
+
 			$args = apply_filters( 'anyipsum-parse-request-args', $_SERVER['REQUEST_METHOD'] === 'POST' ? $_REQUEST : $_SERVER['QUERY_STRING'] );
 			$paras = apply_filters( 'anyipsum-generate-filler', $args );
 
@@ -57,8 +63,8 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 			$content_type = '';
 			$output = '';
 
-			if ( ! empty( $args['callback'] ) ) {
-				$output_prefix = $args['callback'] . '(';
+			if ( ! empty( $callback ) ) {
+				$output_prefix = $callback . '(';
 				$output_suffix = ');';
 			} else {
 				$output_prefix = '';
@@ -69,7 +75,7 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 				case 'html':
 					$content_type = 'text/html';
 					foreach ( $paras as $para ) {
-						$output .= wpautop( $para );
+						$output .= wpautop( wp_kses_post( $para ) );
 					}
 				break;
 
@@ -84,7 +90,7 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 				break;
 			}
 
-			if ( ! empty( $args['callback'] ) ) {
+			if ( ! empty( $callback ) ) {
 				$content_type = 'application/javascript';
 			}
 
@@ -92,6 +98,8 @@ if ( !class_exists( 'WPAnyIpsumAPI' ) ) {
 
 			header( 'Content-Type: ' . $content_type . '; charset=' . get_bloginfo( 'charset' ) );
 			header( 'Content-Length: ' . strlen( $output ) );
+			// Keep browsers from sniffing a non-HTML response as HTML.
+			header( 'X-Content-Type-Options: nosniff' );
 
 			echo $output;
 

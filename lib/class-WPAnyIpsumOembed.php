@@ -55,7 +55,7 @@ if ( ! class_exists( 'WPAnyIpsumOEmbed' ) ) {
 		private function build_html( $paras ) {
 			$html = '';
 			for ( $i=0; $i < count( $paras ); $i++ )
-				$html .= '<p>' . $paras[$i] . '</p>';
+				$html .= '<p>' . wp_kses_post( $paras[$i] ) . '</p>';
 			return $html;
 		}
 

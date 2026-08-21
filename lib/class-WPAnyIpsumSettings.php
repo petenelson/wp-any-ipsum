@@ -246,6 +246,11 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			$option = get_option( $key );
 			$value = isset( $option[$name] ) ? esc_attr( $option[$name] ) : '';
 
+			$name = esc_attr( $name );
+			$key = esc_attr( $key );
+			$size = esc_attr( $size );
+			$maxlength = esc_attr( $maxlength );
+
 			echo "<div><input id='{$name}' name='{$key}[{$name}]'  type='text' value='" . $value . "' size='{$size}' maxlength='{$maxlength}' /></div>";
 			if ( !empty( $args['after'] ) )
 				echo '<div>' . __( $args['after'], 'any-ipsum' ) . '</div>';
@@ -272,7 +277,12 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			$cols = $args['cols'];
 
 			$option = get_option( $key );
-			$value = isset( $option[$name] ) ? esc_attr( $option[$name] ) : '';
+			$value = isset( $option[$name] ) ? esc_textarea( $option[$name] ) : '';
+
+			$name = esc_attr( $name );
+			$key = esc_attr( $key );
+			$rows = esc_attr( $rows );
+			$cols = esc_attr( $cols );
 
 			echo "<div><textarea id='{$name}' name='{$key}[{$name}]' rows='{$rows}' cols='{$cols}'>" . $value . "</textarea></div>";
 			if ( !empty( $args['after'] ) )
@@ -299,6 +309,9 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 
 			if ( empty( $value ) )
 				$value = '0';
+
+			$name = esc_attr( $name );
+			$key = esc_attr( $key );
 
 			echo '<div>';
 			echo "<label><input id='{$name}_1' name='{$key}[{$name}]'  type='radio' value='1' " . ( '1' === $value ? " checked=\"checked\"" : "" ) . "/>" . __( 'Yes', 'any-ipsum' ) . "</label> ";
@@ -351,7 +364,8 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 			echo '<h2>' . __( 'Any Ipsum Settings', 'any-ipsum' ) . '</h2><h2 class="nav-tab-wrapper">';
 			foreach ( $this->plugin_settings_tabs as $tab_key => $tab_caption ) {
 				$active = $current_tab == $tab_key ? 'nav-tab-active' : '';
-				echo '<a class="nav-tab ' . $active . '" href="?page=' . $this->settings_page . '&tab=' . $tab_key . '">' . $tab_caption . '</a>';
+				$tab_url = '?page=' . rawurlencode( $this->settings_page ) . '&tab=' . rawurlencode( $tab_key );
+				echo '<a class="nav-tab ' . esc_attr( $active ) . '" href="' . esc_url( $tab_url ) . '">' . esc_html( $tab_caption ) . '</a>';
 			}
 			echo '</h2>';
 		}
@@ -369,11 +383,11 @@ if ( ! class_exists( 'WPAnyIpsumSettings' ) ) {
 				if ( !empty( $endpoint ) ) {
 					$output .= '<br/>' . __( 'Example', 'any-ipsum' ) . ': ';
 					$url = add_query_arg( array(
-						'type' => apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' ),
+						'type' => rawurlencode( apply_filters( 'anyipsum-setting-get', '', 'anyipsum-settings-general', 'querystring-all-custom' ) ),
 						'start-with-lorem' => 1,
 					), site_url( $endpoint . '/' ) );
 
-					$output .= '<a target="_blank" href="' . $url . '">' . $url . '</a>';
+					$output .= '<a target="_blank" href="' . esc_url( $url ) . '">' . esc_html( $url ) . '</a>';
 				}
 				break;
 			}
